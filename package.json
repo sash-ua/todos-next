@@ -8,7 +8,7 @@
     "build": "rimraf dist && webpack --config config/webpack.dev.js --bail",
     "build:prod": "rimraf dist && webpack --config config/webpack.prod.js --bail",
     "serve": "lite-server -c=bs-config.json",
-    "prestart": "npm run build",
+    "prestart": "npm run build:prod",
     "start": "npm-run-all -p wds copy-dist-files",
     "wds": "webpack-dev-server",
     "pretest": "npm run build",
