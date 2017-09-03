@@ -1,0 +1,91 @@
+@import 'mixins';
+
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+
+// Include non-theme styles for core.
+@include mat-core();
+
+// The theme's content
+@mixin my-angular-material-theme($theme) {
+    @include mat-core-theme($theme);
+    @include mat-autocomplete-theme($theme);
+    @include mat-button-theme($theme);
+    @include mat-button-toggle-theme($theme);
+    @include mat-card-theme($theme);
+    @include mat-checkbox-theme($theme);
+    @include mat-chips-theme($theme);
+    @include mat-table-theme($theme);
+    @include mat-datepicker-theme($theme);
+    @include mat-dialog-theme($theme);
+    @include mat-expansion-panel-theme($theme);
+    @include mat-grid-list-theme($theme);
+    @include mat-icon-theme($theme);
+    @include mat-input-theme($theme);
+    @include mat-list-theme($theme);
+    @include mat-menu-theme($theme);
+    @include mat-paginator-theme($theme);
+    @include mat-progress-bar-theme($theme);
+    @include mat-progress-spinner-theme($theme);
+    @include mat-radio-theme($theme);
+    @include mat-select-theme($theme);
+    @include mat-sidenav-theme($theme);
+    @include mat-slide-toggle-theme($theme);
+    @include mat-slider-theme($theme);
+    @include mat-tabs-theme($theme);
+    @include mat-toolbar-theme($theme);
+    @include mat-tooltip-theme($theme);
+    @include mat-simple-snack-bar-theme($theme);
+}
+// Define a theme.
+// Color palettes from the Material Design are in '../node_modules/@angular/material/theming'
+$primary: mat-palette($mat-blue-grey, 600, 400, 700);
+$accent:  mat-palette($mat-deep-orange, A700, A200, A400);
+$warn: mat-palette($mat-red, 400, 200);
+// There're themes in '../node_modules/@angular/material/theming/_theming.scss'
+$theme: mat-light-theme($primary, $accent, $warn);
+// Create a theme.
+@include my-angular-material-theme($theme);
+
+*{
+    -webkit-font-smoothing : antialiased;
+}
+body {
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing    : border-box;
+    box-sizing         : border-box;
+    background-color: #e0e0e0;
+    font-family : Helvetica, Arial,  sans-serif;
+    padding : 0;
+    margin : 0;
+    overflow-x: hidden;
+}
+input {
+    font-size: inherit;
+}
+ul{
+    padding: 0;
+}
+.anim {
+    @include animation('all, 0.3s ease-in-out');
+}
+.anim-long {
+    @include animation('all, 0.6s ease-in-out');
+}
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.visible{
+    opacity: 1;
+    visibility: visible;
+}
+.md-icon__act{
+    cursor: pointer;
+}
+.md-icon__passive{
+    cursor: default;
+}
+.wrapper{
+    position: relative;
+}

@@ -1,0 +1,36 @@
+<form [formGroup]="configData.fg"
+      (ngSubmit)="formSubmitData.emit(configData.fg)"
+      novalidate>
+    <div *ngIf="configData.cnfg.first">
+        <md-input-container>
+            <input mdInput
+                   [formControlName]="configData.fn.f1"
+                   [type]="configData.cnfg.first.type | titlecase"
+                   [placeholder]="configData.cnfg.first.name | titlecase"
+                   autofocus>
+        </md-input-container>
+    </div>
+    <div *ngIf="configData.cnfg.second">
+        <md-input-container>
+            <input mdInput
+                   [formControlName]="configData.fn.f2"
+                   [type]="configData.cnfg.second.type | titlecase"
+                   [placeholder]="configData.cnfg.second.name | titlecase">
+        </md-input-container>
+    </div>
+    <div *ngIf="configData.cnfg.txtArea">
+        <md-input-container>
+            <textarea mdInput
+                      [formControlName]="configData.fn.f3"
+                      [type]="configData.cnfg.txtArea.type | titlecase"
+                      [placeholder]="configData.cnfg.txtArea.name | titlecase">
+                
+            </textarea>
+        </md-input-container>
+    </div>
+    <div *ngIf="configData.cnfg.endDate">
+        <div>Should be finished to {{configData.cnfg.endDate | date}}</div>
+    
+    </div>
+    <button md-button type="submit">{{configData.cnfg.btnName | uppercase}}</button>
+</form>

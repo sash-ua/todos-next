@@ -1,0 +1,8 @@
+<universal-cmpnnt *ngIf="store.manager().addItem.listVisible"
+    [configData]="{
+        cnfg: store.manager().listData,
+        fg: f2fForm,
+        fn: fieldsName,
+        itemID: store.manager().activeEditList}"
+    (formSubmitData)="addList($event, store)">
+</universal-cmpnnt>

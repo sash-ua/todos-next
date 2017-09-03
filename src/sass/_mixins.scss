@@ -1,0 +1,23 @@
+@import 'sprite';
+
+$ieSprite: '.lt-ie9' !default;
+$mq-base-font-size: 16px !default;
+//$sprite: map-get($icons, sprite) !default; //for creating svg sprite uncoomment
+
+@import 'bourbon';
+@import 'css3-mixins';
+@import 'sassMQ';
+//@import 'svg_sprite_mixins'; //for creating svg sprite uncoomment
+
+$uni-font-sz: calc(1em + 1vw);
+
+@mixin social($spr, $spr_hover){
+    @include sprite($spr);
+    &:hover {
+        @include sprite($spr_hover);
+    }
+}
+@mixin font-family($name, $size: $mq-base-font-size){
+    font-family : $name, Arial, Helvetica, sans-serif;
+    font-size : mq-px2em($size);
+}

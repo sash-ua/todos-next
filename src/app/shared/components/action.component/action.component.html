@@ -1,0 +1,9 @@
+<div class="wrapper wrapper__action">
+    <md-icon [color]="actionList.priority"
+             (click)="changePriority(actionList)"
+             class="md-icon__act"
+             title="Priority">priority_high</md-icon>
+    <md-icon (click)="edit({list: list, task: task}, actionList)" color="primary" class="md-icon__act"
+             title="Edit">edit</md-icon>
+    <md-icon (click)="remove(actionList)" color="primary" class="md-icon__act" title="Remove">delete</md-icon>
+</div>

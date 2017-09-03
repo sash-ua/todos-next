@@ -1,0 +1,41 @@
+nav{
+    background-color: #cfd8dc;
+    height: 38px;
+    padding: 3px;
+    position: fixed;
+    top : 0;
+    text-align: center;
+    width: 100%;
+    z-index: 99;
+}
+button {
+    position: absolute;
+    right: 0.8em;
+    line-height: 38px;
+}
+a{
+    display: block;
+}
+@media screen and (max-width: 480px){
+    button{
+        min-width: 48px;
+        padding: 0 6px;
+    }
+}
+.cnnctn{
+    display: inline-block;
+    position: absolute;
+    left: .8em;
+}
+@keyframes spin {
+    from { transform: rotate(0); } to { transform: rotate(360deg); }
+}
+/*ToDo set animation or not :)*/
+md-icon{
+    line-height: 38px;
+    position: absolute;
+    /*animation-name: spin;*/
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}

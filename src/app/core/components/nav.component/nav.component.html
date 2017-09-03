@@ -1,0 +1,16 @@
+<nav class="nav mat-elevation-z6">
+    <div class="cnnctn">
+        <md-icon [style.color]="'green'"
+                 [class.cdk-visually-hidden]="!store.manager().connected"
+                 [title]="'OnLine'"
+                 class="md-icon__passive">sync
+        </md-icon>
+        <md-icon [class.cdk-visually-hidden]="store.manager().connected"
+                 [title]="'OffLine'"
+                 class="md-icon__passive">sync_disabled
+        </md-icon>
+        <span class="cdk-visually-hidden">Connection</span>
+    </div>
+    <button md-button  (click)="addAuthDispatcher()">{{store.manager().userName | titlecase}}</button>
+    <auth-cmpnnt *ngIf="store.manager().addAuth"></auth-cmpnnt>
+</nav>
