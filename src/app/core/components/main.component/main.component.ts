@@ -70,7 +70,6 @@ export class MainComponent {
                 taskVisible: true,
                 prevlistID: listID,
                 listID: listID},
-            // editedTaskValueCnfg: {txtArea: ''}
         };
         const toStoreL = {
             listData: cnfg,
@@ -79,7 +78,6 @@ export class MainComponent {
                 addListVisible: true,
                 listVisible: true,
                 taskVisible: false},
-            // editedListValueCnfg: {first: '', txtArea: ''}
         };
         const rSide: Side = {
             addTypeCmpnnt: TaskFormComponent,
@@ -110,7 +108,6 @@ export class MainComponent {
         const cnfg = obj.cnfg;
         const taskID = obj.action.taskID;
         const listCurr = this.store.manager().data[listID];
-        console.log(listCurr);
         const daCntnrs = {add: this.addedContainers, editList: this.editListContainers, editTask: this.editTaskContainers};
         const toStoreR = {
             taskData: cnfg,
@@ -125,7 +122,10 @@ export class MainComponent {
                 taskID: taskID},
             editedTaskValueCnfg: {
                 txtArea: taskID >= 0 ? listCurr.tasks[taskID].description : undefined,
-                priority: listCurr.priority === 'warn'
+                priority: taskID >= 0 ? listCurr.tasks[taskID].priority === 'warn' : undefined,
+                // Todo. Can not save initial Date to init state of app. Because Date obj has read only properties.
+                // end: taskID >= 0 ? listCurr.tasks[taskID].end : undefined,
+                end: new Date()
             }
         };
         const toStoreL = {

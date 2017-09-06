@@ -2,38 +2,46 @@
       (ngSubmit)="formSubmitData.emit(configData.fg)"
       novalidate>
     <div *ngIf="configData.cnfg.first">
-        <md-input-container>
+        <md-form-field>
             <input mdInput
                    [formControlName]="configData.fn.f1"
                    [type]="configData.cnfg.first.type | titlecase"
                    [placeholder]="configData.cnfg.first.name | titlecase"
                    autofocus>
-        </md-input-container>
+        </md-form-field>
     </div>
     <div *ngIf="configData.cnfg.second">
-        <md-input-container>
+        <md-form-field>
             <input mdInput
                    [formControlName]="configData.fn.f2"
                    [type]="configData.cnfg.second.type | titlecase"
                    [placeholder]="configData.cnfg.second.name | titlecase">
-        </md-input-container>
+        </md-form-field>
     </div>
     <div *ngIf="configData.cnfg.txtArea">
-        <md-input-container>
-            <textarea mdInput
+        <md-form-field>
+            <textarea mdInput mdTextareaAutosize="true" autofocus
                       [formControlName]="configData.fn.f3"
                       [type]="configData.cnfg.txtArea.type | titlecase"
                       [placeholder]="configData.cnfg.txtArea.name | titlecase">
             </textarea>
-        </md-input-container>
+        </md-form-field>
     </div>
     <div *ngIf="configData.cnfg.priority">
             <md-checkbox [formControlName]="configData.fn.f4"
                          [checked]="configData.cnfg.priority"
                          color="warn">Set high priority</md-checkbox>
     </div><br>
-    <div *ngIf="configData.cnfg.endDate">
-        <div>Should be finished to {{configData.cnfg.endDate | date}}</div>
+    <div *ngIf="configData.cnfg.end">
+        <md-form-field>
+            <input mdInput
+                   [formControlName]="configData.fn.f5"
+                   [min]="minDate"
+                   [mdDatepicker]="picker"
+                   placeholder="Should be finished to:">
+            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+            <md-datepicker #picker></md-datepicker>
+        </md-form-field>
     </div>
     <button md-button type="submit">{{configData.cnfg.btnName | uppercase}}</button>
 </form>

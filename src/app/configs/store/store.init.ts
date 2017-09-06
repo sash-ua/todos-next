@@ -28,12 +28,13 @@ export type AuthConfig = {
     first?: {name: string, type: string},
     second?: {name: string, type: string},
     txtArea?: {name: string, type: string},
-    endDate?: number;
+    end?: Date | boolean;
     priority?: string,
     btnName: string,
     active: string};
 
 export interface StateStore {
+    theme: any;
     data: Lists;
     connected: boolean;
     authInfo: {email: string, password: string};
@@ -42,7 +43,7 @@ export interface StateStore {
     listData: AuthConfig | undefined;
     taskData: AuthConfig | undefined;
     editedListValueCnfg: {first: string, second?: string, txtArea: string};
-    editedTaskValueCnfg: {first: string, second?: string, txtArea: string};
+    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, end: Date | boolean};
     addAuth: boolean;
     overlayOn: boolean;
     isVisible: boolean;
@@ -96,6 +97,8 @@ const lists: Lists = [
 
 // Initial store state.
 export const INIT_STATE: StateStore = {
+    // App's interface theme config.
+    theme: {},
     // User's data.
     data: lists,
     // Icon online / offline. If `true` online icon
@@ -126,7 +129,7 @@ export const INIT_STATE: StateStore = {
     // Default `form` config `list.form.component`
     editedListValueCnfg: {first: '', second: '', txtArea: ''},
     // Default `form` config `task.form.component`
-    editedTaskValueCnfg: {first: '', second: '', txtArea: ''},
+    editedTaskValueCnfg: {first: '', second: '', txtArea: '', end: true},
     // If `true` AuthComponent appears.
     addAuth: false,
     // Overlay on/off (true/false).
@@ -160,7 +163,7 @@ export const INIT_STATE: StateStore = {
     TASK_CNFG: {
         txtArea: {name: 'description', type: 'text'},
         priority: 'primary',
-        endDate: Date.now() + 86400000,
+        end: true,
         btnName: 'save',
         active: 'task'
     },

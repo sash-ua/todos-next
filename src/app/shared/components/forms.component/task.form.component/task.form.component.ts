@@ -28,16 +28,18 @@ export class TaskFormComponent {
     @HostBinding('style.position') position = 'absolute';
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
-    public fieldsName: FN = {f3: 'description', f4: 'priority'};
+    public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'end'};
     // Set values and validators of add list form.
     public addTaskCnfg = {
         [this.fieldsName.f3]: ['', [Validators.required]],
-        [this.fieldsName.f4]: ['']
+        [this.fieldsName.f4]: [''],
+        [this.fieldsName.f5]: [new Date()]
     };
     // Set values and validators of edit list form.
     public editTaskCnfg = {
         [this.fieldsName.f3]: [this.store.manager().editedTaskValueCnfg.txtArea, [Validators.required]],
-        [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
+        [this.fieldsName.f4]: [this.store.manager().editedTaskValueCnfg.priority],
+        [this.fieldsName.f5]: [this.store.manager().editedTaskValueCnfg.end]
     };
     constructor(
         protected store: Store<any>,
@@ -55,14 +57,17 @@ export class TaskFormComponent {
         this.addItem(f2fForm, store, listID, taskID);
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
-        let {description, priority} = f2fForm.value;
+        let {description, priority, end} = f2fForm.value;
+        console.log(end);
+        console.log(new Date());
+        console.log(this.store.manager().editedTaskValueCnfg.end);
         // New task.
         const newT: Task =  {
             id: taskID,
             description: description,
             priority: priority ? 'warn' : 'primary',
-            start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : undefined,
-            end: Date.now() + 100};
+            end: end,
+            start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : undefined};
         // Calculate task ID to add it to corresponding list.
         const idl: number = store.manager().data[listID].tasks.length;
         // Executed if cond2() === true
@@ -71,6 +76,7 @@ export class TaskFormComponent {
             toStoreData: {overlayOn: false, addItem: {taskVisible: false, prevtaskID: taskID, taskID: null}},
             fn: () => {
                 store.manager().data[listID].tasks.splice(taskID, 1, newT);
+                this.store.manager().editedTaskValueCnfg.end = end;
             }
         };
         // Executed if cond2() === false
@@ -84,7 +90,7 @@ export class TaskFormComponent {
                     description: description,
                     priority: priority ? 'warn' : 'primary',
                     start: Date.now(),
-                    end: Date.now() + 100
+                    end: end
                 });
             }
         };

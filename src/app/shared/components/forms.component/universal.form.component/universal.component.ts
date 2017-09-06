@@ -4,7 +4,8 @@ import {FormGroup} from '@angular/forms';
 @Component({
     selector: 'universal-cmpnnt',
     templateUrl: 'universal.component.html',
-    styleUrls: ['universal.component.css']
+    styleUrls: ['universal.component.css'],
+    providers: []
 })
 
 export class UniversalComponent {
@@ -12,6 +13,7 @@ export class UniversalComponent {
     @Input() configData: any;
     // Returned back form data.
     @Output() formSubmitData = new EventEmitter<FormGroup>();
+    minDate = new Date();
     constructor() {}
 }
 

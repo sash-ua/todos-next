@@ -62,7 +62,6 @@ export class ListFormComponent {
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number = undefined) {
         let {name, description, priority} = f2fForm.value;
-        console.log(f2fForm.value);
         const idl: number = store.manager().data.length;
         // Executed if cond2() === true
         const rSide: Side = {

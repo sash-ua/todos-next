@@ -1,40 +1,42 @@
 import { NgModule } from '@angular/core';
 import {
-    MdProgressSpinner, MdInputContainer, MdInputModule, MdProgressSpinnerModule,
-    MdInputDirective, MdButtonModule, MdButton, MdDialogModule, MdTooltipModule, MdTooltip,
+    MdProgressSpinner, MdInputModule, MdProgressSpinnerModule,
+    MdButtonModule, MdButton, MdDialogModule, MdTooltipModule, MdTooltip,
     MdRaisedButtonCssMatStyler, MdButtonCssMatStyler, MdProgressSpinnerCssMatStyler, MdCardModule, MdIconModule,
-    MdMiniFab, MdTextareaAutosize, MdIcon, MdCheckboxModule, MdCheckbox
+    MdMiniFab, MdTextareaAutosize, MdIcon, MdCheckboxModule, MdCheckbox, MdDatepickerModule, MdDatepicker, MdDatepickerToggle,
+    MdNativeDateModule
 } from '@angular/material';
 
 
 @NgModule({
     imports: [
-        // MdTooltipModule,
         // MdDialogModule,
         MdInputModule,
         // MdProgressSpinnerModule,
         MdButtonModule,
         // MdCardModule,
         MdIconModule,
-        MdCheckboxModule
+        MdCheckboxModule,
+        MdDatepickerModule,
+        MdNativeDateModule
     ],
     exports: [
         // MdProgressSpinner,
         // MdProgressSpinnerCssMatStyler,
-        MdInputContainer,
-        MdInputDirective,
-        MdTextareaAutosize,
+        MdInputModule,
         MdButton,
         MdRaisedButtonCssMatStyler,
         MdButtonCssMatStyler,
-        // MdTooltip,
-        // MdCardModule,
         MdIcon,
         MdMiniFab,
-        MdCheckbox
+        MdCheckbox,
+        MdDatepickerModule,
+        MdNativeDateModule
     ],
     declarations: [],
-    providers: [],
+    providers: [
+        MdNativeDateModule
+    ],
 })
 export class MaterialEModule { }
 
