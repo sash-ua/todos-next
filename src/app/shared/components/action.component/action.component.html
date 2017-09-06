@@ -3,7 +3,15 @@
              (click)="changePriority(actionList)"
              class="md-icon__act"
              title="Priority">priority_high</md-icon>
-    <md-icon (click)="edit({list: list, task: task}, actionList)" color="primary" class="md-icon__act"
+    <span class="cdk-visually-hidden">Set priority</span>
+    <md-icon (click)="edit({list: list, task: task}, actionList)"
+             color="primary"
+             class="md-icon__act"
              title="Edit">edit</md-icon>
-    <md-icon (click)="remove(actionList)" color="primary" class="md-icon__act" title="Remove">delete</md-icon>
+    <span class="cdk-visually-hidden">Edit</span>
+    <md-icon (click)="remove(actionList)"
+             color="primary"
+             lass="md-icon__act"
+             title="Remove">delete</md-icon>
+    <span class="cdk-visually-hidden">Remove</span>
 </div>

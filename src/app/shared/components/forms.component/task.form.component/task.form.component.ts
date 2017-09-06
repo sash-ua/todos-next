@@ -26,17 +26,18 @@ export class TaskFormComponent {
     @HostBinding('@taskAnimation') taskAnimation: AnimationsServices = true;
     @HostBinding('style.display') display = 'inline-table';
     @HostBinding('style.position') position = 'absolute';
-    @HostBinding('style.right') right = 0;
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
-    public fieldsName: FN = {f3: 'description'};
+    public fieldsName: FN = {f3: 'description', f4: 'priority'};
     // Set values and validators of add list form.
     public addTaskCnfg = {
         [this.fieldsName.f3]: ['', [Validators.required]],
+        [this.fieldsName.f4]: ['']
     };
     // Set values and validators of edit list form.
     public editTaskCnfg = {
         [this.fieldsName.f3]: [this.store.manager().editedTaskValueCnfg.txtArea, [Validators.required]],
+        [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
     };
     constructor(
         protected store: Store<any>,
@@ -54,11 +55,12 @@ export class TaskFormComponent {
         this.addItem(f2fForm, store, listID, taskID);
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
+        let {description, priority} = f2fForm.value;
         // New task.
         const newT: Task =  {
             id: taskID,
-            ...f2fForm.value,
-            priority: 'primary',
+            description: description,
+            priority: priority ? 'warn' : 'primary',
             start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : undefined,
             end: Date.now() + 100};
         // Calculate task ID to add it to corresponding list.
@@ -79,8 +81,8 @@ export class TaskFormComponent {
             fn: () => {
                 store.manager().data[listID].tasks.push({
                     id: idl,
-                    ...f2fForm.value,
-                    priority: 'primary',
+                    description: description,
+                    priority: priority ? 'warn' : 'primary',
                     start: Date.now(),
                     end: Date.now() + 100
                 });

@@ -7,6 +7,7 @@ li{
 }
 .wrapper>.wrapper__list{
     display: inline-table;
+    border-right: 2px solid rgba(0,0,0,.12);
 }
 .wrapper__adds{
     padding-top: 2px;
@@ -24,13 +25,42 @@ li{
     z-index: 4;
 }
 .wrapper__task{
-    display: inline-table;
     border-left: 2px solid rgba(0,0,0,.12);
+    display: inline-table;
+    height: 100%;
+    width: 68%;
+}
+.wrapper__task_fold:not(:first-child){
+    height: 0;
+    overflow-x: hidden;
+}
+.tasks__expand_on .wrapper__task_fold{
+    height: auto;
+    overflow-x: visible;
+}
+.lists__expand{
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 32px;
+    font-size: 3.5em;
+}
+.tasks__expand_opened{
+    display: inline-table;
+}
+.lists__expand_folded{
+    display: none;
+}
+.tasks__expand_on .tasks__expand_opened{
+    display: none;
+}
+.tasks__expand_on .lists__expand_folded{
+    display: inline-table;
 }
 .lists{
     display: block;
     padding: 0;
-    width: 40%;
+    width: 30%;
 }
 .lists__list{
     background-color: #f7f7f7;
@@ -42,7 +72,7 @@ li{
     z-index: -1;
     display: block;
     position: absolute;
-    bottom: 0.95em;
+    bottom: 17px;
     right: 0.6em;
     width: 40%;
     height: 24%;

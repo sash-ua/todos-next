@@ -1183,6 +1183,7 @@ input.mat-input-element:-webkit-autofill + .mat-input-placeholder .mat-placehold
   -webkit-font-smoothing: antialiased; }
 
 body {
+  height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1229,4 +1230,5 @@ ul {
   cursor: default; }
 
 .wrapper {
-  position: relative; }
+  position: relative;
+  height: 100%; }

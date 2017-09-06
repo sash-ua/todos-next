@@ -21,7 +21,6 @@ export function demolishDA(viewConts: Array<ViewContainerRef>, ...id: Array<numb
 }
 // Dinamically add component to another component.
 export function dinamicallyAddCmpnnt(fRes: ComponentFactoryResolver, view: QueryList<ViewContainerRef>, id: number, comp: any) {
-    console.log(view);
     if (id >= 0) {
         const container = view.toArray()[id];
         container.insert(fRes.resolveComponentFactory(comp).create(container.parentInjector).hostView);

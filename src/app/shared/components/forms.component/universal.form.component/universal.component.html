@@ -24,13 +24,16 @@
                       [formControlName]="configData.fn.f3"
                       [type]="configData.cnfg.txtArea.type | titlecase"
                       [placeholder]="configData.cnfg.txtArea.name | titlecase">
-                
             </textarea>
         </md-input-container>
     </div>
+    <div *ngIf="configData.cnfg.priority">
+            <md-checkbox [formControlName]="configData.fn.f4"
+                         [checked]="configData.cnfg.priority"
+                         color="warn">Set high priority</md-checkbox>
+    </div><br>
     <div *ngIf="configData.cnfg.endDate">
         <div>Should be finished to {{configData.cnfg.endDate | date}}</div>
-    
     </div>
     <button md-button type="submit">{{configData.cnfg.btnName | uppercase}}</button>
 </form>

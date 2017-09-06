@@ -32,16 +32,18 @@ export class ListFormComponent {
     @HostBinding('style.left') left = '-10px';
     @HostBinding('style.zIndex') zIndex = 4;
     public f2fForm: FormGroup;
-    public fieldsName: FN = {f1: 'name', f3: 'description'};
+    public fieldsName: FN = {f1: 'name', f3: 'description', f4: 'priority'};
     // Set values and validators of add list form.
     public addCnfg = {
         [this.fieldsName.f1]: ['', [Validators.required, Validators.minLength(1)]],
         [this.fieldsName.f3]: ['', [Validators.required, Validators.minLength(1)]],
+        [this.fieldsName.f4]: ['']
     };
     // Set values and validators of edit list form.
     public editCnfg = {
         [this.fieldsName.f1]: [this.store.manager().editedListValueCnfg.first, [Validators.required, Validators.minLength(1)]],
         [this.fieldsName.f3]: [this.store.manager().editedListValueCnfg.txtArea, [Validators.required, Validators.minLength(1)]],
+        [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
     };
     constructor(
         protected store: Store<any>,
@@ -53,19 +55,27 @@ export class ListFormComponent {
         // new list)
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.listID >= 0 ? this.editCnfg : this.addCnfg);
     }
-    // Set data in `store` depends on  cond() result. Either monad ex.
+    // Set data in `store` depends on  cond() result.
     addList(f2fForm: FormGroup, store: Store<any>) {
         const listID = this.store.manager().addItem.listID;
         this.addItem(f2fForm, store, listID);
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number = undefined) {
+        let {name, description, priority} = f2fForm.value;
+        console.log(f2fForm.value);
         const idl: number = store.manager().data.length;
         // Executed if cond2() === true
         const rSide: Side = {
             toStoreData: {overlayOn: false, addItem: {listVisible: false, prevlistID: listID, listID: null}},
             fn: () => {
                 store.manager()
-                    .data.splice(listID, 1, {id: listID, ...f2fForm.value, priority: 'primary', tasks: store.manager().data[listID].tasks});
+                    .data.splice(listID, 1, {
+                        id: listID,
+                        name: name,
+                        description: description,
+                        priority: priority ? 'warn' : 'primary',
+                        tasks: store.manager().data[listID].tasks
+                    });
             }
         };
         // Executed if cond2() === false
@@ -73,7 +83,7 @@ export class ListFormComponent {
             toStoreData: {overlayOn: false, addItem: {listVisible: false, listID: null}},
             fn: () => {
                 store.manager()
-                    .data.push({priority: 'primary', tasks: [], ...f2fForm.value, id: idl});
+                    .data.push({tasks: [], name: name, description: description, priority: priority ? 'warn' : 'primary', id: idl});
             }
         };
         // Executed if cond1() === false

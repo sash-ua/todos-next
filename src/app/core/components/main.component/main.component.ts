@@ -9,6 +9,7 @@ import {
     removePrevCmpnnt, Side
 } from '../../../services/main.helper.service/main.helper.service';
 import {List} from '../../../configs/store/store.init';
+import {toggleBoolean} from '../../../services/functional/functions';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class MainComponent {
     @ViewChildren('editDACmpnnt', {read: ViewContainerRef }) editTaskContainers: QueryList<ViewContainerRef> ;
     @ViewChildren('editListDACmpnnt', {read: ViewContainerRef }) editListContainers: QueryList<ViewContainerRef> ;
     constructor(
-        private store: Store<any>,
+        protected store: Store<any>,
         private factoryResolver: ComponentFactoryResolver,
         private hS: MainHelperService,
         public err: ErrorHandlerService
@@ -47,8 +48,18 @@ export class MainComponent {
             this.store,
             getTaskQntt);
     }
+    toggle(v: boolean): boolean {
+        return toggleBoolean(v);
+    }
+    toggleClass(id: number, clss: string): void {
+        const el = document.getElementById(`list${id}`);
+        el.classList.contains(clss)
+            ? el.classList.remove(clss)
+            : el.classList.add(clss);
+    }
     // Add List/Task.
     addDispatcher(obj: any) {
+        console.log(obj);
         const listID = obj.action.listID;
         const cnfg = obj.cnfg;
         const daCntnrs = {add: this.addedContainers, editList: this.editListContainers, editTask: this.editTaskContainers};
@@ -59,7 +70,7 @@ export class MainComponent {
                 taskVisible: true,
                 prevlistID: listID,
                 listID: listID},
-            editedTaskValueCnfg: {txtArea: ''}
+            // editedTaskValueCnfg: {txtArea: ''}
         };
         const toStoreL = {
             listData: cnfg,
@@ -68,7 +79,7 @@ export class MainComponent {
                 addListVisible: true,
                 listVisible: true,
                 taskVisible: false},
-            editedListValueCnfg: {first: '', txtArea: ''}
+            // editedListValueCnfg: {first: '', txtArea: ''}
         };
         const rSide: Side = {
             addTypeCmpnnt: TaskFormComponent,
@@ -94,10 +105,12 @@ export class MainComponent {
     }
     // Edit List/Task.
     editDispatcher(obj: any) {
+        console.log(obj);
         const listID = obj.action.listID;
         const cnfg = obj.cnfg;
         const taskID = obj.action.taskID;
         const listCurr = this.store.manager().data[listID];
+        console.log(listCurr);
         const daCntnrs = {add: this.addedContainers, editList: this.editListContainers, editTask: this.editTaskContainers};
         const toStoreR = {
             taskData: cnfg,
@@ -110,7 +123,10 @@ export class MainComponent {
                 listID: listID,
                 prevtaskID: taskID,
                 taskID: taskID},
-            editedTaskValueCnfg: {txtArea: taskID >= 0 ? listCurr.tasks[taskID].description : undefined}
+            editedTaskValueCnfg: {
+                txtArea: taskID >= 0 ? listCurr.tasks[taskID].description : undefined,
+                priority: listCurr.priority === 'warn'
+            }
         };
         const toStoreL = {
             listData: cnfg,
@@ -121,7 +137,11 @@ export class MainComponent {
                 taskVisible: false,
                 prevlistID: listID,
                 listID: listID},
-            editedListValueCnfg: {first: listCurr.name, txtArea: listCurr.description}
+            editedListValueCnfg: {
+                first: listCurr.name,
+                txtArea: listCurr.description,
+                priority: listCurr.priority === 'warn'
+            }
         };
         // Executed if cond() === true
         const rSide: Side = {

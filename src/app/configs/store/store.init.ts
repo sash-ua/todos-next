@@ -29,6 +29,7 @@ export type AuthConfig = {
     second?: {name: string, type: string},
     txtArea?: {name: string, type: string},
     endDate?: number;
+    priority?: string,
     btnName: string,
     active: string};
 
@@ -103,6 +104,7 @@ export const INIT_STATE: StateStore = {
     authInfo: {email: '', password: ''},
     // Current user name.
     userName: 'guest',
+    // If true list is folded
     // If `true` add task/list component appears.
     addItem: {
         // It's show add list component.
@@ -156,7 +158,8 @@ export const INIT_STATE: StateStore = {
         active: 'reset'},
     // Config. for new task creation and editing
     TASK_CNFG: {
-        txtArea: {name: 'description', type: 'text'} ,
+        txtArea: {name: 'description', type: 'text'},
+        priority: 'primary',
         endDate: Date.now() + 86400000,
         btnName: 'save',
         active: 'task'
@@ -165,6 +168,7 @@ export const INIT_STATE: StateStore = {
     LIST_CNFG: {
         first: {name: 'name', type: 'text'} ,
         txtArea: {name: 'description', type: 'text'},
+        priority: 'primary',
         btnName: 'save',
         active: 'list'},
 };

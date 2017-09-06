@@ -3,7 +3,7 @@ import {
     MdProgressSpinner, MdInputContainer, MdInputModule, MdProgressSpinnerModule,
     MdInputDirective, MdButtonModule, MdButton, MdDialogModule, MdTooltipModule, MdTooltip,
     MdRaisedButtonCssMatStyler, MdButtonCssMatStyler, MdProgressSpinnerCssMatStyler, MdCardModule, MdIconModule,
-    MdMiniFab, MdTextareaAutosize, MdIcon
+    MdMiniFab, MdTextareaAutosize, MdIcon, MdCheckboxModule, MdCheckbox
 } from '@angular/material';
 
 
@@ -15,7 +15,8 @@ import {
         // MdProgressSpinnerModule,
         MdButtonModule,
         // MdCardModule,
-        MdIconModule
+        MdIconModule,
+        MdCheckboxModule
     ],
     exports: [
         // MdProgressSpinner,
@@ -29,7 +30,8 @@ import {
         // MdTooltip,
         // MdCardModule,
         MdIcon,
-        MdMiniFab
+        MdMiniFab,
+        MdCheckbox
     ],
     declarations: [],
     providers: [],

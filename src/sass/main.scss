@@ -51,6 +51,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
     -webkit-font-smoothing : antialiased;
 }
 body {
+    height: 100%;
     -webkit-box-sizing : border-box;
     -moz-box-sizing    : border-box;
     box-sizing         : border-box;
@@ -88,4 +89,5 @@ ul{
 }
 .wrapper{
     position: relative;
+    height: 100%;
 }
