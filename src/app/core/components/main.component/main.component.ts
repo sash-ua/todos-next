@@ -100,6 +100,7 @@ export class MainComponent {
             return objl.listID >= 0;
         }
     }
+    
     // Edit List/Task.
     editDispatcher(obj: any) {
         const listID = obj.action.listID;
