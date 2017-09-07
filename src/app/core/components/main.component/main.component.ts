@@ -59,7 +59,6 @@ export class MainComponent {
     }
     // Add List/Task.
     addDispatcher(obj: any) {
-        console.log(obj);
         const listID = obj.action.listID;
         const cnfg = obj.cnfg;
         const daCntnrs = {add: this.addedContainers, editList: this.editListContainers, editTask: this.editTaskContainers};
@@ -103,7 +102,6 @@ export class MainComponent {
     }
     // Edit List/Task.
     editDispatcher(obj: any) {
-        console.log(obj);
         const listID = obj.action.listID;
         const cnfg = obj.cnfg;
         const taskID = obj.action.taskID;
@@ -123,9 +121,9 @@ export class MainComponent {
             editedTaskValueCnfg: {
                 txtArea: taskID >= 0 ? listCurr.tasks[taskID].description : undefined,
                 priority: taskID >= 0 ? listCurr.tasks[taskID].priority === 'warn' : undefined,
-                // Todo. Can not save initial Date to init state of app. Because Date obj has read only properties.
-                // end: taskID >= 0 ? listCurr.tasks[taskID].end : undefined,
-                end: new Date()
+                // Angular Material2 DateAdapter should get date obj as value, but in a Store was saved primitive value of Date object,
+                // therefore to get proper value in DateAdapter we should pass in new Date with saved primitive value.
+                end: taskID >= 0 ? new Date(listCurr.tasks[taskID].end) : undefined,
             }
         };
         const toStoreL = {

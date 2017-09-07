@@ -20,7 +20,9 @@
     </div>
     <div *ngIf="configData.cnfg.txtArea">
         <md-form-field>
-            <textarea mdInput mdTextareaAutosize="true" autofocus
+            <textarea mdInput
+                      mdTextareaAutosize="true"
+                      autofocus
                       [formControlName]="configData.fn.f3"
                       [type]="configData.cnfg.txtArea.type | titlecase"
                       [placeholder]="configData.cnfg.txtArea.name | titlecase">

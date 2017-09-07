@@ -7,7 +7,6 @@ li{
 }
 .wrapper>.wrapper__list{
     display: inline-table;
-    border-right: 2px solid rgba(0,0,0,.12);
 }
 .wrapper__adds{
     padding-top: 2px;
@@ -56,6 +55,13 @@ li{
 }
 .tasks__expand_on .lists__expand_folded{
     display: inline-table;
+}
+li{
+    justify-content: space-around;
+    word-break: break-all;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
 }
 .lists{
     display: block;
