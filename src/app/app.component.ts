@@ -17,16 +17,16 @@ import {StateStore} from './configs/store/store.init';
     ]
 })
 export class AppComponent  implements AfterViewInit, OnDestroy {
-    protected evHanler: Subscription;
+    protected evHanler$: Subscription;
     constructor(
         protected store: Store<StateStore>,
         protected eventH: EventHandlerService
     ) {}
     ngAfterViewInit() {
-        this.evHanler = this.eventH.evHandler(document.body, 'keyup', this.keyUpHandler.bind(this));
+        this.evHanler$ = this.eventH.evHandler(document.body, 'keyup', this.keyUpHandler.bind(this));
     }
     ngOnDestroy() {
-        this.evHanler.unsubscribe();
+        this.evHanler$.unsubscribe();
     }
     keyUpHandler(arg: KeyboardEvent) {
         const getSt: StateStore = this.store.manager();

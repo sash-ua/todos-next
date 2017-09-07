@@ -12,8 +12,8 @@ export type Task = {
     id: number,
     priority: string,
     description: string,
-    start: number,
-    end: number
+    start: Date,
+    end: Date
 }
 export type AddItemData = {
     addListVisible: boolean,
@@ -68,15 +68,15 @@ const lists: Lists = [
                 id: 0,
                 priority: 'warn',
                 description: 'Torwfhewlrkjbwlekb 11    dfdddfdfsfrgerg gerghethethre',
-                start: Date.now(),
-                end: Date.now() + 100
+                start: new Date(),
+                end: new Date()
             },
             {
                 id: 1,
                 priority: 'primary',
                 description: 'Torwfhewlrkjbwlekb 11111rfgfwgrtgrt',
-                start: Date.now(),
-                end: Date.now() + 100
+                start: new Date(),
+                end: new Date()
             }
         ]
     },
@@ -89,8 +89,8 @@ const lists: Lists = [
             id: 0,
             priority: 'primary',
             description: 'torwfhewlrkjbwlekb',
-            start: Date.now(),
-            end: Date.now() + 200
+            start: new Date(),
+            end: new Date()
         }]
     }
 ];
@@ -107,7 +107,6 @@ export const INIT_STATE: StateStore = {
     authInfo: {email: '', password: ''},
     // Current user name.
     userName: 'guest',
-    // If true list is folded
     // If `true` add task/list component appears.
     addItem: {
         // It's show add list component.
@@ -163,7 +162,7 @@ export const INIT_STATE: StateStore = {
     TASK_CNFG: {
         txtArea: {name: 'description', type: 'text'},
         priority: 'primary',
-        end: true,
+        end: new Date(),
         btnName: 'save',
         active: 'task'
     },

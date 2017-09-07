@@ -58,9 +58,6 @@ export class TaskFormComponent {
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
         let {description, priority, end} = f2fForm.value;
-        console.log(end);
-        console.log(new Date());
-        console.log(this.store.manager().editedTaskValueCnfg.end);
         // New task.
         const newT: Task =  {
             id: taskID,
