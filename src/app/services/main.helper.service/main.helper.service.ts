@@ -53,7 +53,7 @@ export class MainHelperService {
             this.store.manager(obj.side.toStoreData);
         }
         if (obj.side.fn) {
-            obj.side.fn();
+            obj.side.fn(obj);
         }
         if (obj.side.addTypeCmpnnt) {
             const ID = obj.taskID >= 0 ? getTaskQntt(obj.listID, this.store) + obj.taskID : obj.listID;

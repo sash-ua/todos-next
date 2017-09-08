@@ -44,13 +44,18 @@
                            [actionList]="{priority: list.priority, listID: idx}"
                             class="lists list__parent"></action-cmpnnt>
         </div>
-        <div class="wrapper wrapper__task anim-long" >
+        <div class="wrapper wrapper__task">
             <div *ngFor="let task of store.manager().data[idx].tasks; let indx = index; trackBy: trackByTodo"
                  [class.wrapper__task_fold]="list.tasks.length > 1"
                  id="task_{{idx}}{{indx}}"
-                 class="anim-long"
-                 [draggable]="true">
+                 class="task">
                 <ng-template #editDACmpnnt></ng-template>
+                <div class="dragable"
+                     id="{{idx}}dd{{indx}}"
+                     [draggable]="true"
+                     title="Drag-n-drop a task to copy">
+                    <md-icon class="md-icon__passive">open_with</md-icon>
+                </div>
                 <ul>
                     <li>{{task.description}}</li>
                     <li>Started task {{task.start | date}}</li>

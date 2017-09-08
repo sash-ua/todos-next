@@ -1,4 +1,7 @@
-import {Component, ComponentFactoryResolver, QueryList, ViewChildren, ViewContainerRef} from '@angular/core';
+import {
+    AfterViewInit, Component, ComponentFactoryResolver, HostListener, QueryList, Renderer2, ViewChildren,
+    ViewContainerRef
+} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
 import {TaskFormComponent} from '../../../shared/components/forms.component/task.form.component/task.form.component';
@@ -10,6 +13,9 @@ import {
 } from '../../../services/main.helper.service/main.helper.service';
 import {List} from '../../../configs/store/store.init';
 import {toggleBoolean} from '../../../services/functional/functions';
+import {DragNDropService} from '../../../services/drag-n-drop.service/drag-n-drop.service';
+import {EventHandlerService} from '../../../services/event.handlers.service/event.handler.service';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Component({
@@ -34,7 +40,7 @@ export class MainComponent {
         protected store: Store<any>,
         private factoryResolver: ComponentFactoryResolver,
         private hS: MainHelperService,
-        public err: ErrorHandlerService
+        public err: ErrorHandlerService,
     ) {}
     trackByList(index: number, item: List): number {
         return item.id;
@@ -100,7 +106,6 @@ export class MainComponent {
             return objl.listID >= 0;
         }
     }
-    
     // Edit List/Task.
     editDispatcher(obj: any) {
         const listID = obj.action.listID;

@@ -26,5 +26,8 @@ Description.
 		
 		Trash - remove list/task.
 	
+	Drag-n-drop.
+	
+		Drag-n-drop special mark in task area to copy the task to the same or another list. `dragover` event is debounced.
 
 Copyright (c) 2017 Alex Tranchenko.
