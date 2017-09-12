@@ -39,7 +39,7 @@ export class TaskFormComponent {
     public editTaskCnfg = {
         [this.fieldsName.f3]: [this.store.manager().editedTaskValueCnfg.txtArea, [Validators.required]],
         [this.fieldsName.f4]: [this.store.manager().editedTaskValueCnfg.priority],
-        [this.fieldsName.f5]: [this.store.manager().editedTaskValueCnfg.end]
+        [this.fieldsName.f5]: [new Date(this.store.manager().editedTaskValueCnfg.end)]
     };
     constructor(
         protected store: Store<any>,
@@ -51,7 +51,7 @@ export class TaskFormComponent {
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.taskID >= 0 ? this.editTaskCnfg : this.addTaskCnfg);
     }
     // Set data in `store` depends on `cond` functions.
-    addList(f2fForm: FormGroup, store: Store<any> ) {
+    addTask(f2fForm: FormGroup, store: Store<any> ) {
         const taskID = this.store.manager().addItem.taskID;
         const listID = this.store.manager().addItem.listID;
         this.addItem(f2fForm, store, listID, taskID);
@@ -70,7 +70,7 @@ export class TaskFormComponent {
         // Executed if cond2() === true
         const rSide: Side = {
             // Data change interface. Remove forms, set current task ID to `prevtaskID` to remove dynamically added `task` components.
-            toStoreData: {overlayOn: false, addItem: {taskVisible: false, prevtaskID: taskID, taskID: null}},
+            toStoreData: {overlayOn: false, addItem: {taskVisible: false, prevtaskID: taskID, taskID: undefined}},
             fn: () => {
                 store.manager().data[listID].tasks.splice(taskID, 1, newT);
                 this.store.manager().editedTaskValueCnfg.end = end;
@@ -79,7 +79,7 @@ export class TaskFormComponent {
         // Executed if cond2() === false
         const lSide: Side = {
             // Data change interface. Remove forms, set current list ID to `prevlistID` to remove dynamically added `list` components.
-            toStoreData: {overlayOn: false, addItem: {listVisible: false, prevlistID: listID, listID: null}},
+            toStoreData: {overlayOn: false, addItem: {taskVisible: false, listVisible: false, prevlistID: listID, listID: undefined}},
             // Add new task.
             fn: () => {
                 store.manager().data[listID].tasks.push({

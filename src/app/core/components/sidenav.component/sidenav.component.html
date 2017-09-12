@@ -1,0 +1,6 @@
+<md-sidenav-container class="wrapper wrapper__sidenav">
+    <main-cmpnnt></main-cmpnnt>
+    <md-sidenav (close)="store.manager({sideNav: false})" [opened]="store.manager().sideNav" class="example-sidenav">
+        test
+    </md-sidenav>
+</md-sidenav-container>

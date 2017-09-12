@@ -8,17 +8,16 @@ p{
     box-sizing: border-box;
     background-color: #fff;
     border-radius: 3px;
-    display: inline-table;
     color: #000;
-    margin: 70px auto auto -150px;
-    width: 300px;
+    margin: 70px auto auto -137px;
+    left: 50%;
+    width: 274px;
     position: absolute;
-    padding: .8em;
+    padding: 0 .8em .8em .8em;
     text-align: center;
     z-index: 100;
 }
 .announce{
-    top:0;
     float: right;
 }
 .wrapper__icon:after{

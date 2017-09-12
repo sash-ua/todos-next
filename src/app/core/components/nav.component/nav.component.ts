@@ -23,6 +23,10 @@ export class NavComponent implements OnInit {
                 this.store.manager({addAuth: v, isVisible: !v});
             });
     }
+    // Toggle sidenav.
+    sideNavToggle() {
+        this.store.manager({sideNav: toggleBoolean(this.store.manager().sideNav)})
+    }
 }
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

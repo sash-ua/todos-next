@@ -12,6 +12,7 @@ import {Page404Component} from './components/page.404.component/page.404.compone
 import {AppWrapperComponent} from './components/app.wrapper.component/app.wrapper.component';
 import {AppRoutingModule} from '../app.routing.module';
 import {MainHelperService} from '../services/main.helper.service/main.helper.service';
+import {SideNavComponent} from './components/sidenav.component/sidenav.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import {MainHelperService} from '../services/main.helper.service/main.helper.ser
         NavComponent,
         MainComponent,
         AuthFormValidationComponent,
-        AppWrapperComponent
+        AppWrapperComponent,
+        SideNavComponent
     ],
     declarations: [
         AuthComponent,
@@ -36,7 +38,8 @@ import {MainHelperService} from '../services/main.helper.service/main.helper.ser
         NavComponent,
         MainComponent,
         AuthFormValidationComponent,
-        AppWrapperComponent
+        AppWrapperComponent,
+        SideNavComponent
     ],
     entryComponents: [
         TaskFormComponent,

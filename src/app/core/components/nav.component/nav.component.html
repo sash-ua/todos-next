@@ -1,16 +1,21 @@
 <nav class="nav mat-elevation-z6">
+    <mdl-window *ngIf="store.manager().mdlWindow"></mdl-window>
     <div class="cnnctn">
         <md-icon [style.color]="'green'"
                  [class.cdk-visually-hidden]="!store.manager().connected"
-                 [title]="'OnLine'"
+                 title="OnLine"
                  class="md-icon__passive">sync
         </md-icon>
         <md-icon [class.cdk-visually-hidden]="store.manager().connected"
-                 [title]="'OffLine'"
+                 title="OffLine"
                  class="md-icon__passive">sync_disabled
         </md-icon>
         <span class="cdk-visually-hidden">Connection</span>
     </div>
+    <button type="button" md-button (click)="sideNavToggle()" class="btn__settings">
+        <md-icon title="Settings" class="md-icon__act">settings</md-icon>
+        <span class="cdk-visually-hidden">Settings</span>
+    </button>
     <button md-button  (click)="addAuthDispatcher()">{{store.manager().userName | titlecase}}</button>
     <auth-cmpnnt *ngIf="store.manager().addAuth"></auth-cmpnnt>
 </nav>

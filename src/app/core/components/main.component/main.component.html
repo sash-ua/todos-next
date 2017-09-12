@@ -1,7 +1,7 @@
 <main class="wrapper wrapper__main" (keyup.escape)="rmPrevComp()">
     <overlay-cmpnnt *ngIf="store.manager().overlayOn"
                     [@overlay]="true"
-                    [performData]="{overlayOn: false, isVisible: false, addAuth: false}"
+                    [performData]="{addItem: {taskVisible: false}, overlayOn: false, isVisible: false, addAuth: false}"
                     (rmDAData)="rmPrevComp()"
                     class="overlay"></overlay-cmpnnt>
     <div>
@@ -20,7 +20,6 @@
     <div *ngFor="let list of store.manager().data; let idx=index; trackBy: trackByList;"
             class="wrapper lists__list anim-long"
             id="list{{idx}}">
-        
         <ng-template #editListDACmpnnt ></ng-template>
         <div>
             <div class="wrapper__adds"></div>

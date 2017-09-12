@@ -36,13 +36,13 @@ export class ListFormComponent {
     // Set values and validators of add list form.
     public addCnfg = {
         [this.fieldsName.f1]: ['', [Validators.required, Validators.minLength(1)]],
-        [this.fieldsName.f3]: ['', [Validators.required, Validators.minLength(1)]],
+        [this.fieldsName.f3]: [''],
         [this.fieldsName.f4]: ['']
     };
     // Set values and validators of edit list form.
     public editCnfg = {
         [this.fieldsName.f1]: [this.store.manager().editedListValueCnfg.first, [Validators.required, Validators.minLength(1)]],
-        [this.fieldsName.f3]: [this.store.manager().editedListValueCnfg.txtArea, [Validators.required, Validators.minLength(1)]],
+        [this.fieldsName.f3]: [this.store.manager().editedListValueCnfg.txtArea],
         [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
     };
     constructor(
@@ -65,7 +65,7 @@ export class ListFormComponent {
         const idl: number = store.manager().data.length;
         // Executed if cond2() === true
         const rSide: Side = {
-            toStoreData: {overlayOn: false, addItem: {listVisible: false, prevlistID: listID, listID: null}},
+            toStoreData: {overlayOn: false, addItem: {listVisible: false, prevlistID: listID, listID: undefined}},
             fn: () => {
                 store.manager()
                     .data.splice(listID, 1, {
@@ -79,7 +79,7 @@ export class ListFormComponent {
         };
         // Executed if cond2() === false
         const lSide: Side = {
-            toStoreData: {overlayOn: false, addItem: {listVisible: false, listID: null}},
+            toStoreData: {overlayOn: false, addItem: {listVisible: false, listID: undefined}},
             fn: () => {
                 store.manager()
                     .data.push({tasks: [], name: name, description: description, priority: priority ? 'warn' : 'primary', id: idl});

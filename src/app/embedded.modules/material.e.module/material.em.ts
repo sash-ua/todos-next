@@ -1,28 +1,21 @@
 import { NgModule } from '@angular/core';
 import {
-    MdProgressSpinner, MdInputModule, MdProgressSpinnerModule,
-    MdButtonModule, MdButton, MdDialogModule, MdTooltipModule, MdTooltip,
-    MdRaisedButtonCssMatStyler, MdButtonCssMatStyler, MdProgressSpinnerCssMatStyler, MdCardModule, MdIconModule,
-    MdMiniFab, MdTextareaAutosize, MdIcon, MdCheckboxModule, MdCheckbox, MdDatepickerModule, MdDatepicker, MdDatepickerToggle,
-    MdNativeDateModule
+    MdInputModule, MdButtonModule, MdButton, MdRaisedButtonCssMatStyler, MdButtonCssMatStyler, MdIconModule, MdMiniFab, MdIcon,
+    MdCheckboxModule, MdCheckbox, MdDatepickerModule, MdNativeDateModule, MdSidenavModule,
 } from '@angular/material';
 
 
 @NgModule({
     imports: [
-        // MdDialogModule,
         MdInputModule,
-        // MdProgressSpinnerModule,
         MdButtonModule,
-        // MdCardModule,
+        MdSidenavModule,
         MdIconModule,
         MdCheckboxModule,
         MdDatepickerModule,
         MdNativeDateModule
     ],
     exports: [
-        // MdProgressSpinner,
-        // MdProgressSpinnerCssMatStyler,
         MdInputModule,
         MdButton,
         MdRaisedButtonCssMatStyler,
@@ -30,6 +23,7 @@ import {
         MdIcon,
         MdMiniFab,
         MdCheckbox,
+        MdSidenavModule,
         MdDatepickerModule,
         MdNativeDateModule
     ],
@@ -39,6 +33,5 @@ import {
     ],
 })
 export class MaterialEModule { }
-
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

@@ -18,9 +18,8 @@ export class MdlWindowComponent {
         protected store: Store<any>,
     ) {
         let to: number | undefined = this.store.manager().mdlWindowConfig.timeOut;
-        if (to) {setTimeout(() => {this.store.manager({mdlWindow: false}); }, to); };
+        if (to) {setTimeout(() => {this.store.manager({mdlWindow: false}); }, to); }
     }
 }
-
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

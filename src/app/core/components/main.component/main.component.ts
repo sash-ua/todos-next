@@ -13,10 +13,6 @@ import {
 } from '../../../services/main.helper.service/main.helper.service';
 import {List} from '../../../configs/store/store.init';
 import {toggleBoolean} from '../../../services/functional/functions';
-import {DragNDropService} from '../../../services/drag-n-drop.service/drag-n-drop.service';
-import {EventHandlerService} from '../../../services/event.handlers.service/event.handler.service';
-import {Subscription} from 'rxjs/Subscription';
-
 
 @Component({
     selector: 'main-cmpnnt',

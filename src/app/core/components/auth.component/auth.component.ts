@@ -51,7 +51,7 @@ export class AuthComponent implements OnInit {
         const constPart: any = {
             isVisible: this.store.manager().isVisible,
             toStoreData: {
-                addItem: {isVisible: false, listID: null},
+                addItem: {taskVisible: false, listVisible: false},
                 formInitData: obj
             }
         };

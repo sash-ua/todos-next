@@ -15,7 +15,7 @@ export class OverlayComponent {
  ) { }
  rmOverlay() {
      this.store.manager(this.performData);
-     this.store.manager().addItem.addListVisible = false;
+     this.store.manager({addItem: {addListVisible: false, listID: undefined, taskID: undefined}});
      this.rmDAData.emit({});
  }
 }

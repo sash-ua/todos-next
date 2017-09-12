@@ -28,7 +28,7 @@ export type AuthConfig = {
     first?: {name: string, type: string},
     second?: {name: string, type: string},
     txtArea?: {name: string, type: string},
-    end?: Date | boolean;
+    end?: Date;
     priority?: string,
     btnName: string,
     active: string};
@@ -41,11 +41,12 @@ export interface StateStore {
     userName: string;
     addItem: AddItemData;
     listData: AuthConfig | undefined;
-    taskData: AuthConfig | undefined;
-    editedListValueCnfg: {first: string, second?: string, txtArea: string};
-    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, end: Date | boolean};
+    taskData: AuthConfig;
+    editedListValueCnfg: {first: string, second?: string, txtArea: string, priority: boolean};
+    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, end: Date, priority: boolean};
     addAuth: boolean;
     overlayOn: boolean;
+    sideNav: boolean;
     isVisible: boolean;
     mdlWindow: boolean;
     mdlWindowConfig: object;
@@ -123,14 +124,28 @@ export const INIT_STATE: StateStore = {
         // Current task id. This id is bound with opened add/edit task component.
         taskID: undefined},
     // Current configuration of UniversalComponent while add / edit list, task
-    listData: undefined,
-    taskData: undefined,
+    listData: {
+        first: {name: '', type: ''} ,
+        txtArea: {name: '', type: ''},
+        priority: '',
+        btnName: '',
+        active: ''
+    },
+    taskData: {
+        txtArea: {name: '', type: ''},
+        priority: '',
+        end: new Date(),
+        btnName: '',
+        active: ''
+    },
     // Default `form` config `list.form.component`
-    editedListValueCnfg: {first: '', second: '', txtArea: ''},
+    editedListValueCnfg: {first: '', second: '', txtArea: '', priority: false},
     // Default `form` config `task.form.component`
-    editedTaskValueCnfg: {first: '', second: '', txtArea: '', end: true},
+    editedTaskValueCnfg: {first: '', second: '', txtArea: '', end: new Date(), priority: false},
     // If `true` AuthComponent appears.
     addAuth: false,
+    // Sidenav open/close.
+    sideNav: false,
     // Overlay on/off (true/false).
     overlayOn: false,
     // If `true` `form`(AuthFormValidationComponent) appears in AuthComponent.
@@ -140,24 +155,32 @@ export const INIT_STATE: StateStore = {
     // Modal window configuration.
     mdlWindowConfig: {header: 'error', msg: '', timeOut: 0},
     // Current configuration of UniversalComponent while logging and add / edit list, task
-    formInitData: undefined,
+    formInitData: {
+        first: {name: '', type: ''} ,
+        second: {name: '', type: ''},
+        btnName: '',
+        active: ''
+    },
     // Configuration of AuthFormValidationComponent if it is as LogIn
     LOG_AUTH_CNFG_COMP: {
         first: {name: 'email', type: 'email'} ,
         second: {name: 'password', type: 'password'},
         btnName: 'log in',
-        active: 'login'},
+        active: 'login'
+    },
     // Configuration of AuthFormValidationComponent if it is as SignIn
     SIGN_AUTH_CNFG_COMP: {
         first: {name: 'email', type: 'email'} ,
         second: {name: 'password', type: 'password'},
         btnName: 'sign in',
-        active: 'singin'},
+        active: 'singin'
+    },
     // Configuration of AuthFormValidationComponent if it is as Reset login(email)
     RESET_AUTH_CNFG_COMP: {
         first: {name: 'email', type: 'email'} ,
         btnName: 'send resetting email',
-        active: 'reset'},
+        active: 'reset'
+    },
     // Config. for new task creation and editing
     TASK_CNFG: {
         txtArea: {name: 'description', type: 'text'},
@@ -172,7 +195,8 @@ export const INIT_STATE: StateStore = {
         txtArea: {name: 'description', type: 'text'},
         priority: 'primary',
         btnName: 'save',
-        active: 'list'},
+        active: 'list'
+    },
 };
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

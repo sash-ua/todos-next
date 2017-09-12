@@ -55,10 +55,14 @@ export class AppComponent  implements AfterViewInit, OnDestroy {
                 this.store.manager({addAuth: false, isVisible: false, overlayOn: false});
                 break;
             case getSt.addItem.listVisible || getSt.addItem.taskVisible || getSt.addItem.addListVisible:
-                this.store.manager({overlayOn: false});
-                getSt.addItem.addListVisible = false;
-                getSt.addItem.listVisible = false;
-                getSt.addItem.taskVisible = false;
+                this.store.manager({
+                    addItem: {addListVisible: false, listVisible: false, taskVisible: false, listID: undefined, taskID: undefined},
+                    overlayOn: false,
+                    sideNav: false
+                });
+                break;
+            case getSt.sideNav:
+                this.store.manager({sideNav: false});
                 break;
         }
     }

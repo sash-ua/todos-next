@@ -17,7 +17,7 @@ export class EventHandlerService {
     }
     // ev[0] event name handled by cllbck[0] function.
     evFactory(target: EventTargetLike, ev: Array<string>, cllbck: Array<(x: any) => any>) {
-        return ev.map((v, i, arr) => {
+        return ev.map((v, i) => {
             return this.evHandler(target, v, cllbck[i])
         })
     }

@@ -6,13 +6,10 @@ import {StateStore} from '../../../configs/store/store.init';
     selector: 'app-cmpnnt',
     template:
     `
+        <sidenav-cmpnnt></sidenav-cmpnnt>
         <nav-cmpnnt></nav-cmpnnt>
-        <div class="wrapper wrapper__window">
-         <mdl-window *ngIf="store.manager().mdlWindow"></mdl-window>
-        </div>
-        <main-cmpnnt></main-cmpnnt>
-    `,
-    styles: ['.wrapper__window {text-align: center;}']
+        
+    `
 })
 
 export class AppWrapperComponent {

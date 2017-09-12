@@ -51,7 +51,7 @@ export class AuthFormValidationComponent {
                     mdlWindowConfig: {
                         header: 'Authentication error!',
                         msg: 'Check Email or Password.',
-                        timeOut: 2500
+                        timeOut: 1500
                     }
                 }
             }

@@ -13,8 +13,15 @@ button {
     right: 0.8em;
     line-height: 38px;
 }
+.btn__settings{
+    position: absolute;
+    left: 25px;
+}
 a{
     display: block;
+}
+.wrapper__window {
+    text-align: center;
 }
 @media screen and (max-width: 480px){
     button{
