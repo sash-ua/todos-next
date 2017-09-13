@@ -1,7 +1,6 @@
-import {Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../../configs/store/store.init';
-import {MdSidenavModule} from '@angular/material';
 
 @Component({
  selector: 'sidenav-cmpnnt',
@@ -9,15 +8,10 @@ import {MdSidenavModule} from '@angular/material';
  styleUrls: ['sidenav.component.css']
 })
 
-export class SideNavComponent implements OnInit {
+export class SideNavComponent {
  constructor(
      protected store: Store<StateStore>
  ) {}
-
- ngOnInit() { }
-    test(ev: any) {
-        console.log(ev);
-    }
 }
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

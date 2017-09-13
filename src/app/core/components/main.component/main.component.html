@@ -8,6 +8,8 @@
         <div class="wrapper__adds wrapper__adds_list">
             <button md-mini-fab
                     (click)="addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}});"
+                    (click)="addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}});"
+                    [color]="store.manager().theme.main.listBtn"
                     title="Add list">
                 <md-icon>add</md-icon>
             </button>
@@ -19,6 +21,7 @@
     </div>
     <div *ngFor="let list of store.manager().data; let idx=index; trackBy: trackByList;"
             class="wrapper lists__list anim-long"
+            [style.backgroundColor]="store.manager().theme.main.bg"
             id="list{{idx}}">
         <ng-template #editListDACmpnnt ></ng-template>
         <div>
@@ -27,14 +30,14 @@
                 <button md-mini-fab
                         [id]="idx"
                         (click)="addDispatcher({cnfg: this.store.manager().TASK_CNFG, action: {listID: list.id}})"
-                        color="primary" title="Add task">
+                        [color]="store.manager().theme.main.taskBtn" title="Add task">
                     <md-icon>add</md-icon>
                 </button>
                 <ng-template #addDACmpnnt ></ng-template>
             </div>
         </div>
         <div class="lists wrapper wrapper__list">
-            <ul class="lists list__parent">
+            <ul class="lists list__parent" [style.color]="store.manager().theme.main.colorList">
                 <li># {{idx + 1}}</li>
                 <li>List Name: {{list.name}}</li>
                 <li>Description: {{list.description}}</li>
@@ -52,13 +55,13 @@
                 <div class="dragable"
                      id="{{idx}}dd{{indx}}"
                      [draggable]="true"
-                     title="Drag-n-drop a task to copy">
-                    <md-icon class="md-icon__passive">open_with</md-icon>
+                     title="Drag-n-drop the task to copy">
+                    <md-icon [color]="store.manager().theme.main.dNd" class="md-icon__passive">open_with</md-icon>
                 </div>
-                <ul>
+                <ul [style.color]="store.manager().theme.main.colorTask">
                     <li>{{task.description}}</li>
-                    <li>Started task {{task.start | date}}</li>
-                    <li>Should be finished to {{task.end | date}}</li>
+                    <li>Date Assigned: {{task.start | date}}</li>
+                    <li>Date Due: {{task.end | date}}</li>
                 </ul>
                 <action-cmpnnt (editItem)="editDispatcher($event)"
                                [actionList]="{priority: task.priority, listID: idx, taskID: indx}">
@@ -67,10 +70,12 @@
         </div>
         <md-icon *ngIf="list.tasks.length > 1"
                  (click)="toggleClass(idx, 'tasks__expand_on');"
+                 [color]="store.manager().theme.main.expand"
                  class="lists__expand lists__expand_folded"
                  title="Expand more">expand_less</md-icon>
         <md-icon *ngIf="list.tasks.length > 1"
                  (click)="toggleClass(idx, 'tasks__expand_on');"
+                 [color]="store.manager().theme.main.expand"
                  class="lists__expand tasks__expand_opened"
                  title="Expand more">expand_more</md-icon>
         <span class="cdk-visually-hidden">Expand/fold list</span>

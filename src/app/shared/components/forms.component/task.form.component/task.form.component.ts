@@ -70,16 +70,21 @@ export class TaskFormComponent {
         // Executed if cond2() === true
         const rSide: Side = {
             // Data change interface. Remove forms, set current task ID to `prevtaskID` to remove dynamically added `task` components.
-            toStoreData: {overlayOn: false, addItem: {taskVisible: false, prevtaskID: taskID, taskID: undefined}},
+            toStoreData: {
+                overlayOn: false,
+                addItem: {taskVisible: false, prevtaskID: taskID, taskID: undefined},
+                editedTaskValueCnfg: {end: end}
+            },
             fn: () => {
                 store.manager().data[listID].tasks.splice(taskID, 1, newT);
-                this.store.manager().editedTaskValueCnfg.end = end;
             }
         };
         // Executed if cond2() === false
         const lSide: Side = {
             // Data change interface. Remove forms, set current list ID to `prevlistID` to remove dynamically added `list` components.
-            toStoreData: {overlayOn: false, addItem: {taskVisible: false, listVisible: false, prevlistID: listID, listID: undefined}},
+            toStoreData: {
+                overlayOn: false,
+                addItem: {taskVisible: false, listVisible: false, prevlistID: listID, listID: undefined}},
             // Add new task.
             fn: () => {
                 store.manager().data[listID].tasks.push({

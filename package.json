@@ -62,11 +62,11 @@
     "@angular/tsc-wrapped": "5.0.0-beta.6",
     "@angular/upgrade": "5.0.0-beta.6",
     "angular-in-memory-web-api": "^0.4.2",
-    "angust": "^0.0.7",
+    "angust": "^0.0.8",
     "core-js": "^2.5.1",
     "firebase": "^4.3.0",
     "glob": "^7.1.2",
-    "monad-ts": "^0.3.9",
+    "monad-ts": "^0.3.10",
     "rxjs": "^5.4.3",
     "systemjs": "^0.20.18",
     "zone.js": "^0.8.17"

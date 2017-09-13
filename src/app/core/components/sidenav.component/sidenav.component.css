@@ -1,15 +1,18 @@
 md-sidenav {
-    width: 200px;
     height: 100%;
-    display: flex;
     overflow: visible;
+    padding: 2em 1em;
+    width: 200px;
+    text-align: center;
 }
 .wrapper__sidenav{
-    background-color: #e0e0e0;
     position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
     top: 38px;
     z-index: 0;
+}
+.sd-nav__btn{
+    /*display: block;*/
 }

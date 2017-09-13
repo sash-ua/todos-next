@@ -5,12 +5,12 @@
              title="Priority">priority_high</md-icon>
     <span class="cdk-visually-hidden">Set priority</span>
     <md-icon (click)="edit({list: list, task: task}, actionList)"
-             color="primary"
+             [color]="store.manager().theme.action.color"
              class="md-icon__act"
              title="Edit">edit</md-icon>
     <span class="cdk-visually-hidden">Edit</span>
     <md-icon (click)="remove(actionList)"
-             color="primary"
+             [color]="store.manager().theme.action.color"
              class="md-icon__act"
              title="Remove">delete</md-icon>
     <span class="cdk-visually-hidden">Remove</span>

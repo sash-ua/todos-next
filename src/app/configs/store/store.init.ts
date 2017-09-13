@@ -28,13 +28,15 @@ export type AuthConfig = {
     first?: {name: string, type: string},
     second?: {name: string, type: string},
     txtArea?: {name: string, type: string},
-    end?: Date;
+    end?: Date | undefined;
     priority?: string,
     btnName: string,
     active: string};
 
 export interface StateStore {
     theme: any;
+    themeDefault: any;
+    themeDark: any;
     data: Lists;
     connected: boolean;
     authInfo: {email: string, password: string};
@@ -43,7 +45,7 @@ export interface StateStore {
     listData: AuthConfig | undefined;
     taskData: AuthConfig;
     editedListValueCnfg: {first: string, second?: string, txtArea: string, priority: boolean};
-    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, end: Date, priority: boolean};
+    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, end: any, priority: boolean};
     addAuth: boolean;
     overlayOn: boolean;
     sideNav: boolean;
@@ -58,6 +60,57 @@ export interface StateStore {
     LIST_CNFG: AuthConfig;
 }
 
+// App's interface Light theme config.
+export const themeDefault = {
+    btn: '#cfd8dc',
+    // Main background-color is in sidenav
+    bg: '#e0e0e0',
+        nav: {
+        bg: '#cfd8dc',
+            color: 'rgba(0,0,0,.82)',
+            onLineIco: '#00ff11',
+            offLineIco: '#546e7a',
+            sttngsIco: '#546e7a',
+    },
+    sidenav: {color: '#fff', bg: '#fgfgfg'},
+    main: {
+        bg: '#f7f7f7',
+            listBtn: 'warn',
+            colorList: 'rgba(0,0,0,.82)',
+            taskBtn: 'primary',
+            colorTask: 'rgba(0,0,0,.82)',
+            dNd: 'primary',
+            expand: 'primary'
+    },
+    action: {
+        color: 'primary'
+    }
+};
+export const themeDark = {
+    btn: '#3f51b5',
+    // Main background-color is in sidenav
+    bg: '#3f51b5',
+    nav: {
+        bg: '#757de8',
+        color: 'rgba(0,0,0,.82)',
+        onLineIco: '#00ff11',
+        offLineIco: '#4d00ff',
+        sttngsIco: '#4d00ff',
+    },
+    sidenav: {color: '#fff', bg: '#fgfgfg'},
+    main: {
+        bg: '#002984',
+        listBtn: 'accent',
+        colorList: 'rgba(240,240,240,.87)',
+        taskBtn: 'primary',
+        colorTask: 'rgba(240,240,240,.87)',
+        dNd: 'primary',
+        expand: 'primary'
+    },
+    action: {
+        color: 'primary'
+    }
+};
 const lists: Lists = [
     {
         id: 0,
@@ -99,7 +152,9 @@ const lists: Lists = [
 // Initial store state.
 export const INIT_STATE: StateStore = {
     // App's interface theme config.
-    theme: {},
+    theme: themeDefault,
+    themeDark: themeDark,
+    themeDefault: themeDefault,
     // User's data.
     data: lists,
     // Icon online / offline. If `true` online icon
@@ -134,14 +189,14 @@ export const INIT_STATE: StateStore = {
     taskData: {
         txtArea: {name: '', type: ''},
         priority: '',
-        end: new Date(),
+        end: undefined,
         btnName: '',
         active: ''
     },
     // Default `form` config `list.form.component`
     editedListValueCnfg: {first: '', second: '', txtArea: '', priority: false},
     // Default `form` config `task.form.component`
-    editedTaskValueCnfg: {first: '', second: '', txtArea: '', end: new Date(), priority: false},
+    editedTaskValueCnfg: {first: '', second: '', txtArea: '', end: '', priority: false},
     // If `true` AuthComponent appears.
     addAuth: false,
     // Sidenav open/close.

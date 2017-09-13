@@ -1,6 +1,6 @@
 # In Development!
 
-## The Task List web application [ ToDos-Next (Angular 5 + monad-ts), demo]( https://sash-ua.github.io/todos-next/ ).
+## The Tasks List web application [ ToDos-Next (Angular 5 + monad-ts), demo]( https://sash-ua.github.io/todos-next/ ).
 
 Responsive: Yes.
 

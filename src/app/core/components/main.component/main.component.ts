@@ -123,9 +123,7 @@ export class MainComponent {
             editedTaskValueCnfg: {
                 txtArea: taskID >= 0 ? listCurr.tasks[taskID].description : undefined,
                 priority: taskID >= 0 ? listCurr.tasks[taskID].priority === 'warn' : undefined,
-                // Angular Material2 DateAdapter should get date obj as value, but in a Store was saved primitive value of Date object,
-                // therefore to get proper value in DateAdapter we should pass in new Date with saved primitive value.
-                end: taskID >= 0 ? new Date(listCurr.tasks[taskID].end) : undefined,
+                end: taskID >= 0 ? listCurr.tasks[taskID].end : undefined,
             }
         };
         const toStoreL = {

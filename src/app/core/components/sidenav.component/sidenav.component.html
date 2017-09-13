@@ -1,6 +1,15 @@
-<md-sidenav-container class="wrapper wrapper__sidenav">
+<md-sidenav-container class="wrapper wrapper__sidenav"
+        [style.backgroundColor]="store.manager().theme.bg">
     <main-cmpnnt></main-cmpnnt>
-    <md-sidenav (close)="store.manager({sideNav: false})" [opened]="store.manager().sideNav" class="example-sidenav">
-        test
+    <md-sidenav (close)="store.manager({sideNav: false})"
+                [opened]="store.manager().sideNav"
+                [style.backgroundColor]="store.manager().theme.sidenav.bg">
+        <h3 class="sd-nav sd-nav__name">Themes: </h3>
+        <button class="sd-nav sd-nav__btn" md-mini-fab
+                (click)="store.manager({theme: store.manager().themeDefault})"
+                [style.backgroundColor]="store.manager().themeDefault.btn"></button>
+        <button class="sd-nav sd-nav__btn" md-mini-fab
+                (click)="store.manager({theme: store.manager().themeDark})"
+                [style.backgroundColor]="store.manager().themeDark.btn"></button>
     </md-sidenav>
 </md-sidenav-container>
