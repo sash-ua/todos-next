@@ -1,6 +1,6 @@
 import {
-    AfterViewInit, Component, ComponentFactoryResolver, HostListener, QueryList, Renderer2, ViewChildren,
-    ViewContainerRef
+    AfterViewInit,
+    Component, ComponentFactoryResolver, QueryList, ViewChildren, ViewContainerRef
 } from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
@@ -13,6 +13,12 @@ import {
 } from '../../../services/main.helper.service/main.helper.service';
 import {List} from '../../../configs/store/store.init';
 import {toggleBoolean} from '../../../services/functional/functions';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
+import {Observer} from 'rxjs/Observer';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Subject} from "rxjs/Subject";
+import {ADD_LIST_S$} from '../nav.component/nav.component';
 
 @Component({
     selector: 'main-cmpnnt',
@@ -28,7 +34,7 @@ import {toggleBoolean} from '../../../services/functional/functions';
     ]
 })
 
-export class MainComponent {
+export class MainComponent implements  AfterViewInit {
     @ViewChildren('addDACmpnnt', {read: ViewContainerRef }) addedContainers: QueryList<ViewContainerRef> ;
     @ViewChildren('editDACmpnnt', {read: ViewContainerRef }) editTaskContainers: QueryList<ViewContainerRef> ;
     @ViewChildren('editListDACmpnnt', {read: ViewContainerRef }) editListContainers: QueryList<ViewContainerRef> ;
@@ -38,6 +44,13 @@ export class MainComponent {
         private hS: MainHelperService,
         public err: ErrorHandlerService,
     ) {}
+    ngAfterViewInit() {
+            ADD_LIST_S$.subscribe(
+            (v: any) => {
+                if (v) {this.addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}})}
+            },
+            (err: Error) => console.error(err));
+    }
     trackByList(index: number, item: List): number {
         return item.id;
     }
@@ -165,7 +178,7 @@ export class MainComponent {
         // if cond === true -> data, data.rSide else data, data.lSide.
         const e = this.hS.trnsfrmr1(data, cond);
         if (e instanceof Error) {this.err.handleError(e); }
-        function cond(objl: AddEditArgs) {
+        function cond<CondFn>(objl: AddEditArgs) {
             return objl.listID >= 0 && objl.taskID >= 0;
         }
     }

@@ -4,7 +4,7 @@ import {Store} from 'angust/src/store';
 import {List, StateStore} from '../../configs/store/store.init';
 import {ErrorM} from 'monad-ts/src/error';
 import {Either} from 'monad-ts/src/either';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 export type DA = {add: QueryList<ViewContainerRef>, editList: QueryList<ViewContainerRef>, editTask: QueryList<ViewContainerRef>};
 export type AddEditArgs = {
@@ -41,7 +41,7 @@ export class MainHelperService {
     ) {
     }
     // FormGroup init. with config.
-    initFG(cnfg: Object) {
+    initFG(cnfg: Object, edit = false) {
         return this.fb.group(cnfg);
     }
     // It execute defined or not functions depends on given configuration.
@@ -76,14 +76,10 @@ export class MainHelperService {
     trnsfrmr2(data: any, ...cond: Array<CondFn>) {
         return new ErrorM()
             .bind((v: any) => new Either(
-                ((d: any) => new Either(
-                    (x: any) => {
-                        this._side(d, 'rSide');
-                    },
-                    (x: any) => {
-                        this._side(d, 'lSide');
-                    }
-                ).bind(cond[1], d)),
+                ((d: any) => {
+                    this.trnsfrmr1(d, cond[1])}
+                ),
+
                 (d: any) => {
                     this._side(d, 'thSide');
                 }

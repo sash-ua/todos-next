@@ -151,7 +151,7 @@ const lists: Lists = [
 
 // Initial store state.
 export const INIT_STATE: StateStore = {
-    // App's interface theme config.
+    // App's interface the theme configs.
     theme: themeDefault,
     themeDark: themeDark,
     themeDefault: themeDefault,

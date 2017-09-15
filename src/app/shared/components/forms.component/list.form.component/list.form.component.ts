@@ -1,4 +1,4 @@
-import {Component, HostBinding} from '@angular/core';
+import {Component, HostBinding, OnChanges} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
@@ -29,6 +29,7 @@ export class ListFormComponent {
     @HostBinding('@listAnimation') listAnimation: AnimationsServices = true;
     @HostBinding('style.display') display = 'block';
     @HostBinding('style.position') position = 'absolute';
+    @HostBinding('style.top') top = '50px';
     @HostBinding('style.left') left = '-10px';
     @HostBinding('style.zIndex') zIndex = 4;
     public f2fForm: FormGroup;
@@ -53,6 +54,7 @@ export class ListFormComponent {
     ) {
         // Config. Form group. It depends on add / edit list mode (listID  = number - edit; listID = undefined - add
         // new list)
+        console.log(this.store.manager().addItem.listID);
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.listID >= 0 ? this.editCnfg : this.addCnfg);
     }
     // Set data in `store` depends on  cond() result.
@@ -79,7 +81,7 @@ export class ListFormComponent {
         };
         // Executed if cond2() === false
         const lSide: Side = {
-            toStoreData: {overlayOn: false, addItem: {listVisible: false, listID: undefined}},
+            toStoreData: {overlayOn: false, addItem: {listVisible: false, addListVisible: false}},
             fn: () => {
                 store.manager()
                     .data.push({tasks: [], name: name, description: description, priority: priority ? 'warn' : 'primary', id: idl});
@@ -107,10 +109,10 @@ export class ListFormComponent {
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
         const e = this.hS.trnsfrmr2(data, cond1, cond2);
         if (e instanceof Error) {this.err.handleError(e); }
-        function cond1(d: any) {
+        function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }
-        function cond2(d: any) {
+        function cond2<CondFn>(d: any) {
             return (d.listID >= 0 && d.f2fFormStatus);
         }
     }

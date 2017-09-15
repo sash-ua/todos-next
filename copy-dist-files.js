@@ -1,5 +1,4 @@
 var fs = require('fs-extra');
-var glob = require("glob");
 
 // resources[0] = source folder, resources[1] = destination folder.
 var resources = ['src/assets/img', 'dist/assets/img'];

@@ -120,10 +120,10 @@ export class TaskFormComponent {
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
         const e = this.hS.trnsfrmr2(data, cond1, cond2);
         if (e instanceof Error) {this.err.handleError(e); }
-        function cond1(d: any) {
+        function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }
-        function cond2(d: any) {
+        function cond2<CondFn>(d: any) {
             return (d.taskID >= 0 && d.listID >= 0 && d.f2fFormStatus);
         }
     }

@@ -8,7 +8,7 @@ nav{
     width: 100%;
     z-index: 99;
 }
-button {
+.btn {
     position: absolute;
     right: 0.8em;
     line-height: 38px;
@@ -16,6 +16,10 @@ button {
 .btn__settings{
     position: absolute;
     left: 25px;
+}
+.btn__add-list{
+    position: absolute;
+    left: 85px;
 }
 a{
     display: block;
@@ -45,4 +49,8 @@ md-icon{
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+.wrapper__adds_emb-cmpnnt{
+    position: fixed;
+    z-index: 4;
 }

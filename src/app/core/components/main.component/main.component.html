@@ -5,18 +5,8 @@
                     (rmDAData)="rmPrevComp()"
                     class="overlay"></overlay-cmpnnt>
     <div>
-        <div class="wrapper__adds wrapper__adds_list">
-            <button md-mini-fab
-                    (click)="addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}});"
-                    (click)="addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}});"
-                    [color]="store.manager().theme.main.listBtn"
-                    title="Add list">
-                <md-icon>add</md-icon>
-            </button>
-        </div>
-        <div class="wrapper__adds wrapper__adds_emb-cmpnnt">
-            <list-form-component *ngIf="store.manager().addItem.addListVisible "></list-form-component>
-        </div>
+        <div class="wrapper__adds wrapper__adds_list"></div>
+        <div class="wrapper__adds wrapper__adds_emb-cmpnnt"> </div>
         <div class="wrapper__adds"></div>
     </div>
     <div *ngFor="let list of store.manager().data; let idx=index; trackBy: trackByList;"
