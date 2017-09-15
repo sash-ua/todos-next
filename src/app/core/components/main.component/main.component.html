@@ -5,8 +5,6 @@
                     (rmDAData)="rmPrevComp()"
                     class="overlay"></overlay-cmpnnt>
     <div>
-        <div class="wrapper__adds wrapper__adds_list"></div>
-        <div class="wrapper__adds wrapper__adds_emb-cmpnnt"> </div>
         <div class="wrapper__adds"></div>
     </div>
     <div *ngFor="let list of store.manager().data; let idx=index; trackBy: trackByList;"
@@ -14,18 +12,6 @@
             [style.backgroundColor]="store.manager().theme.main.bg"
             id="list{{idx}}">
         <ng-template #editListDACmpnnt ></ng-template>
-        <div>
-            <div class="wrapper__adds"></div>
-            <div class="wrapper__adds">
-                <button md-mini-fab
-                        [id]="idx"
-                        (click)="addDispatcher({cnfg: this.store.manager().TASK_CNFG, action: {listID: list.id}})"
-                        [color]="store.manager().theme.main.taskBtn" title="Add task">
-                    <md-icon>add</md-icon>
-                </button>
-                <ng-template #addDACmpnnt ></ng-template>
-            </div>
-        </div>
         <div class="lists wrapper wrapper__list">
             <ul class="lists list__parent" [style.color]="store.manager().theme.main.colorList">
                 <li># {{idx + 1}}</li>
@@ -35,6 +21,15 @@
             <action-cmpnnt (editItem)="editDispatcher($event)"
                            [actionList]="{priority: list.priority, listID: idx}"
                             class="lists list__parent"></action-cmpnnt>
+            <div class="wrapper__adds_task">
+                <button md-mini-fab
+                        [id]="idx"
+                        (click)="addDispatcher({cnfg: this.store.manager().TASK_CNFG, action: {listID: list.id}})"
+                        [color]="store.manager().theme.main.taskBtn" title="Add task">
+                    <md-icon>add</md-icon>
+                </button>
+                <ng-template #addDACmpnnt ></ng-template>
+            </div>
         </div>
         <div class="wrapper wrapper__task">
             <div *ngFor="let task of store.manager().data[idx].tasks; let indx = index; trackBy: trackByTodo"

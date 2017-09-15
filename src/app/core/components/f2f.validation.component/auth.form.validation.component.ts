@@ -13,9 +13,9 @@ export type FN = {[a: string]: string};
     templateUrl: 'auth.form.validation.component.html',
     animations: [
         AnimationsServices.animatonThreeStates(
-            'routeAnimationLeft',
-            {opacity: 1, transform: 'translateX(0%)'},
-            [{opacity: 0, transform: 'translateY(50%)'}, {opacity: 0, transform: 'translateY(50%)'}],
+            'routeAnimationUpDown',
+            {opacity: 1, transform: 'translateY(0%)'},
+            [{opacity: 0, transform: 'translateY(100%)'}, {opacity: 0, transform: 'translateY(100%)'}],
             ['0.4s ease-in', '0.4s ease-out']
         )]
 })
@@ -28,7 +28,7 @@ export class AuthFormValidationComponent {
         [this.fieldsName.f1]: ['', [Validators.required, Validators.email]],
         [this.fieldsName.f2]: ['', [Validators.required, Validators.minLength(6)]]
     };
-    @HostBinding('@routeAnimationLeft') routeAnimationLeft: AnimationsServices = false;
+    @HostBinding('@routeAnimationUpDown') routeAnimationLeft: AnimationsServices = false;
     @HostBinding('style.display') display = 'block';
     constructor(
         private store: Store<StateStore>,

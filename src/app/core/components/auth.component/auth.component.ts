@@ -1,10 +1,7 @@
 import {Component, OnInit, HostBinding} from '@angular/core';
-import {toggleBoolean} from '../../../services/functional/functions';
-import {Either} from 'monad-ts/src/either';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
 import {Store} from 'angust/src/store';
 import {StateStore, AuthConfig} from '../../../configs/store/store.init';
-import {ErrorM} from 'monad-ts/src/error';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
 import {MainHelperService} from '../../../services/main.helper.service/main.helper.service';
 
@@ -15,8 +12,8 @@ import {MainHelperService} from '../../../services/main.helper.service/main.help
     animations: [
         AnimationsServices.animatonThreeStates(
             'routeAnimationUpDown',
-            {opacity: 1, transform: 'translateX(0)'},
-            [{opacity: 0, transform: 'translateX(100%)'}, {opacity: 0, transform: 'translateX(100%)'}],
+            {opacity: 1, transform: 'translateY(50px)'},
+            [{opacity: 0, transform: 'translateY(0)'}, {opacity: 0, transform: 'translateY(0)'}],
             ['0.3s ease-in', '0.3s ease-out']
         )
     ]
@@ -52,7 +49,6 @@ export class AuthComponent implements OnInit {
             isVisible: this.store.manager().isVisible,
             toStoreData: {
                 addItem: {taskVisible: false, listVisible: false},
-                formInitData: obj
             }
         };
         const data: any = {
@@ -61,9 +57,9 @@ export class AuthComponent implements OnInit {
                 ...constPart,
                 fn: (d: any): void => {
                     let s: boolean;
-                    s = toggleBoolean(d.isVisible);
+                    s = !d.isVisible;
                     this.active = s ?  d.args.active : '';
-                    this.store.manager({isVisible: s, overlayOn: s});
+                    this.store.manager({isVisible: s, overlayOn: s}).formInitData = obj;
                 }
             },
             lSide: {
@@ -71,7 +67,7 @@ export class AuthComponent implements OnInit {
                 fn: (d: any): void => {
                     this.f = d.args.btnName;
                     this.active = d.args.active;
-                    this.store.manager({isVisible: true, overlayOn: true});
+                    this.store.manager({isVisible: true, overlayOn: true}).formInitData = obj;
                 }
             }
         };

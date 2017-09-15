@@ -29,7 +29,7 @@
     <button md-button
             (click)="addAuthDispatcher()"
             [style.color]="store.manager().theme.nav.color"
-            class="btn">{{store.manager().userName | titlecase}}</button>
+            class="btn btn__auth">{{store.manager().userName | titlecase}}</button>
     <auth-cmpnnt *ngIf="store.manager().addAuth"></auth-cmpnnt>
     <div class="wrapper__adds wrapper__adds_emb-cmpnnt">
         <list-form-component *ngIf="store.manager().addItem.addListVisible "></list-form-component>

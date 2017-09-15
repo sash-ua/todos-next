@@ -14,9 +14,9 @@ Description.
 
 	Buttons.
 	
-		Dark-gray with plus - add task to list.
+		Add task to list.
 		
-		Red round with plus - add list of tasks.
+		Add list of tasks.
 		
 	Icons.
 	

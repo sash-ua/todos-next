@@ -1,6 +1,7 @@
 <form [formGroup]="configData.fg"
       (ngSubmit)="formSubmitData.emit(configData.fg)"
-      novalidate>
+      novalidate
+      class="mat-elevation-z2">
     <div *ngIf="configData.cnfg.first">
         <md-form-field>
             <input mdInput

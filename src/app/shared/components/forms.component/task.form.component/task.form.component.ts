@@ -24,8 +24,9 @@ import {ErrorHandlerService} from '../../../../services/error.handler.service/er
 
 export class TaskFormComponent {
     @HostBinding('@taskAnimation') taskAnimation: AnimationsServices = true;
-    @HostBinding('style.display') display = 'inline-table';
+    // @HostBinding('style.display') display = 'inline-table';
     @HostBinding('style.position') position = 'absolute';
+    // @HostBinding('style.margin') margin = 'auto';
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
     public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'end'};

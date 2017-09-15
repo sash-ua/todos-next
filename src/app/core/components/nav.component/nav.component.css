@@ -10,16 +10,16 @@ nav{
 }
 .btn {
     position: absolute;
-    right: 0.8em;
     line-height: 38px;
 }
+.btn__auth {
+    right: 0.8em;
+}
 .btn__settings{
-    position: absolute;
-    left: 25px;
+    left: 22px;
 }
 .btn__add-list{
-    position: absolute;
-    left: 85px;
+    left: 79px;
 }
 a{
     display: block;
@@ -29,14 +29,13 @@ a{
 }
 @media screen and (max-width: 480px){
     button{
-        min-width: 48px;
         padding: 0 6px;
     }
 }
 .cnnctn{
     display: inline-block;
     position: absolute;
-    left: .8em;
+    left: 12px;
 }
 @keyframes spin {
     from { transform: rotate(0); } to { transform: rotate(360deg); }

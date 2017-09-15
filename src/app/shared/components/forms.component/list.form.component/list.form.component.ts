@@ -30,7 +30,7 @@ export class ListFormComponent {
     @HostBinding('style.display') display = 'block';
     @HostBinding('style.position') position = 'absolute';
     @HostBinding('style.top') top = '50px';
-    @HostBinding('style.left') left = '-10px';
+    @HostBinding('style.left') left = '-50px';
     @HostBinding('style.zIndex') zIndex = 4;
     public f2fForm: FormGroup;
     public fieldsName: FN = {f1: 'name', f3: 'description', f4: 'priority'};
