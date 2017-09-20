@@ -1,13 +1,13 @@
-import {Component, HostBinding, OnChanges} from '@angular/core';
+import {Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
-import {Either} from 'monad-ts/src/either';
-import {ErrorM} from 'monad-ts/src/error';
-import {List} from '../../../../configs/store/store.init';
+import {StateStore} from '../../../../configs/store/store.init';
 import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
 import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
+import {DBService} from '../../../../embedded.modules/firebase.e.module/db.em/db.service/db.service';
+import {LocDBService} from '../../../../services/DB.service/DB.service';
 
 
 @Component({
@@ -22,6 +22,9 @@ import {MainHelperService, Side} from '../../../../services/main.helper.service/
             ' translateX(-150%)  translateY(-250%)'}],
             ['0.4s ease-in', '0.4s ease-out']
         )
+    ],
+    providers: [
+        LocDBService
     ]
 })
 
@@ -47,14 +50,15 @@ export class ListFormComponent {
         [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
     };
     constructor(
-        protected store: Store<any>,
+        protected store: Store<StateStore>,
         private fb: FormBuilder,
         public err: ErrorHandlerService,
-        public hS: MainHelperService
+        public hS: MainHelperService,
+        protected db: DBService,
+        protected ldb: LocDBService
     ) {
         // Config. Form group. It depends on add / edit list mode (listID  = number - edit; listID = undefined - add
         // new list)
-        console.log(this.store.manager().addItem.listID);
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.listID >= 0 ? this.editCnfg : this.addCnfg);
     }
     // Set data in `store` depends on  cond() result.
@@ -64,7 +68,7 @@ export class ListFormComponent {
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number = undefined) {
         let {name, description, priority} = f2fForm.value;
-        const idl: number = store.manager().data.length;
+        const idl: number = store.manager().data ? store.manager().data.length : 0;
         // Executed if cond2() === true
         const rSide: Side = {
             toStoreData: {overlayOn: false, addItem: {listVisible: false, prevlistID: listID, listID: undefined}},
@@ -77,6 +81,7 @@ export class ListFormComponent {
                         priority: priority ? 'warn' : 'primary',
                         tasks: store.manager().data[listID].tasks
                     });
+                this.ldb.saveToDB();
             }
         };
         // Executed if cond2() === false
@@ -85,6 +90,7 @@ export class ListFormComponent {
             fn: () => {
                 store.manager()
                     .data.push({tasks: [], name: name, description: description, priority: priority ? 'warn' : 'primary', id: idl});
+                this.ldb.saveToDB();
             }
         };
         // Executed if cond1() === false

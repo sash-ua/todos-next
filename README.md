@@ -4,7 +4,7 @@
 
 Responsive: Yes.
 
-Used:  Angular (5.0.0-beta6) + monad-ts + angust(Store/Redux) + TypeScript, Angular material, SCSS, WebPack 3.5, HTML5, CSS3.
+Used:  Angular (5.0.0-beta7) + monad-ts + angust(Store/Redux) + TypeScript, Angular material, SCSS, WebPack 3.5, HTML5, CSS3.
 
 Testing: E2E, Unit-testing.
 

@@ -136,7 +136,7 @@ export class MainComponent implements  AfterViewInit {
             editedTaskValueCnfg: {
                 txtArea: taskID >= 0 ? listCurr.tasks[taskID].description : undefined,
                 priority: taskID >= 0 ? listCurr.tasks[taskID].priority === 'warn' : undefined,
-                end: taskID >= 0 ? listCurr.tasks[taskID].end : undefined,
+                dueDate: taskID >= 0 ? listCurr.tasks[taskID].dueDate : undefined,
             }
         };
         const toStoreL = {

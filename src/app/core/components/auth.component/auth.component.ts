@@ -4,6 +4,7 @@ import {Store} from 'angust/src/store';
 import {StateStore, AuthConfig} from '../../../configs/store/store.init';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
 import {MainHelperService} from '../../../services/main.helper.service/main.helper.service';
+import {AuthService} from '../../../embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
 
 @Component({
     selector: 'auth-cmpnnt',
@@ -33,11 +34,12 @@ export class AuthComponent implements OnInit {
     constructor(
         protected store: Store<StateStore>,
         private hS: MainHelperService,
-        public err: ErrorHandlerService
+        public err: ErrorHandlerService,
+        protected fb: AuthService
     ) {
-        this.logInCnfg  = this.store.manager().LOG_AUTH_CNFG_COMP;
-        this.signInCnfg = this.store.manager().SIGN_AUTH_CNFG_COMP;
-        this.resetCnfg  = this.store.manager().RESET_AUTH_CNFG_COMP;
+        this.logInCnfg  = this.store.manager().LOG_IN_AUTH_CNFG;
+        this.signInCnfg = this.store.manager().SIGN_IN_AUTH_CNFG;
+        this.resetCnfg  = this.store.manager().RESET_AUTH_CNFG;
     }
 
     ngOnInit() { }
@@ -59,7 +61,7 @@ export class AuthComponent implements OnInit {
                     let s: boolean;
                     s = !d.isVisible;
                     this.active = s ?  d.args.active : '';
-                    this.store.manager({isVisible: s, overlayOn: s}).formInitData = obj;
+                    this.store.manager({isVisible: s, overlayOn: s, formInitData: obj});
                 }
             },
             lSide: {
@@ -67,12 +69,16 @@ export class AuthComponent implements OnInit {
                 fn: (d: any): void => {
                     this.f = d.args.btnName;
                     this.active = d.args.active;
-                    this.store.manager({isVisible: true, overlayOn: true}).formInitData = obj;
+                    this.store.manager({isVisible: true, overlayOn: true, formInitData: obj});
                 }
             }
         };
         const e = this.hS.trnsfrmr1(data, cond);
         if (e instanceof Error) {this.err.handleError((e))}
+    }
+    logOut() {
+        this.fb.logOut();
+        this.store.manager({addAuth: false, isVisible: false, overlayOn: false, userName: 'guest', connected: undefined});
     }
 }
 

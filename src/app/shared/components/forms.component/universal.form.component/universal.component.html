@@ -5,17 +5,17 @@
     <div *ngIf="configData.cnfg.first">
         <md-form-field>
             <input mdInput
-                   [formControlName]="configData.fn.f1"
-                   [type]="configData.cnfg.first.type | titlecase"
+                   [formControlName]="configData.fName.f1"
+                   [type]="configData.cnfg.first.type"
                    [placeholder]="configData.cnfg.first.name | titlecase"
                    autofocus>
         </md-form-field>
     </div>
-    <div *ngIf="configData.cnfg.second">
+    <div *ngIf="configData.cnfg.second ? configData.cnfg.second.name : false">
         <md-form-field>
             <input mdInput
-                   [formControlName]="configData.fn.f2"
-                   [type]="configData.cnfg.second.type | titlecase"
+                   [formControlName]="configData.fName.f2"
+                   [type]="configData.cnfg.second.type"
                    [placeholder]="configData.cnfg.second.name | titlecase">
         </md-form-field>
     </div>
@@ -24,21 +24,21 @@
             <textarea mdInput
                       mdTextareaAutosize="true"
                       autofocus
-                      [formControlName]="configData.fn.f3"
-                      [type]="configData.cnfg.txtArea.type | titlecase"
+                      [formControlName]="configData.fName.f3"
+                      [type]="configData.cnfg.txtArea.type"
                       [placeholder]="configData.cnfg.txtArea.name | titlecase">
             </textarea>
         </md-form-field>
     </div>
     <div *ngIf="configData.cnfg.priority">
-            <md-checkbox [formControlName]="configData.fn.f4"
+            <md-checkbox [formControlName]="configData.fName.f4"
                          [checked]="configData.cnfg.priority"
                          color="warn">Set high priority</md-checkbox>
     </div><br>
-    <div *ngIf="configData.cnfg.end">
+    <div *ngIf="configData.cnfg.dueDate">
         <md-form-field>
             <input mdInput
-                   [formControlName]="configData.fn.f5"
+                   [formControlName]="configData.fName.f5"
                    [min]="minDate"
                    [mdDatepicker]="picker"
                    placeholder="Should be finished to:">

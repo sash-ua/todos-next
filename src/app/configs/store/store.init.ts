@@ -13,7 +13,7 @@ export type Task = {
     priority: string,
     description: string,
     start: Date,
-    end: Date
+    dueDate: Date
 }
 export type AddItemData = {
     addListVisible: boolean,
@@ -28,7 +28,7 @@ export type AuthConfig = {
     first?: {name: string, type: string},
     second?: {name: string, type: string},
     txtArea?: {name: string, type: string},
-    end?: Date | undefined;
+    dueDate?: Date | undefined;
     priority?: string,
     btnName: string,
     active: string};
@@ -37,15 +37,15 @@ export interface StateStore {
     theme: any;
     themeDefault: any;
     themeDark: any;
-    data: Lists;
-    connected: boolean;
-    authInfo: {email: string, password: string};
+    data: Lists | Array<List>;
+    connected: undefined | string;
+    authInfo: {hash: number | undefined, active: string};
     userName: string;
     addItem: AddItemData;
     listData: AuthConfig | undefined;
     taskData: AuthConfig;
     editedListValueCnfg: {first: string, second?: string, txtArea: string, priority: boolean};
-    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, end: any, priority: boolean};
+    editedTaskValueCnfg: {first: string, second?: string, txtArea: string, dueDate: any, priority: boolean};
     addAuth: boolean;
     overlayOn: boolean;
     sideNav: boolean;
@@ -53,9 +53,9 @@ export interface StateStore {
     mdlWindow: boolean;
     mdlWindowConfig: object;
     formInitData: AuthConfig | undefined;
-    LOG_AUTH_CNFG_COMP: AuthConfig;
-    SIGN_AUTH_CNFG_COMP: AuthConfig;
-    RESET_AUTH_CNFG_COMP: AuthConfig;
+    LOG_IN_AUTH_CNFG: AuthConfig;
+    SIGN_IN_AUTH_CNFG: AuthConfig;
+    RESET_AUTH_CNFG: AuthConfig;
     TASK_CNFG: AuthConfig;
     LIST_CNFG: AuthConfig;
 }
@@ -123,14 +123,14 @@ const lists: Lists = [
                 priority: 'warn',
                 description: 'Torwfhewlrkjbwlekb 11    dfdddfdfsfrgerg gerghethethre',
                 start: new Date(),
-                end: new Date()
+                dueDate: new Date()
             },
             {
                 id: 1,
                 priority: 'primary',
                 description: 'Torwfhewlrkjbwlekb 11111rfgfwgrtgrt',
                 start: new Date(),
-                end: new Date()
+                dueDate: new Date()
             }
         ]
     },
@@ -144,7 +144,7 @@ const lists: Lists = [
             priority: 'primary',
             description: 'torwfhewlrkjbwlekb',
             start: new Date(),
-            end: new Date()
+            dueDate: new Date()
         }]
     }
 ];
@@ -156,11 +156,11 @@ export const INIT_STATE: StateStore = {
     themeDark: themeDark,
     themeDefault: themeDefault,
     // User's data.
-    data: lists,
+    data: [],
     // Icon online / offline. If `true` online icon
-    connected: false,
+    connected: undefined,
     // Entered `email` and `password` in AuthComponent if valid.
-    authInfo: {email: '', password: ''},
+    authInfo: {hash: undefined, active: ''},
     // Current user name.
     userName: 'guest',
     // If `true` add task/list component appears.
@@ -189,14 +189,14 @@ export const INIT_STATE: StateStore = {
     taskData: {
         txtArea: {name: '', type: ''},
         priority: '',
-        end: undefined,
+        dueDate: undefined,
         btnName: '',
         active: ''
     },
     // Default `form` config `list.form.component`
     editedListValueCnfg: {first: '', second: '', txtArea: '', priority: false},
     // Default `form` config `task.form.component`
-    editedTaskValueCnfg: {first: '', second: '', txtArea: '', end: '', priority: false},
+    editedTaskValueCnfg: {first: '', second: '', txtArea: '', dueDate: '', priority: false},
     // If `true` AuthComponent appears.
     addAuth: false,
     // Sidenav open/close.
@@ -216,31 +216,32 @@ export const INIT_STATE: StateStore = {
         btnName: '',
         active: ''
     },
-    // Configuration of AuthFormValidationComponent if it is as LogIn
-    LOG_AUTH_CNFG_COMP: {
+    // Configuration of UniversalComponent while LogIn
+    LOG_IN_AUTH_CNFG: {
         first: {name: 'email', type: 'email'} ,
         second: {name: 'password', type: 'password'},
         btnName: 'log in',
-        active: 'login'
+        active: 'logIn'
     },
-    // Configuration of AuthFormValidationComponent if it is as SignIn
-    SIGN_AUTH_CNFG_COMP: {
+    // Configuration of UniversalComponent while SignIn
+    SIGN_IN_AUTH_CNFG: {
         first: {name: 'email', type: 'email'} ,
         second: {name: 'password', type: 'password'},
         btnName: 'sign in',
-        active: 'singin'
+        active: 'signIn'
     },
-    // Configuration of AuthFormValidationComponent if it is as Reset login(email)
-    RESET_AUTH_CNFG_COMP: {
-        first: {name: 'email', type: 'email'} ,
-        btnName: 'send resetting email',
+    // Configuration of UniversalComponent while resetting password, stage 1
+    RESET_AUTH_CNFG: {
+        first: {name: 'email', type: 'txt'},
+        second: {name: '', type: ''},
+        btnName: 'send action link',
         active: 'reset'
     },
     // Config. for new task creation and editing
     TASK_CNFG: {
         txtArea: {name: 'description', type: 'text'},
         priority: 'primary',
-        end: new Date(),
+        dueDate: new Date(),
         btnName: 'save',
         active: 'task'
     },

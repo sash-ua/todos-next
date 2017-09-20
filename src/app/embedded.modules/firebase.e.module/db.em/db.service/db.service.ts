@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import Database = firebase.database.Database;
 import {Identity} from 'monad-ts/src/identity';
 import {ErrorM} from 'monad-ts/src/error';
+import 'firebase/database';
 
 @Injectable()
 export class DBService {
@@ -12,12 +13,12 @@ export class DBService {
     constructor(
         protected fb: firebase.app.App
     ) {
-        this.db = fb.database();
+        this.db = this.fb.database();
         this.i = new Identity();
         this.err = new ErrorM();
     }
-    dbDispatcher(fn: string, path: string, ...args: Array<any>) {
-        return this.err.bind(this.i.bind(this.db.ref, path)[fn], [...args]);
+    dbDispatcher(...args: Array<any>) {
+        return this.err.bind((v: any) => this.db[v[0]](v[1])[v[2]](v[3]), args);
     }
     goOffline(): void {
         this.db.goOffline();

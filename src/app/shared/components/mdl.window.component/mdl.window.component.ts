@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {EventHandlerService} from '../../../services/event.handlers.service/event.handler.service';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'mdl-window',
     templateUrl: 'mdl.window.component.html',
     styleUrls: ['mdl.window.component.css'],

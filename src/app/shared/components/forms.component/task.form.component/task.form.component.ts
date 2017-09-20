@@ -6,11 +6,12 @@ import {AnimationsServices} from '../../../../services/animation.service/animati
 import {Task} from '../../../../configs/store/store.init';
 import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
 import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
+import {LocDBService} from '../../../../services/DB.service/DB.service';
 
 @Component({
- selector: 'task-form-component',
- templateUrl: 'task.form.component.html',
- styleUrls: ['task.form.component.css'],
+    selector: 'task-form-component',
+    templateUrl: 'task.form.component.html',
+    styleUrls: ['task.form.component.css'],
     animations: [
         AnimationsServices.animatonThreeStates(
             'taskAnimation',
@@ -19,6 +20,9 @@ import {ErrorHandlerService} from '../../../../services/error.handler.service/er
                 {opacity: 0, transform: 'scale(0) translateX(-100%)'}],
             ['0.2s ease-in', '0.2s ease-out']
         )
+    ],
+    providers: [
+        LocDBService
     ]
 })
 
@@ -29,7 +33,7 @@ export class TaskFormComponent {
     // @HostBinding('style.margin') margin = 'auto';
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
-    public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'end'};
+    public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'dueDate'};
     // Set values and validators of add list form.
     public addTaskCnfg = {
         [this.fieldsName.f3]: ['', [Validators.required]],
@@ -40,13 +44,14 @@ export class TaskFormComponent {
     public editTaskCnfg = {
         [this.fieldsName.f3]: [this.store.manager().editedTaskValueCnfg.txtArea, [Validators.required]],
         [this.fieldsName.f4]: [this.store.manager().editedTaskValueCnfg.priority],
-        [this.fieldsName.f5]: [new Date(this.store.manager().editedTaskValueCnfg.end)]
+        [this.fieldsName.f5]: [new Date(this.store.manager().editedTaskValueCnfg.dueDate)]
     };
     constructor(
         protected store: Store<any>,
         private fb: FormBuilder,
         private hS: MainHelperService,
         private err: ErrorHandlerService,
+        protected ldb: LocDBService
     ) {
         // Initialize Form group.
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.taskID >= 0 ? this.editTaskCnfg : this.addTaskCnfg);
@@ -58,13 +63,13 @@ export class TaskFormComponent {
         this.addItem(f2fForm, store, listID, taskID);
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
-        let {description, priority, end} = f2fForm.value;
+        let {description, priority, dueDate} = f2fForm.value;
         // New task.
         const newT: Task =  {
             id: taskID,
             description: description,
             priority: priority ? 'warn' : 'primary',
-            end: end,
+            dueDate: dueDate,
             start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : undefined};
         // Calculate task ID to add it to corresponding list.
         const idl: number = store.manager().data[listID].tasks.length;
@@ -74,10 +79,11 @@ export class TaskFormComponent {
             toStoreData: {
                 overlayOn: false,
                 addItem: {taskVisible: false, prevtaskID: taskID, taskID: undefined},
-                editedTaskValueCnfg: {end: end}
+                editedTaskValueCnfg: {dueDate: dueDate}
             },
             fn: () => {
                 store.manager().data[listID].tasks.splice(taskID, 1, newT);
+                this.ldb.saveToDB();
             }
         };
         // Executed if cond2() === false
@@ -93,8 +99,9 @@ export class TaskFormComponent {
                     description: description,
                     priority: priority ? 'warn' : 'primary',
                     start: Date.now(),
-                    end: end
+                    dueDate: dueDate
                 });
+                this.ldb.saveToDB();
             }
         };
         // Executed if cond1() === false

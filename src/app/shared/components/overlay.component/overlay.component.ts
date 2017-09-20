@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Store} from 'angust/src/store';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'overlay-cmpnnt',
     template: `<div (click)="rmOverlay()" class="overlay"></div>`,
     styleUrls: ['overlay.component.css']

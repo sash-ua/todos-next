@@ -10,7 +10,7 @@ export type FireBaseInit = {
     messagingSenderId?: string,
 };
 
-@NgModule({})
+@NgModule()
 export class FireBaseEModule {
     static  initAngularFB(init: FireBaseInit) {
         const FB: firebase.app.App = firebase.initializeApp(init);

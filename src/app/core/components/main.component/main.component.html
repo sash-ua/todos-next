@@ -46,7 +46,7 @@
                 <ul [style.color]="store.manager().theme.main.colorTask">
                     <li>{{task.description}}</li>
                     <li>Date Assigned: {{task.start | date}}</li>
-                    <li>Date Due: {{task.end | date}}</li>
+                    <li>Date Due: {{task.dueDate | date}}</li>
                 </ul>
                 <action-cmpnnt (editItem)="editDispatcher($event)"
                                [actionList]="{priority: task.priority, listID: idx, taskID: indx}">

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
 import  * as firebase from 'firebase/app';
-import Auth = firebase.auth.Auth;
+import 'firebase/auth';
 
 @Injectable()
 export class AuthService {
-    private auth: Auth;
+    public auth: any;
     constructor(
-        fb: firebase.app.App
+        protected fb: firebase.app.App
     ) {
-        this.auth = fb.auth();
+        this.auth = this.fb.auth();
     }
     signIn(email: string, pass: string): firebase.Promise<any> {
         return this.auth.createUserWithEmailAndPassword(email, pass);
@@ -20,10 +20,10 @@ export class AuthService {
     logOut(): firebase.Promise<void> {
         return this.auth.signOut();
     }
-    reset1stage(code: string, newPass: string): firebase.Promise<any> {
+    reset2(code: string, newPass: string): firebase.Promise<any> {
         return this.auth.confirmPasswordReset(code, newPass);
     }
-    reset0stage(email: string): firebase.Promise<any> {
+    reset(email: string, ...a: Array<any>): firebase.Promise<any> {
         return this.auth.sendPasswordResetEmail(email);
     }
 }

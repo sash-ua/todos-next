@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AuthConfig} from '../../../configs/store/store.init';
 
 type ActionObj = {priority: string, listID: number, taskID?: number};
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'action-cmpnnt',
     templateUrl: 'action.component.html',
     styleUrls: ['action.component.css']

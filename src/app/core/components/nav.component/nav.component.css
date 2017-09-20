@@ -13,7 +13,11 @@ nav{
     line-height: 38px;
 }
 .btn__auth {
+    overflow: hidden;
     right: 0.8em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 155px;
 }
 .btn__settings{
     left: 22px;
@@ -31,25 +35,28 @@ a{
     button{
         padding: 0 6px;
     }
+    .btn__auth:hover {
+        max-width: 155px;
+    }
 }
 .cnnctn{
     display: inline-block;
     position: absolute;
     left: 12px;
 }
-@keyframes spin {
-    from { transform: rotate(0); } to { transform: rotate(360deg); }
-}
 /*ToDo set animation or not :)*/
 md-icon{
-    line-height: 38px;
-    position: absolute;
-    /*animation-name: spin;*/
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+line-height: 38px;
+position: absolute;
+/*animation-name: spin;*/
+animation-duration: 3s;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
 }
 .wrapper__adds_emb-cmpnnt{
-    position: fixed;
-    z-index: 4;
+position: fixed;
+z-index: 4;
+}
+@keyframes spin {
+    from { transform: rotate(0); } to { transform: rotate(360deg); }
 }
