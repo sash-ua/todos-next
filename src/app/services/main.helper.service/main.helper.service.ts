@@ -4,7 +4,7 @@ import {Store} from 'angust/src/store';
 import {List, StateStore} from '../../configs/store/store.init';
 import {ErrorM} from 'monad-ts/src/error';
 import {Either} from 'monad-ts/src/either';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 
 export type DA = {add: QueryList<ViewContainerRef>, editList: QueryList<ViewContainerRef>, editTask: QueryList<ViewContainerRef>};
 export type AddEditArgs = {
@@ -40,11 +40,19 @@ export class MainHelperService {
         private fb: FormBuilder,
     ) {
     }
-    // FormGroup init. with config.
+    /**
+     * FormGroup init. with given config.
+     * @param {Object} cnfg
+     * @param {boolean} edit
+     * @return {FormGroup}
+     */
     initFG(cnfg: Object, edit = false) {
         return this.fb.group(cnfg);
     }
-    // It execute defined or not functions depends on given configuration.
+    /**
+     * It execute defined or not functions depends on given configuration.
+     * @param {AddEditArgs} obj
+     */
     dispatcher(obj: AddEditArgs): void {
         if (obj.da) {
             removePrevCmpnnt(obj.da, this.store, getTaskQntt);
@@ -60,7 +68,12 @@ export class MainHelperService {
             dinamicallyAddCmpnnt(this.factoryResolver, obj.side.containers, ID, obj.side.addTypeCmpnnt);
         }
     }
-    // Example of Either monad.
+    /**
+     * Example of Either monad.
+     * @param data
+     * @param {CondFn} cond
+     * @return {Pr<Error> | Error}
+     */
     trnsfrmr1(data: any, cond: CondFn) {
         return new ErrorM().bind((v: any) => new Either(
                 (z: any) => {
@@ -73,6 +86,12 @@ export class MainHelperService {
             data
         );
     }
+    /**
+     * Example of Either monad.
+     * @param data
+     * @param {CondFn} cond
+     * @return {Pr<Error> | Error}
+     */
     trnsfrmr2(data: any, ...cond: Array<CondFn>) {
         return new ErrorM()
             .bind((v: any) => new Either(
@@ -92,7 +111,12 @@ export class MainHelperService {
         this.dispatcher(d);
     }
 }
-// Remove used for add/edit containers. Remove ViewContainerRef containers by id buffered in prevlistID, prevtaskID.
+/**
+ * Remove used for add/edit containers. Remove ViewContainerRef containers by id buffered in prevlistID, prevtaskID.
+ * @param {DA} obj
+ * @param {Store<StateStore>} store
+ * @param {Function} fn
+ */
 export function removePrevCmpnnt(obj: DA, store: Store<StateStore>, fn: Function) {
     const prL = store.manager().addItem.prevlistID;
     if (prL >= 0) {
@@ -106,7 +130,12 @@ export function removePrevCmpnnt(obj: DA, store: Store<StateStore>, fn: Function
         }
     }
 }
-    // Get Task quantity in all Lists before given List by ID.
+/**
+ * Get Task quantity in all Lists before given List by ID.
+ * @param {number} listID
+ * @param {Store<StateStore>} store
+ * @return {number}
+ */
 export function getTaskQntt(listID: number, store: Store<StateStore>): number {
     let b = 0, i = 0;
     while (i < listID) {

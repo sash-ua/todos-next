@@ -13,6 +13,7 @@ export class UniversalComponent {
     @Input() configData: any;
     // Returned back form data.
     @Output() formSubmitData = new EventEmitter<FormGroup>();
+    // The minimal date which we can select on date-picker.
     minDate = new Date();
     constructor() {}
 }

@@ -11,18 +11,37 @@ export class AuthService {
     ) {
         this.auth = this.fb.auth();
     }
+    /**
+     * Firebase auth method to register user
+     * @param {string} email
+     * @param {string} pass
+     * @return {firebase.Promise<any>}
+     */
     signIn(email: string, pass: string): firebase.Promise<any> {
         return this.auth.createUserWithEmailAndPassword(email, pass);
     }
+    /**
+     * Firebase auth method to login user
+     * @param {string} email
+     * @param {string} pass
+     * @return {firebase.Promise<any>}
+     */
     logIn(email: string, pass: string): firebase.Promise<any> {
         return this.auth.signInWithEmailAndPassword(email, pass);
     }
+    /**
+     * Firebase auth method to logOut user.
+     * @return {firebase.Promise<void>}
+     */
     logOut(): firebase.Promise<void> {
         return this.auth.signOut();
     }
-    reset2(code: string, newPass: string): firebase.Promise<any> {
-        return this.auth.confirmPasswordReset(code, newPass);
-    }
+    /**
+     * Firebase auth method to reset password.
+     * @param {string} email
+     * @param a
+     * @return {firebase.Promise<any>}
+     */
     reset(email: string, ...a: Array<any>): firebase.Promise<any> {
         return this.auth.sendPasswordResetEmail(email);
     }

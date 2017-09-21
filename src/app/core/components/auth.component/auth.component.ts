@@ -1,4 +1,4 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
+import {Component, HostBinding} from '@angular/core';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
 import {Store} from 'angust/src/store';
 import {StateStore, AuthConfig} from '../../../configs/store/store.init';
@@ -20,7 +20,7 @@ import {AuthService} from '../../../embedded.modules/firebase.e.module/auth.em/a
     ]
 })
 
-export class AuthComponent implements OnInit {
+export class AuthComponent {
     // Flag to save pressed button name.
     private f: string;
     // It's to highlight active button.
@@ -37,16 +37,17 @@ export class AuthComponent implements OnInit {
         public err: ErrorHandlerService,
         protected fb: AuthService
     ) {
+        // Configs of component.
         this.logInCnfg  = this.store.manager().LOG_IN_AUTH_CNFG;
         this.signInCnfg = this.store.manager().SIGN_IN_AUTH_CNFG;
         this.resetCnfg  = this.store.manager().RESET_AUTH_CNFG;
     }
-
-    ngOnInit() { }
-    // Either monad example
-    protected configAuthForm(obj: AuthConfig) {
-        // If press the same button as previous it produces `true`.
-        const cond = (d: any) => d.args.btnName === this.f;
+    // Either monad #example
+    /**
+     * Configurate auth form.
+     * @param {AuthConfig} obj
+     */
+    configAuthForm(obj: AuthConfig) {
         const constPart: any = {
             isVisible: this.store.manager().isVisible,
             toStoreData: {
@@ -73,9 +74,14 @@ export class AuthComponent implements OnInit {
                 }
             }
         };
+        // If press the same button as previous it produces `true`.
+        const cond = (d: any) => d.args.btnName === this.f;
         const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError((e))}
+        if (e instanceof Error) {this.err.handleError(`AuthComponent.ts.configAuthForm ${e}`)}
     }
+    /**
+     * LogOut.
+     */
     logOut() {
         this.fb.logOut();
         this.store.manager({addAuth: false, isVisible: false, overlayOn: false, userName: 'guest', connected: undefined}).data = [];

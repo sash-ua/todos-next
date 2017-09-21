@@ -61,12 +61,23 @@ export class ListFormComponent {
         // new list)
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.listID >= 0 ? this.editCnfg : this.addCnfg);
     }
-    // Set data in `store` depends on  cond() result.
+    /**
+     * Add list handler. Change app's state depends on condition functions.
+     * @param {FormGroup} f2fForm
+     * @param {Store<any>} store
+     */
     addList(f2fForm: FormGroup, store: Store<any>) {
         const listID = this.store.manager().addItem.listID;
-        this.addItem(f2fForm, store, listID);
+        this._addItem(f2fForm, store, listID);
     }
-    addItem(f2fForm: FormGroup, store: Store<any>, listID: number = undefined) {
+    /**
+     * Part of addList func.
+     * @param {FormGroup} f2fForm
+     * @param {Store<any>} store
+     * @param {number} listID
+     * @private
+     */
+    _addItem(f2fForm: FormGroup, store: Store<any>, listID: number = undefined) {
         let {name, description, priority} = f2fForm.value;
         const nextID: number = store.manager().data ? store.manager().data.length : 0;
         // Edited list

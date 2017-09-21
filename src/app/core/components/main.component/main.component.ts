@@ -1,6 +1,5 @@
 import {
-    AfterViewInit,
-    Component, ComponentFactoryResolver, QueryList, ViewChildren, ViewContainerRef
+    AfterViewInit, Component, ComponentFactoryResolver, QueryList, ViewChildren, ViewContainerRef
 } from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
@@ -8,16 +7,10 @@ import {TaskFormComponent} from '../../../shared/components/forms.component/task
 import {ListFormComponent} from '../../../shared/components/forms.component/list.form.component/list.form.component';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
 import {
-    AddEditArgs, MainHelperService, getTaskQntt,
-    removePrevCmpnnt, Side
+    AddEditArgs, MainHelperService, getTaskQntt, removePrevCmpnnt, Side
 } from '../../../services/main.helper.service/main.helper.service';
 import {List} from '../../../configs/store/store.init';
-import {toggleBoolean} from '../../../services/functional/functions';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import {Observer} from 'rxjs/Observer';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subject} from "rxjs/Subject";
 import {ADD_LIST_S$} from '../nav.component/nav.component';
 
 @Component({
@@ -45,15 +38,25 @@ export class MainComponent implements  AfterViewInit {
         public err: ErrorHandlerService,
     ) {}
     ngAfterViewInit() {
+        // Subscription and Observer for NavComponent.
             ADD_LIST_S$.subscribe(
             (v: any) => {
                 if (v) {this.addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}})}
             },
             (err: Error) => console.error(err));
     }
+    /**
+     * Track list by id.
+     * @param {number} index
+     * @param {List} item
+     * @return {number}
+     */
     trackByList(index: number, item: List): number {
         return item.id;
     }
+    /**
+     * Invoke function removePrevCmpnnt() to remove prev. clicked component.
+     */
     rmPrevComp() {
         removePrevCmpnnt({
                 add: this.addedContainers,
@@ -63,16 +66,21 @@ export class MainComponent implements  AfterViewInit {
             this.store,
             getTaskQntt);
     }
-    toggle(v: boolean): boolean {
-        return toggleBoolean(v);
-    }
-    toggleClass(id: number, clss: string): void {
+    /**
+     * Dispatch and toggle `expand_less`/`expand_more` template el-s.
+     * @param {number} id
+     * @param {string} clss
+     */
+    toggleClass (id: number, clss: string): void {
         const el = document.getElementById(`list${id}`);
         el.classList.contains(clss)
             ? el.classList.remove(clss)
             : el.classList.add(clss);
     }
-    // Add List/Task.
+    /**
+     * Add List/Task.
+     * @param obj
+     */
     addDispatcher(obj: any) {
         const listID = obj.action.listID;
         const cnfg = obj.cnfg;
@@ -110,12 +118,15 @@ export class MainComponent implements  AfterViewInit {
             lSide: lSide
         };
         const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError(e); }
+        if (e instanceof Error) {this.err.handleError(`MainComponent.ts.addDispatcher ${e}`); }
         function cond(objl: AddEditArgs) {
             return objl.listID >= 0;
         }
     }
-    // Edit List/Task.
+    /**
+     * Edit List/Task.
+     * @param obj
+     */
     editDispatcher(obj: any) {
         const listID = obj.action.listID;
         const cnfg = obj.cnfg;
@@ -177,7 +188,7 @@ export class MainComponent implements  AfterViewInit {
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
         const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError(e); }
+        if (e instanceof Error) {this.err.handleError(`MainComponent.ts.editDispatcher ${e}`); }
         function cond<CondFn>(objl: AddEditArgs) {
             return objl.listID >= 0 && objl.taskID >= 0;
         }

@@ -19,16 +19,27 @@ export class DragNDropService {
         // Debounce `dragover` event.
         this.dragOverHandlerDebounced = debounceTime(this.dragOverHandler.bind(this), 10);
     }
+    /**
+     * Add element's id to the drag payload.
+     * @param ev
+     */
     dragStartHandler(ev: any): void {
-        // Add this element's id to the drag payload
         ev.dataTransfer.setData('text/plain', ev.target.id);
     };
+    /**
+     * Set `dragover` event.
+     * @param {DragEvent} ev
+     */
     dragOverHandler(ev: DragEvent): void {
         if (checkPathElByID(ev.target, /list/, this.rnr2) >= 0) {
             ev.preventDefault();
         }
         ev.dataTransfer.dropEffect = 'copy';
     };
+    /**
+     * Set actions when `drop` event happens.
+     * @param {DragEvent} ev
+     */
     dragDropHandler(ev: DragEvent): void {
         ev.preventDefault();
         // Definition of target list.
@@ -43,6 +54,7 @@ export class DragNDropService {
             const nextID = store.data[idIn].tasks ? store.data[idIn].tasks.length : 0;
             donor.id = nextID;
             store.data[idIn].tasks.push(donor);
+            // Save to firebase.
             this.ldb.updateDB(donor, `data/${idIn}/tasks/${nextID}`);
         }
     };

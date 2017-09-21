@@ -18,6 +18,7 @@ export class MdlWindowComponent {
     constructor(
         protected store: Store<any>,
     ) {
+        // Time during which the window is visible, if undefined it visible constantly.
         let to: number | undefined = this.store.manager().mdlWindowConfig.timeOut;
         if (to) {setTimeout(() => {this.store.manager({mdlWindow: false}); }, to); }
     }

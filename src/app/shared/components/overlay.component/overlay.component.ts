@@ -14,6 +14,9 @@ export class OverlayComponent {
  constructor(
      private store: Store<any>
  ) { }
+    /**
+     * Handle onRemove overlay event. It changes app's state and emit `rmDAData` event.
+     */
  rmOverlay() {
      this.store.manager(this.performData);
      this.store.manager({addItem: {addListVisible: false, listID: undefined, taskID: undefined}});

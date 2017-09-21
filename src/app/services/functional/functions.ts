@@ -1,6 +1,12 @@
-
 import {Renderer2} from '@angular/core';
 
+/**
+ * Check path if it has elem. with given ID, propagate until `BODY` elem.
+ * @param currEl
+ * @param {RegExp} re
+ * @param {Renderer2} rnr2
+ * @return {number}
+ */
 export function checkPathElByID(currEl: any, re: RegExp, rnr2: Renderer2): number | undefined {
     let buff: number;
     function _l(el: any, reg: RegExp, r2: Renderer2): void {
@@ -15,8 +21,5 @@ export function checkPathElByID(currEl: any, re: RegExp, rnr2: Renderer2): numbe
     }
     _l(currEl, re, rnr2);
     return buff;
-}
-export function toggleBoolean(v: boolean): boolean {
-    return !v;
 }
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

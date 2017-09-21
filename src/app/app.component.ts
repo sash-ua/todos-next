@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         protected ldb: LocDBService
     ) {    }
     ngOnInit() {
+        // Set subscription on change authorisation state. Authorised to firebase or not.
         this.fb.auth.onAuthStateChanged((user:  firebase.User) => {
             if (user) {
                 const userId = user.uid;
@@ -59,6 +60,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         (e: Error) => this.err.handleError(e));
     }
     ngAfterViewInit() {
+        // Events handlers factory. Set subscriptions on events.
         [this.evHanler$, this.dragstart$, this.dragover$, this.drop$]
             = this.eventH.evFactory(
                 this.rnr2.selectRootElement(document).body,
@@ -72,8 +74,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
             )
     }
     ngOnDestroy() {
+        // Unsubscribe subscriptions onDestroy the component.
         this.eventH.unsubsFactory(this.evHanler$, this.dragstart$, this.dragover$, this.drop$);
     }
+    /**
+     * Handle keyup.escape events.
+     * @param {KeyboardEvent} ev
+     */
     keyUpHandler(ev: KeyboardEvent) {
         const getSt: StateStore = this.store.manager();
         switch (ev.key === 'Escape') {

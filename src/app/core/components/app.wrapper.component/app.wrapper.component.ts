@@ -5,10 +5,8 @@ import {StateStore} from '../../../configs/store/store.init';
 @Component({
     selector: 'app-cmpnnt',
     template:
-    `
-        <sidenav-cmpnnt></sidenav-cmpnnt>
-        <nav-cmpnnt></nav-cmpnnt>
-        
+    `<sidenav-cmpnnt></sidenav-cmpnnt>
+     <nav-cmpnnt></nav-cmpnnt>
     `
 })
 

@@ -17,6 +17,11 @@ export class DBService {
         this.i = new Identity();
         this.err = new ErrorM();
     }
+    /**
+     * Execute  some of firebase.database methods. Ex-s in DB.service.ts
+     * @param args
+     * @return {firebase.Promise<any> | Error}
+     */
     dbDispatcher(...args: Array<any>) {
         return this.err.bind((v: any) => this.db[v[0]](v[1])[v[2]](v[3]), args);
     }

@@ -14,6 +14,10 @@ export class SideNavComponent {
         protected store: Store<StateStore>,
         protected ldb: LocDBService
     ) {}
+    /**
+     * Set theme and save to firebase.
+     * @param data
+     */
     setTheme (data: any) {
         this.store.manager({theme: data});
         this.ldb.updateDB(data, 'theme');

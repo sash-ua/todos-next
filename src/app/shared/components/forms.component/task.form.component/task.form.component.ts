@@ -3,7 +3,7 @@ import {FN} from '../../../../core/components/f2f.validation.component/auth.form
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
-import {List, Task} from '../../../../configs/store/store.init';
+import {Task} from '../../../../configs/store/store.init';
 import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
 import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
@@ -28,9 +28,7 @@ import {LocDBService} from '../../../../services/DB.service/DB.service';
 
 export class TaskFormComponent {
     @HostBinding('@taskAnimation') taskAnimation: AnimationsServices = true;
-    // @HostBinding('style.display') display = 'inline-table';
     @HostBinding('style.position') position = 'absolute';
-    // @HostBinding('style.margin') margin = 'auto';
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
     public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'dueDate'};
@@ -62,9 +60,16 @@ export class TaskFormComponent {
         const listID = this.store.manager().addItem.listID;
         this.addItem(f2fForm, store, listID, taskID);
     }
+    /**
+     * Add task handler.
+     * @param {FormGroup} f2fForm
+     * @param {Store<any>} store
+     * @param {number} listID
+     * @param {number} taskID
+     */
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
         let {description, priority, dueDate} = f2fForm.value;
-        // New task.
+        // Edited task.
         const editT: Task =  {
             description: description,
             priority: priority ? 'warn' : 'primary',
@@ -72,12 +77,13 @@ export class TaskFormComponent {
             start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : new Date()};
         // FireBase didn't save empty arrays therefore we should add `tasks` with empty array to Store.data.list.
         const currL = store.manager().data[listID];
-        if (!store.manager().data[listID].tasks) {
-            store.manager().data[listID].tasks = [];
+        if (!currL.tasks) {
+            currL.tasks = [];
         }
         // Calculate task ID to add it to tasks of the corresponding list.
         const nextID: number = store.manager().data[listID].tasks.length;
-        const addNewT: any = {
+        // New task.
+        const addNewT: Task = {
             description: description,
             priority: priority ? 'warn' : 'primary',
             start: new Date(),

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
-import {FirebaseError} from 'firebase/app';
 
 @Injectable()
 export class ErrorHandlerService {

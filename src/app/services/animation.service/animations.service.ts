@@ -1,6 +1,4 @@
-import {
-    Injectable, AnimationEntryMetadata
-} from '@angular/core';
+import {Injectable, AnimationEntryMetadata} from '@angular/core';
 import {trigger, state, transition, style, animate} from '@angular/animations';
 
 export type AnimationT = '*' | { [key: string]: string | number; } | ('*' | { [key: string]: string | number; })[];
@@ -9,6 +7,14 @@ export type AnimationStylesT = '*' | { [key: string]: string | number; } | ('*' 
 
 @Injectable()
 export class AnimationsServices {
+    /**
+     * Two states animation.
+     * @param {string} name
+     * @param {Array<any>} states
+     * @param {AnimationT[]} stylesAnim
+     * @param {Array<any>} trs
+     * @return {AnimationEntryMetadata}
+     */
     static animatonTwoStates(
         name: string,
         [...states]: Array<any>,
@@ -24,7 +30,14 @@ export class AnimationsServices {
         });
         return trigger(name, [...a, ...b]);
     }
-
+    /**
+     * Three states animation.
+     * @param {string} name
+     * @param {AnimationStylesT} stateStyles
+     * @param {[AnimationStylesT]} trsStyles
+     * @param {Array<any>} trsAnimate
+     * @return {AnimationEntryMetadata}
+     */
     static animatonThreeStates(
         name: string,
         stateStyles: AnimationStylesT,

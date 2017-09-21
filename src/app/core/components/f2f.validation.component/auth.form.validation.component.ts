@@ -44,8 +44,14 @@ export class AuthFormValidationComponent {
         // Init FormGroup.
         this.f2fForm = this.hS.initFG(this.VALID_CNFG_1);
     }
-    // Get credentials, validate and save it to Store.
+    /**
+     * Get credentials, validate and save it to Store.
+     * @param {FormGroup} f2fForm
+     * @param {Store<any>} store
+     * @param {FN} fName
+     */
     checkCredentials(f2fForm: FormGroup, store: Store<any>, fName: FN) {
+        // Name of function to handle auth action.
         const active = this.store.manager().formInitData.active;
         const data = {
             rSide: {
@@ -87,12 +93,14 @@ export class AuthFormValidationComponent {
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
         const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError(e); }
+        if (e instanceof Error) {this.err.handleError(`AuthFormValidationComponent.ts.checkCredentials ${e}`); }
         function cond() {
             if (store.manager().formInitData.active === 'reset') {
+                // Disable form control.
                 f2fForm.controls[fName.f2].disable();
             }
             const b = f2fForm.status === 'VALID';
+            // Enable form control.
             f2fForm.controls[fName.f2].enable();
             return b;
         }
