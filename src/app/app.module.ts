@@ -10,6 +10,7 @@ import {AppRoutingModule} from './app.routing.module';
 
 import { AppComponent } from './app.component';
 import {FireBaseEModule} from './embedded.modules/firebase.e.module/firebase.em';
+import {LocDBService} from './services/DB.service/DB.service';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import {FireBaseEModule} from './embedded.modules/firebase.e.module/firebase.em'
         AppComponent
     ],
     providers: [
+        LocDBService,
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig }
     ],
     entryComponents: []

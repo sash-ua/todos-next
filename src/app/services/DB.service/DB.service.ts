@@ -10,9 +10,24 @@ export class LocDBService {
      protected store: Store<StateStore>,
      protected db: DBService
  ) { }
-    saveToDB() {
+    /**
+     * Save to DataBase by path.
+     * @param {Lists | Array<List>} data
+     * @param {string} path
+     */
+    saveToDB(data: any, path = '') {
         if (this.store.manager().connected) {
-            this.db.dbDispatcher('ref', '/' + this.store.manager().connected, 'set', JSON.stringify(this.store.manager().data))
+            this.db.dbDispatcher('ref', `/${this.store.manager().connected}/${path}`, 'set', data);
+        }
+    }
+    /**
+     * Update DataBase by path
+     * @param {Object} data
+     * @param {string} path
+     */
+    updateDB(data: Object, path = '') {
+        if (this.store.manager().connected) {
+            this.db.dbDispatcher('ref', `/${this.store.manager().connected}/${path}`, 'update', data);
         }
     }
 }

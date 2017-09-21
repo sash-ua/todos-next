@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AuthConfig} from '../../../configs/store/store.init';
+import {LocDBService} from '../../../services/DB.service/DB.service';
 
 type ActionObj = {priority: string, listID: number, taskID?: number};
 @Component({
@@ -16,7 +17,8 @@ export class ActionComponent implements OnInit {
     private list: AuthConfig;
     private task: AuthConfig;
     constructor(
-        protected store: Store<any>
+        protected store: Store<any>,
+        protected ldb: LocDBService
     ) {
         this.list = this.store.manager().LIST_CNFG;
         this.task = this.store.manager().TASK_CNFG;
@@ -36,15 +38,24 @@ export class ActionComponent implements OnInit {
                     : l.priority = 'primary';
                 break;
         }
+        this.ldb.updateDB(
+            (obj.taskID >= 0) ? l.tasks[obj.taskID] : l,
+            (obj.taskID >= 0) ? `data/${obj.listID}/tasks/${obj.taskID}` : `data/${obj.listID}`
+        );
     }
     edit(o: any, obj: ActionObj) {
         return this.editItem.emit({cnfg: obj.taskID >= 0 ? o.task : o.list, action: obj});
     }
     remove(obj: ActionObj) {
         const l = this.store.manager().data[obj.listID];
-        (obj.taskID || obj.taskID === 0)
+        (obj.taskID >= 0)
             ? l.tasks.splice(obj.taskID, 1)
             : this.store.manager().data.splice(obj.listID, 1);
+        if (obj.taskID >= 0) {
+            this.ldb.updateDB(l, `data/${obj.listID}`);
+        } else {
+            this.ldb.saveToDB( this.store.manager().data, `data`);
+        }
     }
 }
 

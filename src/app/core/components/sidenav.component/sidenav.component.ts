@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../../configs/store/store.init';
+import {LocDBService} from '../../../services/DB.service/DB.service';
 
 @Component({
  selector: 'sidenav-cmpnnt',
@@ -9,9 +10,14 @@ import {StateStore} from '../../../configs/store/store.init';
 })
 
 export class SideNavComponent {
- constructor(
-     protected store: Store<StateStore>
- ) {}
+    constructor(
+        protected store: Store<StateStore>,
+        protected ldb: LocDBService
+    ) {}
+    setTheme (data: any) {
+        this.store.manager({theme: data});
+        this.ldb.updateDB(data, 'theme');
+    }
 }
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

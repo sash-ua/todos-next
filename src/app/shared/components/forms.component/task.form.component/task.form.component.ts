@@ -3,7 +3,7 @@ import {FN} from '../../../../core/components/f2f.validation.component/auth.form
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
-import {Task} from '../../../../configs/store/store.init';
+import {List, Task} from '../../../../configs/store/store.init';
 import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
 import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
@@ -65,15 +65,25 @@ export class TaskFormComponent {
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
         let {description, priority, dueDate} = f2fForm.value;
         // New task.
-        const newT: Task =  {
-            id: taskID,
+        const editT: Task =  {
             description: description,
             priority: priority ? 'warn' : 'primary',
             dueDate: dueDate,
-            start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : undefined};
-        // Calculate task ID to add it to corresponding list.
-        const idl: number = store.manager().data[listID].tasks.length;
-        // Executed if cond2() === true
+            start: taskID >= 0 ? store.manager().data[listID].tasks[taskID].start : new Date()};
+        // FireBase didn't save empty arrays therefore we should add `tasks` with empty array to Store.data.list.
+        const currL = store.manager().data[listID];
+        if (!store.manager().data[listID].tasks) {
+            store.manager().data[listID].tasks = [];
+        }
+        // Calculate task ID to add it to tasks of the corresponding list.
+        const nextID: number = store.manager().data[listID].tasks.length;
+        const addNewT: any = {
+            description: description,
+            priority: priority ? 'warn' : 'primary',
+            start: new Date(),
+            dueDate: dueDate
+        };
+        // Executed if cond2() === true. Edit task.
         const rSide: Side = {
             // Data change interface. Remove forms, set current task ID to `prevtaskID` to remove dynamically added `task` components.
             toStoreData: {
@@ -82,11 +92,11 @@ export class TaskFormComponent {
                 editedTaskValueCnfg: {dueDate: dueDate}
             },
             fn: () => {
-                store.manager().data[listID].tasks.splice(taskID, 1, newT);
-                this.ldb.saveToDB();
+                store.manager().data[listID].tasks.splice(taskID, 1, editT);
+                this.ldb.updateDB(editT, `data/${listID}/tasks/${taskID}`);
             }
         };
-        // Executed if cond2() === false
+        // Executed if cond2() === false. Add new task.
         const lSide: Side = {
             // Data change interface. Remove forms, set current list ID to `prevlistID` to remove dynamically added `list` components.
             toStoreData: {
@@ -94,14 +104,8 @@ export class TaskFormComponent {
                 addItem: {taskVisible: false, listVisible: false, prevlistID: listID, listID: undefined}},
             // Add new task.
             fn: () => {
-                store.manager().data[listID].tasks.push({
-                    id: idl,
-                    description: description,
-                    priority: priority ? 'warn' : 'primary',
-                    start: Date.now(),
-                    dueDate: dueDate
-                });
-                this.ldb.saveToDB();
+                store.manager().data[listID].tasks.push(addNewT);
+                this.ldb.updateDB(addNewT, `data/${listID}/tasks/${nextID}`);
             }
         };
         // Executed if cond1() === false

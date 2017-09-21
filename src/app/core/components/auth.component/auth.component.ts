@@ -78,7 +78,7 @@ export class AuthComponent implements OnInit {
     }
     logOut() {
         this.fb.logOut();
-        this.store.manager({addAuth: false, isVisible: false, overlayOn: false, userName: 'guest', connected: undefined});
+        this.store.manager({addAuth: false, isVisible: false, overlayOn: false, userName: 'guest', connected: undefined}).data = [];
     }
 }
 

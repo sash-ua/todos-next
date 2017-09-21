@@ -20,36 +20,35 @@ export class DBService {
     dbDispatcher(...args: Array<any>) {
         return this.err.bind((v: any) => this.db[v[0]](v[1])[v[2]](v[3]), args);
     }
-    goOffline(): void {
-        this.db.goOffline();
-    }
-    goOnline(): void {
-        this.db.goOnline();
-    }
-    // Get data from database.
-    getDataByPath(path: string): any {
-        return this.db.ref(path).on('value', (dss) => {
-            return dss.val();
-        });
-    }
-    getAllData(path: string): firebase.Promise<any> {
-        return this.db.ref(path).once('value');
-    }
-    setData(data: JSON, path: string): firebase.Promise<any> {
-        return this.db.ref(path).set(data);
-    }
-    removeData(path: string): firebase.Promise<any> {
-        return this.db.ref(path).remove();
-    }
-    // TODO Should be data JSON obj. only?
-    updateData(data: typeof Object, path: string): firebase.Promise<any> {
-        return this.db.ref(path).update({...data});
-    }
-    checkConnection() {
-        return this.db.ref('.info/connected').on('value', (dss) => {
-            return dss.val();
-        });
-    }
+    // goOffline(): void {
+    //     this.db.goOffline();
+    // }
+    // goOnline(): void {
+    //     this.db.goOnline();
+    // }
+    // // Get data from database.
+    // getDataByPath(path: string): any {
+    //     return this.db.ref(path).on('value', (dss) => {
+    //         return dss.val();
+    //     });
+    // }
+    // getAllData(path: string): firebase.Promise<any> {
+    //     return this.db.ref(path).once('value');
+    // }
+    // setData(data: JSON, path: string): firebase.Promise<any> {
+    //     return this.db.ref(path).set(data);
+    // }
+    // removeData(path: string): firebase.Promise<any> {
+    //     return this.db.ref(path).remove();
+    // }
+    // updateData(data: typeof Object, path: string): firebase.Promise<any> {
+    //     return this.db.ref(path).update({...data});
+    // }
+    // checkConnection() {
+    //     return this.db.ref('.info/connected').on('value', (dss) => {
+    //         return dss.val();
+    //     });
+    // }
 }
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

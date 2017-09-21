@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
         new Flow(this.store.manager().addAuth)
             .bind((v: any) => !v)
             .bind(v => {
-                this.store.manager({addAuth: v, isVisible: !v});
+                this.store.manager({addAuth: v, overlayOn: v});
             });
     };
     addListDispatcher ()  {

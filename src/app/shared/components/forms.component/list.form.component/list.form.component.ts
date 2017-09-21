@@ -3,7 +3,7 @@ import {FN} from '../../../../core/components/f2f.validation.component/auth.form
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
-import {StateStore} from '../../../../configs/store/store.init';
+import {List, StateStore} from '../../../../configs/store/store.init';
 import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
 import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
 import {DBService} from '../../../../embedded.modules/firebase.e.module/db.em/db.service/db.service';
@@ -68,29 +68,31 @@ export class ListFormComponent {
     }
     addItem(f2fForm: FormGroup, store: Store<any>, listID: number = undefined) {
         let {name, description, priority} = f2fForm.value;
-        const idl: number = store.manager().data ? store.manager().data.length : 0;
-        // Executed if cond2() === true
+        const nextID: number = store.manager().data ? store.manager().data.length : 0;
+        // Edited list
+        const editL: List = {
+            id: listID,
+            name: name,
+            description: description,
+            priority: priority ? 'warn' : 'primary',
+            tasks: store.manager().data[listID] && store.manager().data[listID].tasks ? store.manager().data[listID].tasks : []
+        };
+        // New list.
+        const addNewL: any = {id: nextID, name: name, description: description, priority: priority ? 'warn' : 'primary', tasks: []};
+        // Executed if cond2() === true. Edit list.
         const rSide: Side = {
             toStoreData: {overlayOn: false, addItem: {listVisible: false, prevlistID: listID, listID: undefined}},
             fn: () => {
-                store.manager()
-                    .data.splice(listID, 1, {
-                        id: listID,
-                        name: name,
-                        description: description,
-                        priority: priority ? 'warn' : 'primary',
-                        tasks: store.manager().data[listID].tasks
-                    });
-                this.ldb.saveToDB();
+                store.manager().data.splice(listID, 1, editL);
+                this.ldb.updateDB(editL, `data/${listID}`);
             }
         };
-        // Executed if cond2() === false
+        // Executed if cond2() === false. Add list.
         const lSide: Side = {
             toStoreData: {overlayOn: false, addItem: {listVisible: false, addListVisible: false}},
             fn: () => {
-                store.manager()
-                    .data.push({tasks: [], name: name, description: description, priority: priority ? 'warn' : 'primary', id: idl});
-                this.ldb.saveToDB();
+                store.manager().data.push(addNewL);
+                this.ldb.saveToDB(addNewL, `data/${nextID}`);
             }
         };
         // Executed if cond1() === false

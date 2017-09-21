@@ -54,19 +54,15 @@ export class AuthFormValidationComponent {
                 },
                 fn: () => {
                     let {email, password} = f2fForm.value;
-                    console.log(f2fForm.value);
                     this.authFb[active](email, password)
                         .then((r: any) => {
-                            console.log(r);
                             store.manager({
                                 addAuth: false,
                                 isVisible: false,
                                 overlayOn: false,
-                                userName: r ? r.email : 'guest'
                             })
                         })
                         .catch((err: Error) => {
-                            console.log(err);
                             store.manager({
                                 mdlWindow: true,
                                 mdlWindowConfig: {

@@ -10,16 +10,4 @@ export class ErrorHandlerService {
         console.error(error);
         return Observable.throw(error);
     }
-    displayErrors(error: FirebaseError) {
-        switch (error.code) {
-            case 'auth/wrong-password':
-                return 'The password is wrong.';
-            case 'auth/invalid-email':
-                return 'Enter valid email!';
-            case 'auth/weak-password':
-                return ('The password is too weak.');
-            default:
-                return error.message;
-        }
-    }
 }

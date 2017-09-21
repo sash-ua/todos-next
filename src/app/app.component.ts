@@ -8,10 +8,10 @@ import {ErrorHandlerService} from './services/error.handler.service/error.handle
 import {StateStore} from './configs/store/store.init';
 import {DragNDropService} from './services/drag-n-drop.service/drag-n-drop.service';
 import  * as firebase from 'firebase/app';
-// import 'firebase/auth';
 import {AuthService} from './embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
 import Error = firebase.auth.Error;
 import {DBService} from './embedded.modules/firebase.e.module/db.em/db.service/db.service';
+import {LocDBService} from './services/DB.service/DB.service';
 
 @Component({
     selector: 'my-app',
@@ -35,25 +35,29 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         protected dndS: DragNDropService,
         protected fb: AuthService,
         protected db: DBService,
-        protected err: ErrorHandlerService
-    ) {
+        protected err: ErrorHandlerService,
+        protected ldb: LocDBService
+    ) {    }
+    ngOnInit() {
         this.fb.auth.onAuthStateChanged((user:  firebase.User) => {
-            console.log(user);
             if (user) {
                 const userId = user.uid;
                 this.db.dbDispatcher('ref', '/' + userId, 'once', 'value')
                     .then((r: any) => {
-                        console.log(r);
-                        console.dir(JSON.parse(r.val()));
-                        const v = r.val();
-                        this.store.manager({userName: user.email, connected: userId}).data =  v ? JSON.parse(v) : this.store.manager().data;
+                    const v = r.val();
+                    if (v) {
+                        this.store.manager({
+                            userName: user.email,
+                            connected: userId,
+                            theme: v.theme
+                        }) .data = v.data ? v.data : this.store.manager().data;
+                    }
                     })
-                    .catch((e: Error) => this.err.handleError(e));
+                    .catch((e: Error) => this.err.handleError(`app.component.ts ${e}`));
             }
         },
-            (e: Error) => this.err.handleError(e));
+        (e: Error) => this.err.handleError(e));
     }
-    ngOnInit() {}
     ngAfterViewInit() {
         [this.evHanler$, this.dragstart$, this.dragover$, this.drop$]
             = this.eventH.evFactory(

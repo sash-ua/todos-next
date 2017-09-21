@@ -9,7 +9,6 @@ export type List = {
     tasks: Task[]
 }
 export type Task = {
-    id: number,
     priority: string,
     description: string,
     start: Date,
@@ -62,6 +61,7 @@ export interface StateStore {
 
 // App's interface Light theme config.
 export const themeDefault = {
+    name: 'themeDefault',
     btn: '#cfd8dc',
     // Main background-color is in sidenav
     bg: '#e0e0e0',
@@ -87,6 +87,7 @@ export const themeDefault = {
     }
 };
 export const themeDark = {
+    name: 'themeDark',
     btn: '#3f51b5',
     // Main background-color is in sidenav
     bg: '#3f51b5',
@@ -111,43 +112,6 @@ export const themeDark = {
         color: 'primary'
     }
 };
-const lists: Lists = [
-    {
-        id: 0,
-        name: 'Test fgdghdrhtyjyukuilk sthdyjyukyukku syjtukyku',
-        description: 'Trossery list',
-        priority: 'primary',
-        tasks: [
-            {
-                id: 0,
-                priority: 'warn',
-                description: 'Torwfhewlrkjbwlekb 11    dfdddfdfsfrgerg gerghethethre',
-                start: new Date(),
-                dueDate: new Date()
-            },
-            {
-                id: 1,
-                priority: 'primary',
-                description: 'Torwfhewlrkjbwlekb 11111rfgfwgrtgrt',
-                start: new Date(),
-                dueDate: new Date()
-            }
-        ]
-    },
-    {
-        id: 1,
-        name: 'test2',
-        description: 'grossery list2',
-        priority: 'warn',
-        tasks: [{
-            id: 0,
-            priority: 'primary',
-            description: 'torwfhewlrkjbwlekb',
-            start: new Date(),
-            dueDate: new Date()
-        }]
-    }
-];
 
 // Initial store state.
 export const INIT_STATE: StateStore = {

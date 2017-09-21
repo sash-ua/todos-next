@@ -6,10 +6,10 @@
                 [style.backgroundColor]="store.manager().theme.sidenav.bg">
         <h3 class="sd-nav sd-nav__name">Themes: </h3>
         <button class="sd-nav sd-nav__btn" md-mini-fab
-                (click)="store.manager({theme: store.manager().themeDefault})"
+                (click)="setTheme(store.manager().themeDefault)"
                 [style.backgroundColor]="store.manager().themeDefault.btn"></button>
         <button class="sd-nav sd-nav__btn" md-mini-fab
-                (click)="store.manager({theme: store.manager().themeDark})"
+                (click)="setTheme(store.manager().themeDark)"
                 [style.backgroundColor]="store.manager().themeDark.btn"></button>
     </md-sidenav>
 </md-sidenav-container>

@@ -5,6 +5,7 @@ import {Store} from 'angust/src/store';
 import {StateStore} from '../../configs/store/store.init';
 import {debounceTime} from 'monad-ts';
 import {clone} from 'monad-ts/src/services/clone';
+import {LocDBService} from '../DB.service/DB.service';
 
 @Injectable()
 export class DragNDropService {
@@ -12,7 +13,8 @@ export class DragNDropService {
     constructor(
         public err: ErrorHandlerService,
         protected  rnr2: Renderer2,
-        public store: Store<StateStore>
+        public store: Store<StateStore>,
+        protected ldb: LocDBService
     ) {
         // Debounce `dragover` event.
         this.dragOverHandlerDebounced = debounceTime(this.dragOverHandler.bind(this), 10);
@@ -38,8 +40,10 @@ export class DragNDropService {
             const listID = idOut.replace(/[^\d]+[\d]+/, '');
             const taskID = idOut.replace(/[\d]+[\D]+/, '');
             const donor = clone(store.data[listID].tasks[taskID]);
-            donor.id = store.data[idIn].tasks.length;
+            const nextID = store.data[idIn].tasks ? store.data[idIn].tasks.length : 0;
+            donor.id = nextID;
             store.data[idIn].tasks.push(donor);
+            this.ldb.updateDB(donor, `data/${idIn}/tasks/${nextID}`);
         }
     };
 }
