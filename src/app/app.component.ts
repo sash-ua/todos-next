@@ -12,6 +12,7 @@ import {AuthService} from './embedded.modules/firebase.e.module/auth.em/auth.ser
 import Error = firebase.auth.Error;
 import {DBService} from './embedded.modules/firebase.e.module/db.em/db.service/db.service';
 import {LocDBService} from './services/DB.service/DB.service';
+import {FB} from './configs/firebase/firebase.cnfg';
 
 @Component({
     selector: 'my-app',
@@ -39,22 +40,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         protected ldb: LocDBService
     ) {    }
     ngOnInit() {
+        // Get saved auth data to init app.
+        const apiObj = JSON.parse(localStorage.getItem(`firebase:authUser:${FB.apiKey}:[DEFAULT]`));
+        if (typeof apiObj === 'object') {
+            this.appInit(apiObj);
+        }
         // Set subscription on change authorisation state. Authorised to firebase or not.
         this.fb.auth.onAuthStateChanged((user:  firebase.User) => {
             if (user) {
-                const userId = user.uid;
-                this.db.dbDispatcher('ref', '/' + userId, 'once', 'value')
-                    .then((r: any) => {
-                    const v = r.val();
-                    if (v) {
-                        this.store.manager({
-                            userName: user.email,
-                            connected: userId,
-                            theme: v.theme
-                        }) .data = v.data ? v.data : this.store.manager().data;
-                    }
-                    })
-                    .catch((e: Error) => this.err.handleError(`app.component.ts ${e}`));
+                this.appInit(user);
             }
         },
         (e: Error) => this.err.handleError(e));
@@ -76,6 +70,25 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy() {
         // Unsubscribe subscriptions onDestroy the component.
         this.eventH.unsubsFactory(this.evHanler$, this.dragstart$, this.dragover$, this.drop$);
+    }
+    /**
+     * Init app
+     * @param user
+     */
+    appInit(user: any) {
+        const userId = user.uid;
+        this.ldb.getAllData(userId)
+            .then((r: any) => {
+                const v = r.val();
+                if (v) {
+                    this.store.manager({
+                        userName: user.email,
+                        connected: userId,
+                        theme: v.theme
+                    }) .data = v.data ? v.data : this.store.manager().data;
+                }
+            })
+            .catch((e: Error) => this.err.handleError(`app.component.ts.appInit ${e}`));
     }
     /**
      * Handle keyup.escape events.

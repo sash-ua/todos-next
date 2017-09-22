@@ -5,11 +5,10 @@ import {DBService} from '../../embedded.modules/firebase.e.module/db.em/db.servi
 
 @Injectable()
 export class LocDBService {
-
- constructor(
-     protected store: Store<StateStore>,
-     protected db: DBService
- ) { }
+    constructor(
+        protected store: Store<StateStore>,
+        protected db: DBService
+    ) { }
     /**
      * Save to DataBase by path.
      * @param {Lists | Array<List>} data
@@ -29,6 +28,9 @@ export class LocDBService {
         if (this.store.manager().connected) {
             this.db.dbDispatcher('ref', `/${this.store.manager().connected}/${path}`, 'update', data);
         }
+    }
+    getAllData(userId: string) {
+        return this.db.dbDispatcher('ref', '/' + userId, 'once', 'value');
     }
 }
 

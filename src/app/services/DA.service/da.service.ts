@@ -1,7 +1,7 @@
 import {ComponentFactoryResolver, QueryList, ViewContainerRef} from '@angular/core';
 
 /**
- * Dinamically added component service functions.
+ * Dinamically add component service functions.
  */
 
 /**
