@@ -11,8 +11,8 @@ import {LocDBService} from '../../../services/DB.service/DB.service';
 
 export class SideNavComponent {
     constructor(
-        protected store: Store<StateStore>,
-        protected ldb: LocDBService
+        private store: Store<StateStore>,
+        private ldb: LocDBService
     ) {}
     /**
      * Set theme and save to firebase.

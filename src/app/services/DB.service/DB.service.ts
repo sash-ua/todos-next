@@ -6,8 +6,8 @@ import {DBService} from '../../embedded.modules/firebase.e.module/db.em/db.servi
 @Injectable()
 export class LocDBService {
     constructor(
-        protected store: Store<StateStore>,
-        protected db: DBService
+        private store: Store<StateStore>,
+        private db: DBService
     ) { }
     /**
      * Save to DataBase by path.

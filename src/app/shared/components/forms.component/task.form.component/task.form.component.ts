@@ -5,7 +5,6 @@ import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
 import {Task} from '../../../../configs/store/store.init';
 import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
-import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
 
 @Component({
@@ -45,11 +44,10 @@ export class TaskFormComponent {
         [this.fieldsName.f5]: [new Date(this.store.manager().editedTaskValueCnfg.dueDate)]
     };
     constructor(
-        protected store: Store<any>,
+        private store: Store<any>,
         private fb: FormBuilder,
         private hS: MainHelperService,
-        private err: ErrorHandlerService,
-        protected ldb: LocDBService
+        private ldb: LocDBService
     ) {
         // Initialize Form group.
         this.f2fForm = this.hS.initFG(this.store.manager().addItem.taskID >= 0 ? this.editTaskCnfg : this.addTaskCnfg);

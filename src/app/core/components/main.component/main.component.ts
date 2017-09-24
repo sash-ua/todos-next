@@ -32,10 +32,10 @@ export class MainComponent implements  AfterViewInit {
     @ViewChildren('editDACmpnnt', {read: ViewContainerRef }) editTaskContainers: QueryList<ViewContainerRef> ;
     @ViewChildren('editListDACmpnnt', {read: ViewContainerRef }) editListContainers: QueryList<ViewContainerRef> ;
     constructor(
-        protected store: Store<any>,
+        private store: Store<any>,
         private factoryResolver: ComponentFactoryResolver,
         private hS: MainHelperService,
-        public err: ErrorHandlerService,
+        private err: ErrorHandlerService,
     ) {}
     ngAfterViewInit() {
         // Subscription and Observer for NavComponent.

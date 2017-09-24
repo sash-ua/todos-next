@@ -16,7 +16,7 @@ import {ErrorHandlerService} from '../../../services/error.handler.service/error
 
 export class MdlWindowComponent {
     constructor(
-        protected store: Store<any>,
+        private store: Store<any>,
     ) {
         // Time during which the window is visible, if undefined it visible constantly.
         let to: number | undefined = this.store.manager().mdlWindowConfig.timeOut;

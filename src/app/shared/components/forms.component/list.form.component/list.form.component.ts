@@ -50,12 +50,12 @@ export class ListFormComponent {
         [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
     };
     constructor(
-        protected store: Store<StateStore>,
+        private store: Store<StateStore>,
         private fb: FormBuilder,
-        public err: ErrorHandlerService,
-        public hS: MainHelperService,
-        protected db: DBService,
-        protected ldb: LocDBService
+        private err: ErrorHandlerService,
+        private hS: MainHelperService,
+        private db: DBService,
+        private ldb: LocDBService
     ) {
         // Config. Form group. It depends on add / edit list mode (listID  = number - edit; listID = undefined - add
         // new list)

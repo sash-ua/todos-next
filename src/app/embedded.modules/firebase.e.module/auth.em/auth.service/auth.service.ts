@@ -7,7 +7,7 @@ import 'firebase/auth';
 export class AuthService {
     public auth: any;
     constructor(
-        protected fb: firebase.app.App
+        private fb: firebase.app.App
     ) {
         this.auth = this.fb.auth();
     }

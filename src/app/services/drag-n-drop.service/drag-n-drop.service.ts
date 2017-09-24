@@ -11,10 +11,10 @@ import {LocDBService} from '../DB.service/DB.service';
 export class DragNDropService {
     public dragOverHandlerDebounced: any;
     constructor(
-        public err: ErrorHandlerService,
-        protected  rnr2: Renderer2,
-        public store: Store<StateStore>,
-        protected ldb: LocDBService
+        private err: ErrorHandlerService,
+        private  rnr2: Renderer2,
+        private store: Store<StateStore>,
+        private ldb: LocDBService
     ) {
         // Debounce `dragover` event.
         this.dragOverHandlerDebounced = debounceTime(this.dragOverHandler.bind(this), 10);

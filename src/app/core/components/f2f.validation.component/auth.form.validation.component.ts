@@ -26,9 +26,9 @@ export type FN = {[a: string]: string};
 
 export class AuthFormValidationComponent {
     private f2fForm: FormGroup;
-    public fieldsName: FN = {f1: 'email', f2: 'password'};
+    private fieldsName: FN = {f1: 'email', f2: 'password'};
     // FormGroup config.
-    public VALID_CNFG_1 = {
+    private VALID_CNFG_1 = {
         [this.fieldsName.f1]: ['', [Validators.required, Validators.email]],
         [this.fieldsName.f2]: ['', [Validators.required, Validators.minLength(6)]]
     };
@@ -38,8 +38,8 @@ export class AuthFormValidationComponent {
         private store: Store<StateStore>,
         private fb: FormBuilder,
         private hS: MainHelperService,
-        public err: ErrorHandlerService,
-        protected authFb: AuthService,
+        private err: ErrorHandlerService,
+        private authFb: AuthService,
     ) {
         // Init FormGroup.
         this.f2fForm = this.hS.initFG(this.VALID_CNFG_1);

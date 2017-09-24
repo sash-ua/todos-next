@@ -29,7 +29,6 @@ export function checkPathElByID(currEl: any, re: RegExp, rnr2: Renderer2): numbe
  * @return {any}
  */
 export function getLSByKey(key: string) {
-    console.log(JSON.parse(localStorage.getItem(key)));
     return JSON.parse(localStorage.getItem(key));
 }
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

@@ -14,7 +14,7 @@ export const ADD_LIST_S$ = new Subject();
 })
 export class NavComponent {
     constructor(
-        protected store: Store<StateStore>
+        private store: Store<StateStore>
     ) {}
     /**
      * Example Flow.

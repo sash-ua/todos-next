@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 @Injectable()
 export class EventHandlerService {
     constructor(
-        protected ehs: ErrorHandlerService
+        private ehs: ErrorHandlerService
     ) { }
     /**
      * Set event listener.

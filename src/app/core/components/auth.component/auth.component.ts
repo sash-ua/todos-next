@@ -32,10 +32,10 @@ export class AuthComponent {
     @HostBinding('style.display') display = 'inline-table';
 
     constructor(
-        protected store: Store<StateStore>,
+        private store: Store<StateStore>,
         private hS: MainHelperService,
         public err: ErrorHandlerService,
-        protected fb: AuthService
+        private fb: AuthService
     ) {
         // Configs of component.
         this.logInCnfg  = this.store.manager().LOG_IN_AUTH_CNFG;

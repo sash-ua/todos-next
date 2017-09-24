@@ -7,9 +7,9 @@ import 'firebase/database';
 @Injectable()
 export class DBService {
     public db: Database;
-    protected err: ErrorM<any>;
+    private err: ErrorM<any>;
     constructor(
-        protected fb: firebase.app.App
+        private fb: firebase.app.App
     ) {
         this.db = this.fb.database();
         this.err = new ErrorM();

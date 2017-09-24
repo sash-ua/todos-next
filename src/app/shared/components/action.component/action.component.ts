@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AuthConfig} from '../../../configs/store/store.init';
 import {LocDBService} from '../../../services/DB.service/DB.service';
@@ -19,8 +19,8 @@ export class ActionComponent {
     private list: AuthConfig;
     private task: AuthConfig;
     constructor(
-        protected store: Store<any>,
-        protected ldb: LocDBService
+        private store: Store<any>,
+        private ldb: LocDBService
     ) {
         // Configurations that will be emitted with on-editItem event. Depends on edit task or list.
         this.list = this.store.manager().LIST_CNFG;

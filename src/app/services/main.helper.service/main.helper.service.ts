@@ -145,7 +145,6 @@ export class MainHelperService {
      * @return {any}
      */
     initTrnsfrmr(key: any, errMsg: string, execfn: Function): any {
-        console.log('trans');
         return new Either(
             x => this.err.handleError(`${errMsg}-${x}`),
             x => x
