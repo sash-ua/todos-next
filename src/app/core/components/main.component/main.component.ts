@@ -117,8 +117,7 @@ export class MainComponent implements  AfterViewInit {
             rSide: rSide,
             lSide: lSide
         };
-        const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError(`MainComponent.ts.addDispatcher ${e}`); }
+        const e = this.hS.trnsfrmr1(`main.component.ts.addDispatcher`, data, cond);
         function cond(objl: AddEditArgs) {
             return objl.listID >= 0;
         }
@@ -187,8 +186,7 @@ export class MainComponent implements  AfterViewInit {
             lSide: lSide
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
-        const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError(`MainComponent.ts.editDispatcher ${e}`); }
+        const e = this.hS.trnsfrmr1(`main.component.ts.editDispatcher`, data, cond);
         function cond<CondFn>(objl: AddEditArgs) {
             return objl.listID >= 0 && objl.taskID >= 0;
         }

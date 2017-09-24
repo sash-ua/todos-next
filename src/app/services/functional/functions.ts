@@ -22,4 +22,13 @@ export function checkPathElByID(currEl: any, re: RegExp, rnr2: Renderer2): numbe
     _l(currEl, re, rnr2);
     return buff;
 }
+
+/**
+ * Get data from LS by key.
+ * @param {string} key
+ * @return {any}
+ */
+export function getLSByKey(key: string) {
+    return JSON.parse(localStorage.getItem(key));
+}
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

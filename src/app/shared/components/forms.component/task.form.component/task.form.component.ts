@@ -58,7 +58,7 @@ export class TaskFormComponent {
     addTask(f2fForm: FormGroup, store: Store<any> ) {
         const taskID = this.store.manager().addItem.taskID;
         const listID = this.store.manager().addItem.listID;
-        this.addItem(f2fForm, store, listID, taskID);
+        this._addItem(f2fForm, store, listID, taskID);
     }
     /**
      * Add task handler.
@@ -67,7 +67,7 @@ export class TaskFormComponent {
      * @param {number} listID
      * @param {number} taskID
      */
-    addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
+    _addItem(f2fForm: FormGroup, store: Store<any>, listID: number, taskID: number = undefined) {
         let {description, priority, dueDate} = f2fForm.value;
         // Edited task.
         const editT: Task =  {
@@ -136,8 +136,7 @@ export class TaskFormComponent {
             thSide: thSide
         };
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
-        const e = this.hS.trnsfrmr2(data, cond1, cond2);
-        if (e instanceof Error) {this.err.handleError(e); }
+        const e = this.hS.trnsfrmr2(`task.form.component.ts._addItem`, data, cond1, cond2);
         function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }

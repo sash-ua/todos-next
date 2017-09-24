@@ -5,6 +5,9 @@ import {List, StateStore} from '../../configs/store/store.init';
 import {ErrorM} from 'monad-ts/src/error';
 import {Either} from 'monad-ts/src/either';
 import {FormBuilder} from '@angular/forms';
+import {Maybe} from 'monad-ts/src/maybe';
+import {getLSByKey} from '../functional/functions';
+import {ErrorHandlerService} from '../error.handler.service/error.handler.service';
 
 export type DA = {add: QueryList<ViewContainerRef>, editList: QueryList<ViewContainerRef>, editTask: QueryList<ViewContainerRef>};
 export type AddEditArgs = {
@@ -35,18 +38,18 @@ export type CondFn = (x: any) => boolean;
 @Injectable()
 export class MainHelperService {
     constructor(
-        protected store: Store<any>,
-        protected  factoryResolver: ComponentFactoryResolver,
+        private store: Store<any>,
+        private  factoryResolver: ComponentFactoryResolver,
         private fb: FormBuilder,
+        private err: ErrorHandlerService,
     ) {
     }
     /**
      * FormGroup init. with given config.
      * @param {Object} cnfg
-     * @param {boolean} edit
      * @return {FormGroup}
      */
-    initFG(cnfg: Object, edit = false) {
+    initFG(cnfg: Object) {
         return this.fb.group(cnfg);
     }
     /**
@@ -69,13 +72,20 @@ export class MainHelperService {
         }
     }
     /**
-     * Example of Either monad.
+     * Example of Monad transformer. Get Right, Left functions, data and condition function,
+     * if cond `true` execute Right func if `false` Left func, then if error handle it.
+     * @param errMsg
      * @param data
      * @param {CondFn} cond
      * @return {Pr<Error> | Error}
      */
-    trnsfrmr1(data: any, cond: CondFn) {
-        return new ErrorM().bind((v: any) => new Either(
+    trnsfrmr1(errMsg: string, data: any, cond: CondFn) {
+        return new Either(
+            x => this.err.handleError(`${errMsg}-${x}`),
+            x => x
+        ).bind(
+            (e: any) => e instanceof  ErrorM,
+            new ErrorM().bind((v: any) => new Either(
                 (z: any) => {
                     this._side(z, 'rSide');
                 },
@@ -83,36 +93,76 @@ export class MainHelperService {
                     this._side(z, 'lSide');
                 },
             ).bind(cond,  v),
-            data
-        );
+                data
+            )
+        )
     }
     /**
-     * Example of Either monad.
+     * Example of Monad transformer.
+     * @param errMsg
      * @param data
      * @param {CondFn} cond
      * @return {Pr<Error> | Error}
      */
-    trnsfrmr2(data: any, ...cond: Array<CondFn>) {
-        return new ErrorM()
-            .bind((v: any) => new Either(
-                ((d: any) => {
-                    this.trnsfrmr1(d, cond[1])}
-                ),
-
-                (d: any) => {
-                    this._side(d, 'thSide');
-                }
+    trnsfrmr2(errMsg: string, data: any, ...cond: Array<CondFn>) {
+        return new Either(
+            x => this.err.handleError(`${errMsg}-${x}`),
+            x => x
+        ).bind(
+            (e: any) => e instanceof  ErrorM,
+            new ErrorM()
+            .bind(
+                (v: any) => new Either(
+                    ((d: any) => {
+                        this.trnsfrmr1(errMsg, d, cond[1])}
+                    ),
+                    (d: any) => {
+                        this._side(d, 'thSide');
+                    }
+                )
+                    .bind(
+                        cond[0], v),
+                        data
             )
-                    .bind(cond[0], v),
-                data);
+        )
     }
-    _side(d: any, side: string) {
-        d.side = d[side];
+    /**
+     * Assign to executed section (`side`) of the data object (`d`) data from the `sideName` section of `d` and launch this.dispatcher(d).
+     * @param d - data object.
+     * @param {string} sideName
+     * @private
+     */
+    _side(d: any, sideName: string) {
+        d.side = d[sideName];
         this.dispatcher(d);
     }
+    /**
+     * Monad transformer. Get data from LS, if there's data then start initApp() func or if it get `null` do nothing
+     * or if error it throw it and handle.
+     * @param key
+     * @param {string} errMsg
+     * @param {Function} execfn
+     * @return {any}
+     */
+    initTrnsfrmr(key: any, errMsg: string, execfn: Function): any {
+        return new Either(
+            x => this.err.handleError(`${errMsg}-${x}`),
+            x => x
+        ).bind(
+            (e: any) => e instanceof  ErrorM,
+            new ErrorM().bind(
+                (v: any) => new Maybe().bind(
+                    (d: any) => execfn(d),
+                    v
+                ),
+                getLSByKey(key)
+            )
+        )
+    }
 }
+
 /**
- * Remove used for add/edit containers. Remove ViewContainerRef containers by id buffered in prevlistID, prevtaskID.
+ * Remove used for adding/editing containers. Remove ViewContainerRef containers by id buffered in prevlistID, prevtaskID.
  * @param {DA} obj
  * @param {Store<StateStore>} store
  * @param {Function} fn

@@ -11,6 +11,7 @@ import {AppRoutingModule} from './app.routing.module';
 import { AppComponent } from './app.component';
 import {FireBaseEModule} from './embedded.modules/firebase.e.module/firebase.em';
 import {LocDBService} from './services/DB.service/DB.service';
+import {ErrorHandlerService} from './services/error.handler.service/error.handler.service';
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import {LocDBService} from './services/DB.service/DB.service';
     ],
     providers: [
         LocDBService,
+        ErrorHandlerService,
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig }
     ],
     entryComponents: []

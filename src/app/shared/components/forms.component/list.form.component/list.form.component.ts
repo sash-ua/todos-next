@@ -126,8 +126,7 @@ export class ListFormComponent {
             thSide: thSide
         };
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
-        const e = this.hS.trnsfrmr2(data, cond1, cond2);
-        if (e instanceof Error) {this.err.handleError(e); }
+        const e = this.hS.trnsfrmr2(`list.form.component.ts._addItem`, data, cond1, cond2);
         function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }

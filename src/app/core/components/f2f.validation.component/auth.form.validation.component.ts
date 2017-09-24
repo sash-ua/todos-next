@@ -92,8 +92,7 @@ export class AuthFormValidationComponent {
             }
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
-        const e = this.hS.trnsfrmr1(data, cond);
-        if (e instanceof Error) {this.err.handleError(`AuthFormValidationComponent.ts.checkCredentials ${e}`); }
+        const e = this.hS.trnsfrmr1(`auth.form.validation.component.ts.checkCredentials`, data, cond);
         function cond() {
             if (store.manager().formInitData.active === 'reset') {
                 // Disable form control.
