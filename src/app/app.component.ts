@@ -42,8 +42,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         private hS: MainHelperService,
     ) {}
     ngAfterViewInit() {
-        // Monad transformer.
-        this.hS.initTrnsfrmr(`firebase:authUser:${FB.apiKey}:[DEFAULT]`, `app.component.ts.constructor`, this.initApp.bind(this));
+        this.initApp();
     }
     ngOnDestroy() {
         // Unsubscribe subscriptions onDestroy the component.
@@ -51,11 +50,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     }
     /**
      * Init user, set event listeners and add the observer on the user auth state changing.
-     * @param {string} user
      */
-    initApp (user: string) {
+    initApp () {
+        // Monad transformer to authorize user if session started.
+        this.hS.initTrnsfrmr(`firebase:authUser:${FB.apiKey}:[DEFAULT]`, `app.component.ts.constructor`, this.initUser.bind(this));
         this.setEventsListners();
-        this.initUser(user);
+        // Adding the observer on the user auth state changing.
         this.fb.auth.onAuthStateChanged((resp:  firebase.User) => {
                 if (resp) {
                     this.initUser(resp);
