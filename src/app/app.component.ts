@@ -96,7 +96,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
                     }) .data = v.data ? v.data : this.store.manager().data;
                 }
             })
-            .catch(e => this.err.handleError(`app.component.ts.appInit ${e}`));
+            .catch((e: any) => this.err.handleError(`app.component.ts.appInit ${e}`));
     }
     /**
      * Handle keyup.escape events.
