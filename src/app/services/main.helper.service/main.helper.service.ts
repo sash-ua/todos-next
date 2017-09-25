@@ -149,7 +149,7 @@ export class MainHelperService {
             x => this.err.handleError(`${errMsg}-${x}`),
             x => x
         ).bind(
-            (e: any) => e instanceof  ErrorM,
+            (e: any) => e instanceof ErrorM,
             new ErrorM().bind(
                 (v: any) => new Maybe().bind(
                     (d: any) => execfn(d),

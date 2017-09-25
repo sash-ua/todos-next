@@ -54,7 +54,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     initApp () {
         // Monad transformer to authorize user if session started.
         this.hS.initTrnsfrmr(`firebase:authUser:${FB.apiKey}:[DEFAULT]`, `app.component.ts.constructor`, this.initUser.bind(this));
-        this.setEventsListners();
+        this.setEventsListeners();
         // Adding the observer on the user auth state changing.
         this.fb.auth.onAuthStateChanged((resp:  firebase.User) => {
                 if (resp) {
@@ -64,9 +64,30 @@ export class AppComponent implements AfterViewInit, OnDestroy {
             (err: Error) => this.err.handleError(err));
     }
     /**
+     * Get user data and update corresponding app state.
+     * @param user
+     */
+    initUser(user: any): void {
+        const userId = user.uid;
+        this.ldb.getAllData(userId)
+            .then((r: any) => {
+                const v = r.val();
+                this.store.manager({userName: user.email, connected: userId});
+                if (v === null) {
+                    this.ldb.updateDB(this.store.manager().theme, 'theme');
+                }
+                if (v) {
+                    this.store.manager({
+                        theme: v.theme
+                    }).data = v.data ? v.data : this.store.manager().data;
+                }
+            })
+            .catch((e: any) => this.err.handleError(`app.component.ts.initUser ${e}`));
+    }
+    /**
      * Set event listners.
      */
-    setEventsListners() {
+    setEventsListeners() {
         [this.keyUp$, this.dragstart$, this.dragover$, this.drop$]
             = this.eventH.evFactory(
             this.rnr2.selectRootElement(document).body,
@@ -78,25 +99,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
                 this.dndS.dragDropHandler.bind(this),
             ]
         )
-    }
-    /**
-     * Get user data and update corresponding app state.
-     * @param user
-     */
-    initUser(user: any): void {
-        const userId = user.uid;
-        this.ldb.getAllData(userId)
-            .then((r: any) => {
-                const v = r.val();
-                if (v) {
-                    this.store.manager({
-                        userName: user.email,
-                        connected: userId,
-                        theme: v.theme
-                    }) .data = v.data ? v.data : this.store.manager().data;
-                }
-            })
-            .catch((e: any) => this.err.handleError(`app.component.ts.appInit ${e}`));
     }
     /**
      * Handle keyup.escape events.

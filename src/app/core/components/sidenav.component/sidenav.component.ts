@@ -16,11 +16,11 @@ export class SideNavComponent {
     ) {}
     /**
      * Set theme and save to firebase.
-     * @param data
+     * @param themeData
      */
-    setTheme (data: any) {
-        this.store.manager({theme: data});
-        this.ldb.updateDB(data, 'theme');
+    setTheme (themeData: any) {
+        this.store.manager({theme: themeData});
+        this.ldb.updateDB(themeData, 'theme');
     }
 }
 

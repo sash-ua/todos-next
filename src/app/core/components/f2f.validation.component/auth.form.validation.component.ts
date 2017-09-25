@@ -9,6 +9,7 @@ import {hash} from 'monad-ts/src/services/hash';
 import {AuthService} from '../../../embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
 import * as firebase from 'firebase/app';
 import Error = firebase.auth.Error;
+import {LocDBService} from '../../../services/DB.service/DB.service';
 
 export type FN = {[a: string]: string};
 
@@ -40,6 +41,7 @@ export class AuthFormValidationComponent {
         private hS: MainHelperService,
         private err: ErrorHandlerService,
         private authFb: AuthService,
+        private ldb: LocDBService
     ) {
         // Init FormGroup.
         this.f2fForm = this.hS.initFG(this.VALID_CNFG_1);
@@ -66,7 +68,7 @@ export class AuthFormValidationComponent {
                                 addAuth: false,
                                 isVisible: false,
                                 overlayOn: false,
-                            })
+                            }).data = [];
                         })
                         .catch((err: Error) => {
                             store.manager({
