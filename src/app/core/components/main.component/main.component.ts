@@ -1,5 +1,5 @@
 import {
-    AfterViewInit, Component, ComponentFactoryResolver, QueryList, ViewChildren, ViewContainerRef
+    AfterViewInit, Component, ComponentFactoryResolver, QueryList, Renderer2, ViewChildren, ViewContainerRef
 } from '@angular/core';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
@@ -36,14 +36,16 @@ export class MainComponent implements  AfterViewInit {
         private factoryResolver: ComponentFactoryResolver,
         private hS: MainHelperService,
         private err: ErrorHandlerService,
+        private r2: Renderer2
     ) {}
     ngAfterViewInit() {
         // Subscription and Observer for NavComponent.
+        // Observer onNext if this.store.manager().addItem.addListVisible is `true` add new List.
             ADD_LIST_S$.subscribe(
             (v: any) => {
                 if (v) {this.addDispatcher({cnfg: this.store.manager().LIST_CNFG, action: {listID: undefined}})}
             },
-            (err: Error) => console.error(err));
+            (err: Error) => this.err.handleError(`main.component.ts.ngAfterViewInit.ADD_LIST_S$-${err}`));
     }
     /**
      * Track list by id.
@@ -74,8 +76,8 @@ export class MainComponent implements  AfterViewInit {
     toggleClass (id: number, clss: string): void {
         const el = document.getElementById(`list${id}`);
         el.classList.contains(clss)
-            ? el.classList.remove(clss)
-            : el.classList.add(clss);
+            ? this.r2.removeClass(el, clss)
+            : this.r2.addClass(el, clss);
     }
     /**
      * Add List/Task.
@@ -164,13 +166,13 @@ export class MainComponent implements  AfterViewInit {
                 priority: listCurr.priority === 'warn'
             }
         };
-        // Executed if cond() === true
+        // Executed if cond() === true. Add TaskFormComponent.
         const rSide: Side = {
             addTypeCmpnnt: TaskFormComponent,
             containers: daCntnrs.editTask,
             toStoreData: toStoreR
         };
-        // Executed if cond() === false
+        // Executed if cond() === false. Add ListFormComponent.
         const lSide: Side = {
             addTypeCmpnnt: ListFormComponent,
             containers: daCntnrs.editList,
