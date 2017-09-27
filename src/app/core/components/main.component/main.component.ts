@@ -7,11 +7,12 @@ import {TaskFormComponent} from '../../../shared/components/forms.component/task
 import {ListFormComponent} from '../../../shared/components/forms.component/list.form.component/list.form.component';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
 import {
-    AddEditArgs, MainHelperService, getTaskQntt, removePrevCmpnnt, Side
-} from '../../../services/main.helper.service/main.helper.service';
+    AddEditArgs, MonadService, Side
+} from '../../../services/monad.service/monad.service';
 import {List} from '../../../configs/store/store.init';
 import 'rxjs/add/observable/from';
 import {ADD_LIST_S$} from '../nav.component/nav.component';
+import {getTaskQntt, removePrevCmpnnt} from '../../../services/functions/common';
 
 @Component({
     selector: 'main-cmpnnt',
@@ -33,8 +34,7 @@ export class MainComponent implements  AfterViewInit {
     @ViewChildren('editListDACmpnnt', {read: ViewContainerRef }) editListContainers: QueryList<ViewContainerRef> ;
     constructor(
         private store: Store<any>,
-        private factoryResolver: ComponentFactoryResolver,
-        private hS: MainHelperService,
+        private hS: MonadService,
         private err: ErrorHandlerService,
         private r2: Renderer2
     ) {}
@@ -188,7 +188,7 @@ export class MainComponent implements  AfterViewInit {
             lSide: lSide
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
-        const e = this.hS.trnsfrmr1(`main.component.ts.editDispatcher`, data, cond);
+        this.hS.trnsfrmr1(`main.component.ts.editDispatcher`, data, cond);
         function cond<CondFn>(objl: AddEditArgs) {
             return objl.listID >= 0 && objl.taskID >= 0;
         }

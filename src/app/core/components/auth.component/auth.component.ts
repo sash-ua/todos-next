@@ -3,7 +3,7 @@ import {AnimationsServices} from '../../../services/animation.service/animations
 import {Store} from 'angust/src/store';
 import {StateStore, AuthConfig} from '../../../configs/store/store.init';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
-import {MainHelperService} from '../../../services/main.helper.service/main.helper.service';
+import {MonadService} from '../../../services/monad.service/monad.service';
 import {AuthService} from '../../../embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class AuthComponent {
 
     constructor(
         private store: Store<StateStore>,
-        private hS: MainHelperService,
+        private hS: MonadService,
         public err: ErrorHandlerService,
         private fb: AuthService
     ) {
@@ -76,7 +76,7 @@ export class AuthComponent {
         };
         // If press the same button as previous it produces `true`.
         const cond = (d: any) => d.args.btnName === this.f;
-        const e = this.hS.trnsfrmr1(`auth.component.ts.configAuthForm`, data, cond);
+        this.hS.trnsfrmr1(`auth.component.ts.configAuthForm`, data, cond);
     }
     /**
      * LogOut.

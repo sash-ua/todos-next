@@ -13,7 +13,7 @@ import Error = firebase.auth.Error;
 import {DBService} from './embedded.modules/firebase.e.module/db.em/db.service/db.service';
 import {LocDBService} from './services/DB.service/DB.service';
 import {FB} from './configs/firebase/firebase.cnfg';
-import {MainHelperService} from './services/main.helper.service/main.helper.service';
+import {MonadService} from './services/monad.service/monad.service';
 
 @Component({
     selector: 'my-app',
@@ -39,7 +39,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         private db: DBService,
         private err: ErrorHandlerService,
         private ldb: LocDBService,
-        private hS: MainHelperService,
+        private hS: MonadService,
     ) {}
     ngAfterViewInit() {
         this.initApp();
@@ -73,13 +73,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
             .then((r: any) => {
                 const v = r.val();
                 this.store.manager({userName: user.email, connected: userId});
-                if (v === null) {
-                    this.ldb.updateDB(this.store.manager().theme, 'theme');
-                }
+                if (v === null) {this.ldb.updateDB(this.store.manager().theme, 'theme')}
                 if (v) {
-                    this.store.manager({
-                        theme: v.theme
-                    }).data = v.data ? v.data : this.store.manager().data;
+                    this.store.manager({theme: v.theme}).data = v.data ? v.data : this.store.manager().data;
                 }
             })
             .catch((e: any) => this.err.handleError(`app.component.ts.initUser ${e}`));

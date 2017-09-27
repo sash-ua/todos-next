@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import {FireBaseEModule} from './embedded.modules/firebase.e.module/firebase.em';
 import {LocDBService} from './services/DB.service/DB.service';
 import {ErrorHandlerService} from './services/error.handler.service/error.handler.service';
+import {FormGroupService} from './services/form.group.service/form.group.service';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import {ErrorHandlerService} from './services/error.handler.service/error.handle
     providers: [
         LocDBService,
         ErrorHandlerService,
+        FormGroupService,
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig }
     ],
     entryComponents: []

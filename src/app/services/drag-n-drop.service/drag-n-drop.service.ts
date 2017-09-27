@@ -1,6 +1,6 @@
 import {Injectable, Renderer2} from '@angular/core';
 import {ErrorHandlerService} from '../error.handler.service/error.handler.service';
-import {checkPathElByID} from '../functional/functions';
+import {checkPathElByID} from '../functions/common';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../configs/store/store.init';
 import {debounceTime} from 'monad-ts';

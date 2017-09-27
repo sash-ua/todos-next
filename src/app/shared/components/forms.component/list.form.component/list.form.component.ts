@@ -1,13 +1,12 @@
 import {Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
 import {List, StateStore} from '../../../../configs/store/store.init';
-import {ErrorHandlerService} from '../../../../services/error.handler.service/error.handler.service';
-import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
-import {DBService} from '../../../../embedded.modules/firebase.e.module/db.em/db.service/db.service';
+import {MonadService, Side} from '../../../../services/monad.service/monad.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
+import {FormGroupService} from '../../../../services/form.group.service/form.group.service';
 
 
 @Component({
@@ -51,15 +50,13 @@ export class ListFormComponent {
     };
     constructor(
         private store: Store<StateStore>,
-        private fb: FormBuilder,
-        private err: ErrorHandlerService,
-        private hS: MainHelperService,
-        private db: DBService,
-        private ldb: LocDBService
+        private hS: MonadService,
+        private ldb: LocDBService,
+        private fgL: FormGroupService
     ) {
         // Config. Form group. It depends on add / edit list mode (listID  = number - edit; listID = undefined - add
         // new list)
-        this.f2fForm = this.hS.initFG(this.store.manager().addItem.listID >= 0 ? this.editCnfg : this.addCnfg);
+        this.f2fForm = this.fgL.initFG(this.store.manager().addItem.listID >= 0 ? this.editCnfg : this.addCnfg);
     }
     /**
      * Add list handler. Change app's state depends on condition functions.
@@ -126,7 +123,7 @@ export class ListFormComponent {
             thSide: thSide
         };
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
-        const e = this.hS.trnsfrmr2(`list.form.component.ts._addItem`, data, cond1, cond2);
+        this.hS.trnsfrmr2(`list.form.component.ts._addItem`, data, cond1, cond2);
         function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }

@@ -1,11 +1,12 @@
 import {Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {AnimationsServices} from '../../../../services/animation.service/animations.service';
 import {Task} from '../../../../configs/store/store.init';
-import {MainHelperService, Side} from '../../../../services/main.helper.service/main.helper.service';
+import {MonadService, Side} from '../../../../services/monad.service/monad.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
+import {FormGroupService} from '../../../../services/form.group.service/form.group.service';
 
 @Component({
     selector: 'task-form-component',
@@ -45,12 +46,12 @@ export class TaskFormComponent {
     };
     constructor(
         private store: Store<any>,
-        private fb: FormBuilder,
-        private hS: MainHelperService,
-        private ldb: LocDBService
+        private hS: MonadService,
+        private ldb: LocDBService,
+        private fgL: FormGroupService
     ) {
         // Initialize Form group.
-        this.f2fForm = this.hS.initFG(this.store.manager().addItem.taskID >= 0 ? this.editTaskCnfg : this.addTaskCnfg);
+        this.f2fForm = this.fgL.initFG(this.store.manager().addItem.taskID >= 0 ? this.editTaskCnfg : this.addTaskCnfg);
     }
     // Set data in `store` depends on `cond` functions.
     addTask(f2fForm: FormGroup, store: Store<any> ) {
@@ -134,7 +135,7 @@ export class TaskFormComponent {
             thSide: thSide
         };
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
-        const e = this.hS.trnsfrmr2(`task.form.component.ts._addItem`, data, cond1, cond2);
+        this.hS.trnsfrmr2(`task.form.component.ts._addItem`, data, cond1, cond2);
         function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }

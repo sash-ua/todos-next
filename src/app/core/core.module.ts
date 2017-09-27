@@ -11,7 +11,7 @@ import {ListFormComponent} from '../shared/components/forms.component/list.form.
 import {Page404Component} from './components/page.404.component/page.404.component';
 import {AppWrapperComponent} from './components/app.wrapper.component/app.wrapper.component';
 import {AppRoutingModule} from '../app.routing.module';
-import {MainHelperService} from '../services/main.helper.service/main.helper.service';
+import {MonadService} from '../services/monad.service/monad.service';
 import {SideNavComponent} from './components/sidenav.component/sidenav.component';
 
 @NgModule({
@@ -46,7 +46,7 @@ import {SideNavComponent} from './components/sidenav.component/sidenav.component
         ListFormComponent
     ],
     providers: [
-        MainHelperService
+        MonadService
     ],
 })
 export class CoreModule {}

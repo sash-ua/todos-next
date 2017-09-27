@@ -2,14 +2,13 @@ import {Component, HostBinding} from '@angular/core';
 import {AnimationsServices} from '../../../services/animation.service/animations.service';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../../configs/store/store.init';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {MainHelperService} from '../../../services/main.helper.service/main.helper.service';
-import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
+import {FormGroup, Validators} from '@angular/forms';
+import {MonadService} from '../../../services/monad.service/monad.service';
 import {hash} from 'monad-ts/src/services/hash';
 import {AuthService} from '../../../embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
 import * as firebase from 'firebase/app';
 import Error = firebase.auth.Error;
-import {LocDBService} from '../../../services/DB.service/DB.service';
+import {FormGroupService} from '../../../services/form.group.service/form.group.service';
 
 export type FN = {[a: string]: string};
 
@@ -37,14 +36,12 @@ export class AuthFormValidationComponent {
     @HostBinding('style.display') display = 'block';
     constructor(
         private store: Store<StateStore>,
-        private fb: FormBuilder,
-        private hS: MainHelperService,
-        private err: ErrorHandlerService,
+        private hS: MonadService,
         private authFb: AuthService,
-        private ldb: LocDBService
+        private fgL: FormGroupService
     ) {
         // Init FormGroup.
-        this.f2fForm = this.hS.initFG(this.VALID_CNFG_1);
+        this.f2fForm = this.fgL.initFG(this.VALID_CNFG_1);
     }
     /**
      * Get credentials, validate and save it to Store.
