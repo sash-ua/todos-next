@@ -2,7 +2,7 @@ import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
 import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
-import {animatonThreeStates} from '../../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../../services/functions/animations.service';
 import {Task} from '../../../../configs/store/store.init';
 import {MonadService, Side} from '../../../../services/monad.service/monad.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
@@ -29,6 +29,7 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
 export class TaskFormComponent {
     @HostBinding('@taskAnimation') taskAnimation: AnimationEntryMetadata = true;
     @HostBinding('style.position') position = 'absolute';
+    @HostBinding('style.top') top = 0;
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
     public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'dueDate'};

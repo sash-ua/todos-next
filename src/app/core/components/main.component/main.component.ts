@@ -2,7 +2,7 @@ import {
     AfterViewInit, Component, QueryList, Renderer2, ViewChildren, ViewContainerRef
 } from '@angular/core';
 import {Store} from 'angust/src/store';
-import {animatonThreeStates} from '../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../services/functions/animations.service';
 import {TaskFormComponent} from '../../../shared/components/forms.component/task.form.component/task.form.component';
 import {ListFormComponent} from '../../../shared/components/forms.component/list.form.component/list.form.component';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';

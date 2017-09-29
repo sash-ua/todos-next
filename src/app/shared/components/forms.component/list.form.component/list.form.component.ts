@@ -2,7 +2,7 @@ import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
 import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
-import {animatonThreeStates} from '../../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../../services/functions/animations.service';
 import {List, StateStore} from '../../../../configs/store/store.init';
 import {MonadService, Side} from '../../../../services/monad.service/monad.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';

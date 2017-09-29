@@ -1,5 +1,5 @@
 import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
-import {animatonThreeStates} from '../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../services/functions/animations.service';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../../configs/store/store.init';
 import {FormGroup, Validators} from '@angular/forms';
