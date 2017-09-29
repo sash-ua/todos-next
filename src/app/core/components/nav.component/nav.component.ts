@@ -17,7 +17,7 @@ export class NavComponent {
         private store: Store<StateStore>
     ) {}
     /**
-     * Example Flow.
+     * #Example Flow.
      * Store.addAuth === true -> auth.component is visible AuthFormValidationComponent fields is invisible (Store.isVisible: false).
      */
     addAuthDispatcher() {
@@ -32,7 +32,7 @@ export class NavComponent {
      * When function invoked Observer get Observable and execute MainComponent.addDispatcher().
      */
     addListDispatcher ()  {
-        this.store.manager({sideNav: false, addItem: {addListVisible: !this.store.manager().addItem.addListVisible}});
+        this.store.manager({sideNav: false, addItem: {addListVisible: !this.store.manager().addItem.addListVisible, listID: undefined}});
         ADD_LIST_S$.next(this.store.manager().addItem.addListVisible);
     }
     /**

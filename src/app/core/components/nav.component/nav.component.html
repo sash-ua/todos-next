@@ -13,19 +13,17 @@
         </md-icon>
         <span class="cdk-visually-hidden">Connection</span>
     </div>
-    <button type="button" md-button (click)="sideNavToggle()" class="btn btn__settings">
+    <div (click)="sideNavToggle()" class="btn btn__settings">
         <md-icon title="Settings"
                  [style.color]="store.manager().theme.nav.sttngsIco"
                  class="md-icon__act">settings</md-icon>
         <span class="cdk-visually-hidden">Settings</span>
-    </button>
-    <button type="button" md-button
-            (click)="addListDispatcher()"
-            [color]="store.manager().theme.main.listBtn"
+    </div>
+    <div (click)="addListDispatcher()"
             title="Add list"
             class="btn btn__add-list">
-        <md-icon >add</md-icon>
-    </button>
+        <md-icon [color]="store.manager().theme.main.listBtn">add</md-icon>
+    </div>
     <button md-button
             (click)="addAuthDispatcher()"
             [style.color]="store.manager().theme.nav.color"
