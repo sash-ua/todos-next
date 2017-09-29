@@ -1,8 +1,8 @@
-import {Component, HostBinding} from '@angular/core';
+import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
 import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
-import {AnimationsServices} from '../../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../../services/animation.service/animations.service';
 import {List, StateStore} from '../../../../configs/store/store.init';
 import {MonadService, Side} from '../../../../services/monad.service/monad.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
@@ -14,7 +14,7 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
     templateUrl: 'list.form.component.html',
     styleUrls: ['list.form.component.css'],
     animations: [
-        AnimationsServices.animatonThreeStates(
+        animatonThreeStates(
             'listAnimation',
             {opacity: 1, transform: 'scale(1) translateX(50%)  translateY(0)'},
             [{opacity: 0, transform: 'scale(0) translateX(-150%) translateY(-250%)'}, {opacity: 0, transform: 'scale(0)' +
@@ -28,7 +28,7 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
 })
 
 export class ListFormComponent {
-    @HostBinding('@listAnimation') listAnimation: AnimationsServices = true;
+    @HostBinding('@listAnimation') listAnimation: AnimationEntryMetadata = true;
     @HostBinding('style.display') display = 'block';
     @HostBinding('style.position') position = 'absolute';
     @HostBinding('style.top') top = '50px';

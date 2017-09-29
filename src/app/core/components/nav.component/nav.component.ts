@@ -17,7 +17,7 @@ export class NavComponent {
         private store: Store<StateStore>
     ) {}
     /**
-     * #Example Flow.
+     * #Example of Flow.
      * Store.addAuth === true -> auth.component is visible AuthFormValidationComponent fields is invisible (Store.isVisible: false).
      */
     addAuthDispatcher() {

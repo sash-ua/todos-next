@@ -1,8 +1,8 @@
 import {
-    AfterViewInit, Component, ComponentFactoryResolver, QueryList, Renderer2, ViewChildren, ViewContainerRef
+    AfterViewInit, Component, QueryList, Renderer2, ViewChildren, ViewContainerRef
 } from '@angular/core';
 import {Store} from 'angust/src/store';
-import {AnimationsServices} from '../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../services/animation.service/animations.service';
 import {TaskFormComponent} from '../../../shared/components/forms.component/task.form.component/task.form.component';
 import {ListFormComponent} from '../../../shared/components/forms.component/list.form.component/list.form.component';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
@@ -19,7 +19,7 @@ import {getTaskQntt, removePrevCmpnnt} from '../../../services/functions/common'
     templateUrl: 'main.component.html',
     styleUrls: ['main.component.css'],
     animations: [
-        AnimationsServices.animatonThreeStates(
+        animatonThreeStates(
             'overlay',
             {opacity: 1, transform: 'translateX(0)'},
             [{opacity: 0, transform: 'translateX(0)'}, {opacity: 0, transform: 'translateX(0)'}],

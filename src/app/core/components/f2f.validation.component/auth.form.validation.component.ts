@@ -1,5 +1,5 @@
-import {Component, HostBinding} from '@angular/core';
-import {AnimationsServices} from '../../../services/animation.service/animations.service';
+import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
+import {animatonThreeStates} from '../../../services/animation.service/animations.service';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../../configs/store/store.init';
 import {FormGroup, Validators} from '@angular/forms';
@@ -16,7 +16,7 @@ export type FN = {[a: string]: string};
     selector: 'auth-form-cmpnnt',
     templateUrl: 'auth.form.validation.component.html',
     animations: [
-        AnimationsServices.animatonThreeStates(
+        animatonThreeStates(
             'routeAnimationUpDown',
             {opacity: 1, transform: 'translateY(0%)'},
             [{opacity: 0, transform: 'translateY(100%)'}, {opacity: 0, transform: 'translateY(100%)'}],
@@ -32,7 +32,7 @@ export class AuthFormValidationComponent {
         [this.fieldsName.f1]: ['', [Validators.required, Validators.email]],
         [this.fieldsName.f2]: ['', [Validators.required, Validators.minLength(6)]]
     };
-    @HostBinding('@routeAnimationUpDown') routeAnimationUpDown: AnimationsServices = false;
+    @HostBinding('@routeAnimationUpDown') routeAnimationUpDown: AnimationEntryMetadata = false;
     @HostBinding('style.display') display = 'block';
     constructor(
         private store: Store<StateStore>,

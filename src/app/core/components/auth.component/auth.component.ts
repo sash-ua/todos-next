@@ -1,5 +1,5 @@
-import {Component, HostBinding} from '@angular/core';
-import {AnimationsServices} from '../../../services/animation.service/animations.service';
+import {Component, HostBinding, AnimationEntryMetadata} from '@angular/core';
+import {animatonThreeStates} from '../../../services/animation.service/animations.service';
 import {Store} from 'angust/src/store';
 import {StateStore, AuthConfig} from '../../../configs/store/store.init';
 import {ErrorHandlerService} from '../../../services/error.handler.service/error.handler.service';
@@ -11,7 +11,7 @@ import {AuthService} from '../../../embedded.modules/firebase.e.module/auth.em/a
     templateUrl: 'auth.component.html',
     styleUrls: ['auth.component.css'],
     animations: [
-        AnimationsServices.animatonThreeStates(
+        animatonThreeStates(
             'routeAnimationUpDown',
             {opacity: 1, transform: 'translateY(50px)'},
             [{opacity: 0, transform: 'translateY(0)'}, {opacity: 0, transform: 'translateY(0)'}],
@@ -28,7 +28,7 @@ export class AuthComponent {
     public logInCnfg: AuthConfig;
     public signInCnfg: AuthConfig;
     public resetCnfg: AuthConfig;
-    @HostBinding('@routeAnimationUpDown') routeAnimationUpDown: AnimationsServices = true;
+    @HostBinding('@routeAnimationUpDown') routeAnimationUpDown: AnimationEntryMetadata = true;
     @HostBinding('style.display') display = 'inline-table';
 
     constructor(

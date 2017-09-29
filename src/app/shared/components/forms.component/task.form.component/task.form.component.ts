@@ -1,8 +1,8 @@
-import {Component, HostBinding} from '@angular/core';
+import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
 import {FN} from '../../../../core/components/f2f.validation.component/auth.form.validation.component';
 import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
-import {AnimationsServices} from '../../../../services/animation.service/animations.service';
+import {animatonThreeStates} from '../../../../services/animation.service/animations.service';
 import {Task} from '../../../../configs/store/store.init';
 import {MonadService, Side} from '../../../../services/monad.service/monad.service';
 import {LocDBService} from '../../../../services/DB.service/DB.service';
@@ -13,7 +13,7 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
     templateUrl: 'task.form.component.html',
     styleUrls: ['task.form.component.css'],
     animations: [
-        AnimationsServices.animatonThreeStates(
+        animatonThreeStates(
             'taskAnimation',
             {opacity: 1, transform: 'scale(1) translateX(0)'},
             [{opacity: 0, transform: 'scale(0) translateX(-100%)'},
@@ -27,7 +27,7 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
 })
 
 export class TaskFormComponent {
-    @HostBinding('@taskAnimation') taskAnimation: AnimationsServices = true;
+    @HostBinding('@taskAnimation') taskAnimation: AnimationEntryMetadata = true;
     @HostBinding('style.position') position = 'absolute';
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
