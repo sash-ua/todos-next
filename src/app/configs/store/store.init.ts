@@ -198,7 +198,7 @@ export const INIT_STATE: StateStore = {
     RESET_AUTH_CNFG: {
         first: {name: 'email', type: 'txt'},
         second: {name: '', type: ''},
-        btnName: 'send action link',
+        btnName: 'reset password',
         active: 'reset'
     },
     // Config. for new task creation and editing

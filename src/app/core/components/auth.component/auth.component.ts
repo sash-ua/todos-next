@@ -76,7 +76,7 @@ export class AuthComponent {
         };
         // If press the same button as previous it produces `true`.
         const cond = (d: any) => d.args.btnName === this.f;
-        this.hS.trnsfrmr1(`auth.component.ts.configAuthForm`, data, cond);
+        this.hS.eitherErrorEitherT(data, cond, `auth.component.ts.configAuthForm`);
     }
     /**
      * LogOut.

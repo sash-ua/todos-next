@@ -4,7 +4,7 @@ import {List, StateStore} from '../../configs/store/store.init';
 import {ErrorM} from 'monad-ts/src/error';
 import {Either} from 'monad-ts/src/either';
 import {Maybe} from 'monad-ts/src/maybe';
-import {getLSByKey, getTaskQntt, removePrevCmpnnt} from '../functions/common';
+import {getTaskQntt, removePrevCmpnnt} from '../functions/common';
 import {ErrorHandlerService} from '../error.handler.service/error.handler.service';
 import {dinamicallyAddCmpnnt} from '../functions/dinamically.add';
 
@@ -43,82 +43,101 @@ export class MonadService {
     ) {
     }
     /**
-     * Monad transformer. Get data from LS, if there's data then start initApp() func or if it get `null` do nothing
-     * or if error it throw it and handle.
-     * @param key
+     * ErrorM-Either monad transformer.
      * @param {string} errMsg
-     * @param {Function} execfn
-     * @return {any}
-     */
-    initTrnsfrmr(key: any, errMsg: string, execfn: Function): any {
-        return new Either(
-            x => this.err.handleError(`${errMsg}-${x}`),
-            x => x
-        ).bind(
-            (e: any) => e instanceof ErrorM,
-            new ErrorM().bind(
-                (v: any) => new Maybe().bind(
-                    (d: any) => execfn(d),
-                    v
-                ),
-                getLSByKey(key)
-            )
-        )
-    }
-    /**
-     * Example of Monad transformer. Get Right, Left functions, data and condition function,
-     * if cond `true` execute Right func if `false` Left func, then if error handle it.
-     * @param errMsg
      * @param data
-     * @param {CondFn} cond
-     * @return {Pr<Error> | Error}
+     * @param execfn
+     * @param {Function} trnsfrmrFn - Transformation function.
+     * @return {boolean | Pr<any> | Error}
      */
-    trnsfrmr1(errMsg: string, data: any, cond: CondFn) {
+    errorEitherT(data: any, execfn: any, errMsg: string, trnsfrmrFn: Function) {
         return new Either(
             x => this.err.handleError(`${errMsg}-${x}`),
             x => x
         ).bind(
             (e: any) => e instanceof  ErrorM,
-            new ErrorM().bind((v: any) => new Either(
-                (z: any) => {
-                    this._side(z, 'rSide');
-                },
-                (z: any) => {
-                    this._side(z, 'lSide');
-                },
-            ).bind(cond,  v),
+            new ErrorM().bind(
+                v => trnsfrmrFn(v, execfn, errMsg),
                 data
             )
         )
     }
     /**
-     * Example of Monad transformer.
-     * @param errMsg
+     * Transformation function from Maybe monad.
+     * @param {string} errMsg
+     * @param data
+     * @param {Function} execfn
+     * @return {Pr<any>}
+     */
+    maybe (data: any, execfn: Function) {
+        return new Maybe().bind(
+            (d: any) => execfn(d),
+            data
+        )
+    }
+    /**
+     * Get data, if there's data then start `execfn` func or if it get `null` do nothing or if error it throw it and handle.
+     * @param data
+     * @param {(v?: any) => any} execfn
+     * @param {string} errMsg
+     * @return {any}
+     */
+    maybeErrorEitherT(data: any, execfn: (v?: any) => any, errMsg: string): any {
+        return this.errorEitherT(data, execfn, errMsg, this.maybe);
+    }
+    /**
+     * Transformation function from either monad.
+     * @param data
+     * @param {CondFn} execfn
+     * @return {boolean | Pr<any> | Error}
+     */
+    either(data: any, execfn: CondFn) {
+        return new Either(
+            (z: any) => {
+                this._side(z, 'rSide');
+            },
+            (z: any) => {
+                this._side(z, 'lSide');
+            },
+        ).bind(execfn,  data)
+    }
+    /**
+     * Get Right, Left functions, data and condition function, if cond `true` execute Right func if `false` Left func,
+     * then if error - handle it.
      * @param data
      * @param {CondFn} cond
-     * @return {Pr<Error> | Error}
+     * @param {string} errMsg
+     * @return {boolean | Pr<any> | Error}
      */
-    trnsfrmr2(errMsg: string, data: any, ...cond: Array<CondFn>) {
+    eitherErrorEitherT(data: any, cond: CondFn, errMsg: string) {
+        return this.errorEitherT(data, cond, errMsg, this.either.bind(this));
+    }
+    /**
+     * Transformation function based on either monad and eitherErrorEitherT transformer.
+     * @param data
+     * @param {Array<CondFn>} execfn
+     * @param {string} errMsg
+     * @return {boolean | Pr<any> | Error}
+     */
+    eitherT(data: any, execfn: Array<CondFn>, errMsg: string) {
         return new Either(
-            x => this.err.handleError(`${errMsg}-${x}`),
-            x => x
-        ).bind(
-            (e: any) => e instanceof  ErrorM,
-            new ErrorM()
-            .bind(
-                (v: any) => new Either(
-                    ((d: any) => {
-                        this.trnsfrmr1(errMsg, d, cond[1])}
-                    ),
-                    (d: any) => {
-                        this._side(d, 'thSide');
-                    }
-                )
-                    .bind(
-                        cond[0], v),
-                        data
-            )
-        )
+            (z: any) => {
+                return this.eitherErrorEitherT(z, execfn[1], errMsg);
+            },
+            (z: any) => {
+                this._side(z, 'thSide');
+            },
+        ).bind(execfn[0],  data)
+    }
+    /**
+     * Example of either-either-error-either monad transformer.
+     * @param {string} errMsg
+     * @param data
+     * @param {CondFn} cond
+     * @return {boolean | Pr<any> | Error}
+     */
+    eitherEitherErrorEitherT(errMsg: string, data: any, ...cond: Array<CondFn>) {
+        return this.errorEitherT(data, cond, errMsg, this.eitherT.bind(this));
     }
     /**
      * Assign to executed section (`side`) of the data object (`d`) data from the `sideName` section of `d` and launch this.dispatcher(d).

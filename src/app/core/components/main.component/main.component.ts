@@ -119,7 +119,7 @@ export class MainComponent implements  AfterViewInit {
             rSide: rSide,
             lSide: lSide
         };
-        const e = this.hS.trnsfrmr1(`main.component.ts.addDispatcher`, data, cond);
+        const e = this.hS.eitherErrorEitherT(data, cond, `main.component.ts.addDispatcher`);
         function cond(objl: AddEditArgs) {
             return objl.listID >= 0;
         }
@@ -188,7 +188,7 @@ export class MainComponent implements  AfterViewInit {
             lSide: lSide
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
-        this.hS.trnsfrmr1(`main.component.ts.editDispatcher`, data, cond);
+        this.hS.eitherErrorEitherT(data, cond, `main.component.ts.editDispatcher`, );
         function cond<CondFn>(objl: AddEditArgs) {
             return objl.listID >= 0 && objl.taskID >= 0;
         }

@@ -24,7 +24,7 @@ export class NavComponent {
         new Flow(this.store.manager().addAuth)
             .bind((v: any) => !v)
             .bind(v => {
-                this.store.manager({addAuth: v, isVisible: !v, overlayOn: v});
+                this.store.manager({addAuth: v, isVisible: !v, overlayOn: v, addItem: {addListVisible: !v}});
             });
     };
     /**
@@ -32,7 +32,11 @@ export class NavComponent {
      * When function invoked Observer get Observable and execute MainComponent.addDispatcher().
      */
     addListDispatcher ()  {
-        this.store.manager({sideNav: false, addItem: {addListVisible: !this.store.manager().addItem.addListVisible, listID: undefined}});
+        this.store.manager({
+            sideNav: false,
+            addAuth: false,
+            addItem: {addListVisible: !this.store.manager().addItem.addListVisible, listID: undefined}
+        });
         ADD_LIST_S$.next(this.store.manager().addItem.addListVisible);
     }
     /**

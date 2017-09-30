@@ -29,7 +29,7 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
 export class TaskFormComponent {
     @HostBinding('@taskAnimation') taskAnimation: AnimationEntryMetadata = true;
     @HostBinding('style.position') position = 'absolute';
-    @HostBinding('style.top') top = 0;
+    // @HostBinding('style.top') top = 0;
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
     public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'dueDate'};
@@ -136,7 +136,7 @@ export class TaskFormComponent {
             thSide: thSide
         };
         // if cond1 === true -> (cond2 === true -> data, data.rSide else data, data.lSide) else data, data.thSide.
-        this.hS.trnsfrmr2(`task.form.component.ts._addItem`, data, cond1, cond2);
+        this.hS.eitherEitherErrorEitherT(`task.form.component.ts._addItem`, data, cond1, cond2);
         function cond1<CondFn>(d: any) {
             return d.f2fFormStatus;
         }

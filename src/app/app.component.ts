@@ -14,6 +14,7 @@ import {DBService} from './embedded.modules/firebase.e.module/db.em/db.service/d
 import {LocDBService} from './services/DB.service/DB.service';
 import {FB} from './configs/firebase/firebase.cnfg';
 import {MonadService} from './services/monad.service/monad.service';
+import {getLSByKey} from './services/functions/common';
 
 @Component({
     selector: 'my-app',
@@ -53,7 +54,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
      */
     initApp () {
         // Monad transformer to authorize user if session started.
-        this.hS.initTrnsfrmr(`firebase:authUser:${FB.apiKey}:[DEFAULT]`, `app.component.ts.constructor`, this.initUser.bind(this));
+        this.hS.maybeErrorEitherT(getLSByKey(`firebase:authUser:${FB.apiKey}:[DEFAULT]`), this.initUser.bind(this), `app.component.ts.constructor`);
         this.setEventsListeners();
         // Adding the observer on the user auth state changing.
         this.fb.auth.onAuthStateChanged((resp:  firebase.User) => {
