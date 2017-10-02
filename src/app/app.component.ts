@@ -10,7 +10,6 @@ import {DragNDropService} from './services/drag-n-drop.service/drag-n-drop.servi
 import  * as firebase from 'firebase/app';
 import {AuthService} from './embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
 import Error = firebase.auth.Error;
-import {DBService} from './embedded.modules/firebase.e.module/db.em/db.service/db.service';
 import {LocDBService} from './services/DB.service/DB.service';
 import {FB} from './configs/firebase/firebase.cnfg';
 import {MonadService} from './services/monad.service/monad.service';
@@ -37,7 +36,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         private rnr2: Renderer2,
         private dndS: DragNDropService,
         private fb: AuthService,
-        private db: DBService,
         private err: ErrorHandlerService,
         private ldb: LocDBService,
         private hS: MonadService,

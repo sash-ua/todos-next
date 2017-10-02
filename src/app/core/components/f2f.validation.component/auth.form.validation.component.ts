@@ -91,7 +91,7 @@ export class AuthFormValidationComponent {
             }
         };
         // if cond === true -> data, data.rSide else data, data.lSide.
-        const e = this.hS.eitherErrorEitherT(data, cond, `auth.form.validation.component.ts.checkCredentials`);
+        this.hS.eitherErrorEitherT(data, cond, `auth.form.validation.component.ts.checkCredentials`);
         function cond() {
             if (store.manager().formInitData.active === 'reset') {
                 // Disable form control.
