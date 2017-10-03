@@ -64,7 +64,6 @@ export class MonadService {
     }
     /**
      * Transformation function from Maybe monad.
-     * @param {string} errMsg
      * @param data
      * @param {Function} execfn
      * @return {Pr<any>}
@@ -164,8 +163,12 @@ export class MonadService {
             obj.side.fn(obj);
         }
         if (obj.side.addTypeCmpnnt) {
-            const ID = obj.taskID >= 0 ? getTaskQntt(obj.listID, this.store) + obj.taskID : obj.listID;
-            dinamicallyAddCmpnnt(this.factoryResolver, obj.side.containers, ID, obj.side.addTypeCmpnnt);
+            dinamicallyAddCmpnnt(
+                this.factoryResolver,
+                obj.side.containers,
+                obj.taskID >= 0 ? getTaskQntt(obj.listID, this.store) + obj.taskID : obj.listID,
+                obj.side.addTypeCmpnnt
+            );
         }
     }
 }

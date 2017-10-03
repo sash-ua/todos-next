@@ -17,9 +17,9 @@ export class DBService {
     /**
      * Execute  some of firebase.database methods. Ex-s in DB.service.ts
      * @param args
-     * @return {firebase.Promise<any> | Error}
+     * @return {Promise<Database>}
      */
-    dbDispatcher(...args: Array<any>): firebase.Promise<any> {
+    dbDispatcher(...args: Array<any>): Promise<Database> {
         return this.err.bind((v: any) => this.db[v[0]](v[1])[v[2]](v[3]), args);
     }
     goOffline(): void {
@@ -46,11 +46,11 @@ export class DBService {
     // updateData(data: typeof Object, path: string): firebase.Promise<any> {
     //     return this.db.ref(path).update({...data});
     // }
-    checkConnection() {
-        return this.db.ref('.info/connected').on('value', (dss) => {
-            return dss.val();
-        });
-    }
+    // checkConnection() {
+    //     return this.db.ref('.info/connected').on('value', (dss) => {
+    //         return dss.val();
+    //     });
+    // }
 }
 
 // Copyright (c) 2017 Alex Tranchenko. All rights reserved.

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import  * as firebase from 'firebase/app';
 import 'firebase/auth';
+import Auth = firebase.auth.Auth;
 
 @Injectable()
 export class AuthService {
@@ -15,34 +16,34 @@ export class AuthService {
      * Firebase auth method to register user
      * @param {string} email
      * @param {string} pass
-     * @return {firebase.Promise<any>}
+     * @return {Promise<Auth>}
      */
-    signIn(email: string, pass: string): firebase.Promise<any> {
+    signIn(email: string, pass: string): Promise<Auth> {
         return this.auth.createUserWithEmailAndPassword(email, pass);
     }
     /**
      * Firebase auth method to login user
      * @param {string} email
      * @param {string} pass
-     * @return {firebase.Promise<any>}
+     * @return {Promise<Auth>}
      */
-    logIn(email: string, pass: string): firebase.Promise<any> {
+    logIn(email: string, pass: string): Promise<Auth> {
         return this.auth.signInWithEmailAndPassword(email, pass);
     }
     /**
      * Firebase auth method to logOut user.
-     * @return {firebase.Promise<void>}
+     * @return {fPromise<Auth>}
      */
-    logOut(): firebase.Promise<void> {
+    logOut(): Promise<void> {
         return this.auth.signOut();
     }
     /**
      * Firebase auth method to reset password.
      * @param {string} email
      * @param a
-     * @return {firebase.Promise<any>}
+     * @return {Promise<Auth>}
      */
-    reset(email: string, ...a: Array<any>): firebase.Promise<any> {
+    reset(email: string, ...a: Array<any>): Promise<Auth> {
         return this.auth.sendPasswordResetEmail(email);
     }
 }
