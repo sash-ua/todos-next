@@ -29,18 +29,17 @@ import {FormGroupService} from '../../../../services/form.group.service/form.gro
 export class TaskFormComponent {
     @HostBinding('@taskAnimation') taskAnimation: AnimationEntryMetadata = true;
     @HostBinding('style.position') position = 'absolute';
-    // @HostBinding('style.top') top = 0;
     @HostBinding('style.zIndex') zIndex = 5;
     public f2fForm: FormGroup;
-    public fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'dueDate'};
+    public readonly fieldsName: FN = {f3: 'description', f4: 'priority', f5: 'dueDate'};
     // Set values and validators of add list form.
-    public addTaskCnfg = {
+    public readonly addTaskCnfg = {
         [this.fieldsName.f3]: ['', [Validators.required]],
         [this.fieldsName.f4]: [''],
         [this.fieldsName.f5]: [new Date()]
     };
     // Set values and validators of edit list form.
-    public editTaskCnfg = {
+    public readonly editTaskCnfg = {
         [this.fieldsName.f3]: [this.store.manager().editedTaskValueCnfg.txtArea, [Validators.required]],
         [this.fieldsName.f4]: [this.store.manager().editedTaskValueCnfg.priority],
         [this.fieldsName.f5]: [new Date(this.store.manager().editedTaskValueCnfg.dueDate)]

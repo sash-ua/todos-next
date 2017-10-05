@@ -35,15 +35,15 @@ export class ListFormComponent {
     @HostBinding('style.left') left = '-50px';
     @HostBinding('style.zIndex') zIndex = 4;
     public f2fForm: FormGroup;
-    public fieldsName: FN = {f1: 'name', f3: 'description', f4: 'priority'};
+    public readonly fieldsName: FN = {f1: 'name', f3: 'description', f4: 'priority'};
     // Set values and validators of add list form.
-    public addCnfg = {
+    public readonly addCnfg = {
         [this.fieldsName.f1]: ['', [Validators.required, Validators.minLength(1)]],
         [this.fieldsName.f3]: [''],
         [this.fieldsName.f4]: ['']
     };
     // Set values and validators of edit list form.
-    public editCnfg = {
+    public readonly editCnfg = {
         [this.fieldsName.f1]: [this.store.manager().editedListValueCnfg.first, [Validators.required, Validators.minLength(1)]],
         [this.fieldsName.f3]: [this.store.manager().editedListValueCnfg.txtArea],
         [this.fieldsName.f4]: [this.store.manager().editedListValueCnfg.priority]
