@@ -129,7 +129,7 @@ export class MonadService {
         ).bind(execfn[0],  data)
     }
     /**
-     * Example of either-either-error-either monad transformer.
+     * Example of either-either-error-either-error-either monad transformer.
      * @param {string} errMsg
      * @param data
      * @param {CondFn} cond
