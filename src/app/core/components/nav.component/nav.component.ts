@@ -24,7 +24,7 @@ export class NavComponent {
         new Flow(this.store.manager().addAuth)
             .bind((v: any) => !v)
             .bind(v => {
-                this.store.manager({addAuth: v, isVisible: !v, overlayOn: v, sideNav: !v, addItem: {addListVisible: !v}});
+                this.store.manager({addAuth: v, isVisible: !v, overlayOn: v, sideNav: false, addItem: {addListVisible: !v}});
             });
     };
     /**
