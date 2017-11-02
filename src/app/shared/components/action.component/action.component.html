@@ -1,17 +1,17 @@
 <div class="wrapper wrapper__action">
-    <md-icon [color]="actionList.priority"
+    <mat-icon [color]="actionList.priority"
              (click)="changePriority(actionList)"
-             class="md-icon__act"
-             title="Priority">priority_high</md-icon>
+             class="mat-icon__act"
+             title="Priority">priority_high</mat-icon>
     <span class="cdk-visually-hidden">Set priority</span>
-    <md-icon (click)="edit({list: list, task: task}, actionList)"
+    <mat-icon (click)="edit({list: list, task: task}, actionList)"
              [color]="store.manager().theme.action.color"
-             class="md-icon__act"
-             title="Edit">edit</md-icon>
+             class="mat-icon__act"
+             title="Edit">edit</mat-icon>
     <span class="cdk-visually-hidden">Edit</span>
-    <md-icon (click)="remove(actionList)"
+    <mat-icon (click)="remove(actionList)"
              [color]="store.manager().theme.action.color"
-             class="md-icon__act"
-             title="Remove">delete</md-icon>
+             class="mat-icon__act"
+             title="Remove">delete</mat-icon>
     <span class="cdk-visually-hidden">Remove</span>
 </div>

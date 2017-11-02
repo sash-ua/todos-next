@@ -46,7 +46,7 @@ a{
     left: 12px;
 }
 /*ToDo set animation or not :)*/
-md-icon{
+mat-icon{
 line-height: 38px;
 position: absolute;
 /*animation-name: spin;*/

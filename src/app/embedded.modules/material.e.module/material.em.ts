@@ -1,35 +1,35 @@
 import { NgModule } from '@angular/core';
 import {
-    MdInputModule, MdButtonModule, MdButton, MdRaisedButtonCssMatStyler, MdButtonCssMatStyler, MdIconModule, MdMiniFab, MdIcon,
-    MdCheckboxModule, MdCheckbox, MdDatepickerModule, MdNativeDateModule, MdSidenavModule,
+    MatButtonModule, MatInputModule, MatSidenavModule, MatIconModule, MatCheckboxModule, MatDatepickerModule,
+    MatNativeDateModule, MatButton, MatRaisedButtonCssMatStyler, MatButtonCssMatStyler, MatIcon, MatMiniFab, MatCheckbox
 } from '@angular/material';
 
 
 @NgModule({
     imports: [
-        MdInputModule,
-        MdButtonModule,
-        MdSidenavModule,
-        MdIconModule,
-        MdCheckboxModule,
-        MdDatepickerModule,
-        MdNativeDateModule
+        MatInputModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     exports: [
-        MdInputModule,
-        MdButton,
-        MdRaisedButtonCssMatStyler,
-        MdButtonCssMatStyler,
-        MdIcon,
-        MdMiniFab,
-        MdCheckbox,
-        MdSidenavModule,
-        MdDatepickerModule,
-        MdNativeDateModule
+        MatInputModule,
+        MatButton,
+        MatRaisedButtonCssMatStyler,
+        MatButtonCssMatStyler,
+        MatIcon,
+        MatMiniFab,
+        MatCheckbox,
+        MatSidenavModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     declarations: [],
     providers: [
-        MdNativeDateModule
+        MatNativeDateModule
     ],
 })
 export class MaterialEModule { }

@@ -1,30 +1,30 @@
 <nav class="nav mat-elevation-z6" [style.backgroundColor]="store.manager().theme.nav.bg">
     <mdl-window *ngIf="store.manager().mdlWindow"></mdl-window>
     <div class="cnnctn">
-        <md-icon [style.color]="store.manager().theme.nav.onLineIco"
+        <mat-icon [style.color]="store.manager().theme.nav.onLineIco"
                  [class.cdk-visually-hidden]="!store.manager().connected"
                  title="OnLine"
                  class="md-icon__passive">sync
-        </md-icon>
-        <md-icon [style.color]="store.manager().theme.nav.offLineIco"
+        </mat-icon>
+        <mat-icon [style.color]="store.manager().theme.nav.offLineIco"
                  [class.cdk-visually-hidden]="store.manager().connected"
                  title="OffLine"
                  class="md-icon__passive">sync_disabled
-        </md-icon>
+        </mat-icon>
         <span class="cdk-visually-hidden">Connection</span>
     </div>
     <div (click)="sideNavToggle()" class="btn btn__settings">
-        <md-icon title="Settings"
+        <mat-icon title="Settings"
                  [style.color]="store.manager().theme.nav.sttngsIco"
-                 class="md-icon__act">settings</md-icon>
+                 class="md-icon__act">settings</mat-icon>
         <span class="cdk-visually-hidden">Settings</span>
     </div>
     <div (click)="addListDispatcher()"
             title="Add list"
             class="btn btn__add-list">
-        <md-icon [color]="store.manager().theme.main.listBtn">add</md-icon>
+        <mat-icon [color]="store.manager().theme.main.listBtn">add</mat-icon>
     </div>
-    <button md-button
+    <button mat-button
             (click)="addAuthDispatcher()"
             [style.color]="store.manager().theme.nav.color"
             class="btn btn__auth anim">{{store.manager().userName}}</button>

@@ -1,4 +1,4 @@
-md-sidenav {
+mat-sidenav {
     height: 100%;
     overflow: visible;
     padding: 2em 1em;
@@ -12,7 +12,4 @@ md-sidenav {
     left: 0;
     top: 38px;
     z-index: 0;
-}
-.sd-nav__btn{
-    /*display: block;*/
 }

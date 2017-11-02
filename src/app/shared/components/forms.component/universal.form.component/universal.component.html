@@ -3,48 +3,48 @@
       novalidate
       class="mat-elevation-z2">
     <div *ngIf="configData.cnfg.first">
-        <md-form-field>
-            <input mdInput
+        <mat-form-field>
+            <input matInput
                    [formControlName]="configData.fName.f1"
                    [type]="configData.cnfg.first.type"
                    [placeholder]="configData.cnfg.first.name | titlecase"
                    autofocus>
-        </md-form-field>
+        </mat-form-field>
     </div>
     <div *ngIf="configData.cnfg.second ? configData.cnfg.second.name : false">
-        <md-form-field>
-            <input mdInput
+        <mat-form-field>
+            <input matInput
                    [formControlName]="configData.fName.f2"
                    [type]="configData.cnfg.second.type"
                    [placeholder]="configData.cnfg.second.name | titlecase">
-        </md-form-field>
+        </mat-form-field>
     </div>
     <div *ngIf="configData.cnfg.txtArea">
-        <md-form-field>
-            <textarea mdInput
+        <mat-form-field>
+            <textarea matInput
                       mdTextareaAutosize="true"
                       autofocus
                       [formControlName]="configData.fName.f3"
                       [type]="configData.cnfg.txtArea.type"
                       [placeholder]="configData.cnfg.txtArea.name | titlecase">
             </textarea>
-        </md-form-field>
+        </mat-form-field>
     </div>
     <div *ngIf="configData.cnfg.priority">
-            <md-checkbox [formControlName]="configData.fName.f4"
+            <mat-checkbox [formControlName]="configData.fName.f4"
                          [checked]="configData.cnfg.priority"
-                         color="warn">Set high priority</md-checkbox>
+                         color="warn">Set high priority</mat-checkbox>
     </div><br>
     <div *ngIf="configData.cnfg.dueDate">
-        <md-form-field>
-            <input mdInput
+        <mat-form-field>
+            <input matInput
                    [formControlName]="configData.fName.f5"
                    [min]="minDate"
-                   [mdDatepicker]="picker"
-                   placeholder="Should be finished to:">
-            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-            <md-datepicker #picker></md-datepicker>
-        </md-form-field>
+                   [matDatepicker]="picker"
+                   placeholder="Due date:">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
     </div>
-    <button md-button type="submit">{{configData.cnfg.btnName | uppercase}}</button>
+    <button mat-button type="submit">{{configData.cnfg.btnName | uppercase}}</button>
 </form>

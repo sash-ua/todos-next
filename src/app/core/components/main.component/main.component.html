@@ -22,11 +22,11 @@
                            [actionList]="{priority: list.priority, listID: idx}"
                             class="lists list__parent"></action-cmpnnt>
             <div class="wrapper__adds_task">
-                <button md-mini-fab
+                <button mat-mini-fab
                         [id]="idx"
                         (click)="addDispatcher({cnfg: this.store.manager().TASK_CNFG, action: {listID: idx}})"
                         [color]="store.manager().theme.main.taskBtn" title="Add task">
-                    <md-icon>add</md-icon>
+                    <mat-icon>add</mat-icon>
                 </button>
                 <ng-template #addDACmpnnt ></ng-template>
             </div>
@@ -41,7 +41,7 @@
                      id="{{idx}}dd{{indx}}"
                      [draggable]="true"
                      title="Drag-n-drop the task to copy">
-                    <md-icon [color]="store.manager().theme.main.dNd" class="md-icon__passive">open_with</md-icon>
+                    <mat-icon [color]="store.manager().theme.main.dNd" class="md-icon__passive">open_with</mat-icon>
                 </div>
                 <ul [style.color]="store.manager().theme.main.colorTask">
                     <li>{{task.description}}</li>
@@ -53,16 +53,16 @@
                 </action-cmpnnt>
             </div>
         </div>
-        <md-icon *ngIf="list.tasks ? list.tasks.length > 1 : false"
+        <mat-icon *ngIf="list.tasks ? list.tasks.length > 1 : false"
                  (click)="toggleClass(idx, 'tasks__expand_on');"
                  [color]="store.manager().theme.main.expand"
                  class="lists__expand lists__expand_folded"
-                 title="Expand less">expand_less</md-icon>
-        <md-icon *ngIf="list.tasks ? list.tasks.length > 1 : false"
+                 title="Expand less">expand_less</mat-icon>
+        <mat-icon *ngIf="list.tasks ? list.tasks.length > 1 : false"
                  (click)="toggleClass(idx, 'tasks__expand_on');"
                  [color]="store.manager().theme.main.expand"
                  class="lists__expand tasks__expand_opened"
-                 title="Expand more">expand_more</md-icon>
+                 title="Expand more">expand_more</mat-icon>
         <span class="cdk-visually-hidden">Expand/fold list</span>
     </div>
 </main>

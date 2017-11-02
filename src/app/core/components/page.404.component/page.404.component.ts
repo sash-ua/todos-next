@@ -10,7 +10,7 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
     ],
     template:
     `<h1 class="page-404">404. Page not found!</h1>
-     <button md-raised-button><a routerLink="/lists">Home</a></button>
+     <button mat-raised-button><a routerLink="/lists">Home</a></button>
     `
 })
 

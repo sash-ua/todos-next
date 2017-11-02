@@ -1,12 +1,12 @@
 <div class="wrapper">
     <div class="wrapper__auth mat-elevation-z2">
-        <button md-button (click)="configAuthForm(logInCnfg)"
+        <button mat-button (click)="configAuthForm(logInCnfg)"
                 [class.active]="active === 'login'">LogIn</button>
-        <button md-button (click)="configAuthForm(signInCnfg)"
+        <button mat-button (click)="configAuthForm(signInCnfg)"
                 [class.active]="active === 'singin'">SignIn</button>
-        <button md-button (click)="configAuthForm(resetCnfg)"
+        <button mat-button (click)="configAuthForm(resetCnfg)"
                 [class.active]="active === 'reset'">Reset</button>
-        <button md-button *ngIf="store.manager().userName !== 'guest'" (click)="logOut()">LogOut</button>
+        <button mat-button *ngIf="store.manager().userName !== 'guest'" (click)="logOut()">LogOut</button>
     </div>
     <auth-form-cmpnnt *ngIf="store.manager().isVisible;" ></auth-form-cmpnnt>
 </div>
