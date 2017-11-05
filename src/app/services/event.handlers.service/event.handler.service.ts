@@ -6,7 +6,6 @@ import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class EventHandlerService {
-    private options = { passive: true };
     constructor(
         private ehs: ErrorHandlerService
     ) { }
@@ -18,7 +17,7 @@ export class EventHandlerService {
      * @return {Subscription}
      */
     evHandler(target: EventTargetLike, event: string, callbackFN: (arg: any) => void) {
-        return Observable.fromEvent(target, event, this.options).subscribe(
+        return Observable.fromEvent(target, event).subscribe(
             callbackFN,
             (err: Error) => this.ehs.handleError(err)
         );

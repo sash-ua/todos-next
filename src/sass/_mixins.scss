@@ -2,14 +2,15 @@
 
 $ieSprite: '.lt-ie9' !default;
 $mq-base-font-size: 16px !default;
-//$sprite: map-get($icons, sprite) !default; //for creating svg sprite uncoomment
+//$sprite: map-get($icons, sprite) !default; //for creating svg sprite uncomment
 
 @import 'bourbon';
 @import 'css3-mixins';
 @import 'sassMQ';
-//@import 'svg_sprite_mixins'; //for creating svg sprite uncoomment
+//@import 'svg_sprite_mixins'; //for creating svg sprite uncomment
 
-$uni-font-sz: calc(1em + 1vw);
+$uni-font-sz: calc(1vw + 1vh + .5vmin);
+//$uni-font-sz: calc(1em + 1vw);
 
 @mixin social($spr, $spr_hover){
     @include sprite($spr);
