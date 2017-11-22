@@ -9,10 +9,8 @@ import {StoreModule} from 'angust/src/store.module';
 import {AppRoutingModule} from './app.routing.module';
 
 import { AppComponent } from './app.component';
-import {FireBaseEModule} from './embedded.modules/firebase.e.module/firebase.em';
-import {LocDBService} from './services/DB.service/DB.service';
-import {ErrorHandlerService} from './services/error.handler.service/error.handler.service';
-import {FormGroupService} from './services/form.group.service/form.group.service';
+import {FireBaseEModule} from './embedded.modules/firebase.module/firebase';
+import {FeaturedModule} from './featured/featured.module';
 
 @NgModule({
     imports: [
@@ -20,9 +18,10 @@ import {FormGroupService} from './services/form.group.service/form.group.service
         FormsModule,
         AppRoutingModule,
         CoreModule,
+        FeaturedModule,
         FireBaseEModule.initAngularFB(ENV.firebase),
         BrowserAnimationsModule,
-        StoreModule.forRoot(ENV.store)
+        StoreModule.forRoot(ENV.store),
     ],
     declarations: [
         AppComponent,
@@ -31,9 +30,6 @@ import {FormGroupService} from './services/form.group.service/form.group.service
         AppComponent
     ],
     providers: [
-        LocDBService,
-        ErrorHandlerService,
-        FormGroupService,
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig }
     ],
     entryComponents: []

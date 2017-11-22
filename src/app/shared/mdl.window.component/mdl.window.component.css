@@ -1,0 +1,27 @@
+h2{
+    margin-top: 0;
+}
+p{
+    margin-bottom: 0;
+}
+.mdlwindow{
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 3px;
+    color: #000;
+    margin: 70px auto auto -137px;
+    left: 50%;
+    width: 274px;
+    position: absolute;
+    padding: 0 .8em .8em .8em;
+    text-align: center;
+    z-index: 100;
+}
+.announce{
+    float: right;
+}
+.wrapper__icon:after{
+    content: '';
+    clear: both;
+    display: block;
+}

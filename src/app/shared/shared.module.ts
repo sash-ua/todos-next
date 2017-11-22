@@ -1,39 +1,32 @@
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MaterialEModule} from '../embedded.modules/material.e.module/material.em';
-import {MdlWindowComponent} from './components/mdl.window.component/mdl.window.component';
-import {ActionComponent} from './components/action.component/action.component';
-import {UniversalComponent} from './components/forms.component/universal.form.component/universal.component';
-import {TaskFormComponent} from './components/forms.component/task.form.component/task.form.component';
-import {OverlayComponent} from './components/overlay.component/overlay.component';
-import {ListFormComponent} from './components/forms.component/list.form.component/list.form.component';
+import {UniversalComponent} from './universal.form.component/universal.component';
+import {Page404Component} from './page.404.component/page.404.component';
+import {MaterialModule} from '../embedded.modules/material.module/material.module';
+import {MdlWindowComponent} from './mdl.window.component/mdl.window.component';
+import {OverlayComponent} from './overlay.component/overlay.component';
 
 @NgModule({
- imports: [
-     CommonModule,
-     FormsModule,
-     MaterialEModule,
-     ReactiveFormsModule
- ],
- exports: [
-     MaterialEModule,
-     MdlWindowComponent,
-     ActionComponent,
-     UniversalComponent,
-     TaskFormComponent,
-     OverlayComponent,
-     ListFormComponent
- ],
- declarations: [
-     MdlWindowComponent,
-     ActionComponent,
-     UniversalComponent,
-     TaskFormComponent,
-     OverlayComponent,
-     ListFormComponent
- ],
- providers: [],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MaterialModule,
+        ReactiveFormsModule
+    ],
+    declarations: [
+        UniversalComponent,
+        Page404Component,
+        MdlWindowComponent,
+        OverlayComponent
+    ],
+    exports: [
+        UniversalComponent,
+        Page404Component,
+        MdlWindowComponent,
+        OverlayComponent
+    ],
+providers: [],
 })
 export class SharedModule { }
 

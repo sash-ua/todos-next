@@ -1,0 +1,7 @@
+<universal-cmpnnt *ngIf="store.manager().addItem.taskVisible"
+    [configData]="{
+        cnfg: store.manager().taskData,
+        fg: f2fForm,
+        fName: fieldsName}"
+    (formSubmitData)="addTask($event, store)">
+</universal-cmpnnt>

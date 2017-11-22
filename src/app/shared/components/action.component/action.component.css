@@ -1,9 +1,0 @@
-.md-icon__act{
-    margin: .2em .4em;
-}
-@media screen and (max-width: 480px) {
-    .md-icon__act{
-        height: .62em;
-        width: .62em;
-    }
-}

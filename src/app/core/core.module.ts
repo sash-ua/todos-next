@@ -1,52 +1,24 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthComponent} from './components/auth.component/auth.component';
-import {SharedModule} from '../shared/shared.module';
-import {NavComponent} from './components/nav.component/nav.component';
-import {MainComponent} from './components/main.component/main.component';
-import {AuthFormValidationComponent} from './components/f2f.validation.component/auth.form.validation.component';
-import {TaskFormComponent} from '../shared/components/forms.component/task.form.component/task.form.component';
-import {ListFormComponent} from '../shared/components/forms.component/list.form.component/list.form.component';
-import {Page404Component} from './components/page.404.component/page.404.component';
-import {AppWrapperComponent} from './components/app.wrapper.component/app.wrapper.component';
-import {AppRoutingModule} from '../app.routing.module';
-import {MonadService} from '../services/monad.service/monad.service';
-import {SideNavComponent} from './components/sidenav.component/sidenav.component';
+import {MonadService} from './monad.service/monad.service';
+import {LocDBService} from './DB.service/DB.service';
+import {DragNDropService} from './drag-n-drop.service/drag-n-drop.service';
+import {ErrorHandlerService} from './error.handler.service/error.handler.service';
+import {EventHandlerService} from './event.handlers.service/event.handler.service';
+import {FormGroupService} from './form.group.service/form.group.service';
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
-        AppRoutingModule
+        CommonModule
     ],
-    exports: [
-        SharedModule,
-        AuthComponent,
-        Page404Component,
-        NavComponent,
-        MainComponent,
-        AuthFormValidationComponent,
-        AppWrapperComponent,
-        SideNavComponent
-    ],
-    declarations: [
-        AuthComponent,
-        Page404Component,
-        NavComponent,
-        MainComponent,
-        AuthFormValidationComponent,
-        AppWrapperComponent,
-        SideNavComponent
-    ],
-    entryComponents: [
-        TaskFormComponent,
-        ListFormComponent
-    ],
+    exports: [],
     providers: [
-        MonadService
+        MonadService,
+        LocDBService,
+        DragNDropService,
+        ErrorHandlerService,
+        EventHandlerService,
+        FormGroupService
     ],
 })
 export class CoreModule {}

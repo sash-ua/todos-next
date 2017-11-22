@@ -1,0 +1,19 @@
+input {
+    display: block;
+    padding-left: .2em;
+}
+input::placeholder{
+    color: lightgray;
+}
+form, input{
+    margin: 0.5em auto;
+}
+form{
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: .4em;
+}
+md-input-container{
+    width: 100%;
+}

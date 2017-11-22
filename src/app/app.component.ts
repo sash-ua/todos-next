@@ -2,26 +2,24 @@ import {Component, AfterViewInit, OnDestroy, Renderer2} from '@angular/core';
 // import 'hammerjs';
 import '../sass/main.scss';
 import {Store} from 'angust/src/store';
-import {Subscription} from 'rxjs/Subscription';
-import {EventHandlerService} from './services/event.handlers.service/event.handler.service';
-import {ErrorHandlerService} from './services/error.handler.service/error.handler.service';
+import {EventHandlerService} from './core/event.handlers.service/event.handler.service';
+import {ErrorHandlerService} from './core/error.handler.service/error.handler.service';
 import {StateStore} from './configs/store/store.init';
-import {DragNDropService} from './services/drag-n-drop.service/drag-n-drop.service';
+import {DragNDropService} from './core/drag-n-drop.service/drag-n-drop.service';
 import  * as firebase from 'firebase/app';
-import {AuthService} from './embedded.modules/firebase.e.module/auth.em/auth.service/auth.service';
+import {AuthService} from './embedded.modules/firebase.module/auth.service/auth.service';
 import Error = firebase.auth.Error;
-import {LocDBService} from './services/DB.service/DB.service';
+import {LocDBService} from './core/DB.service/DB.service';
 import {FB} from './configs/firebase/firebase.cnfg';
-import {MonadService} from './services/monad.service/monad.service';
-import {getLSByKey} from './services/functions/common';
+import {MonadService} from './core/monad.service/monad.service';
+import {getLSByKey} from './core/functions/common';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [
-        EventHandlerService,
-        ErrorHandlerService,
         DragNDropService
     ]
 })

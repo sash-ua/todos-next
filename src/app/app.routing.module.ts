@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-
-import {Page404Component} from './core/components/page.404.component/page.404.component';
-import {AppWrapperComponent} from './core/components/app.wrapper.component/app.wrapper.component';
+import {Page404Component} from './shared/page.404.component/page.404.component';
+import {AppWrapperComponent} from './featured/app.wrapper.component/app.wrapper.component';
 
 const ROUTES: Routes = [
     { path: '', redirectTo: '/lists',  pathMatch: 'full'},

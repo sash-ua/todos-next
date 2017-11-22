@@ -11,7 +11,11 @@
     "suppressImplicitAnyIndexErrors": true,
     "typeRoots": [
       "node_modules/@types/"
-    ]
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@ap/*": ["ap/*"]
+    }
   },
   "compileOnSave": true,
   "exclude": [

@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <div class="wrapper__auth mat-elevation-z2">
+        <button mat-button (click)="configAuthForm(logInCnfg)"
+                [class.active]="highlightActBtn === 'logIn'">LogIn</button>
+        <button mat-button (click)="configAuthForm(signInCnfg)"
+                [class.active]="highlightActBtn === 'signIn'">SignIn</button>
+        <button mat-button (click)="configAuthForm(resetCnfg)"
+                [class.active]="highlightActBtn === 'reset'">Reset</button>
+        <button mat-button *ngIf="store.manager().userName !== 'guest'" (click)="logOut()">LogOut</button>
+    </div>
+    <auth-form-cmpnnt *ngIf="store.manager().isVisible;" ></auth-form-cmpnnt>
+</div>
