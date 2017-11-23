@@ -8,9 +8,10 @@
         <div class="wrapper__adds"></div>
     </div>
     <div *ngFor="let list of store.manager().data; let idx=index; trackBy: trackByList;"
-            class="wrapper lists__list anim-long"
+            class="wrapper lists__list"
             [style.backgroundColor]="store.manager().theme.main.bg"
-            id="list{{idx}}">
+            id="list{{idx}}"
+            #listIdx>
         <ng-template #editListDACmpnnt ></ng-template>
         <div class="lists wrapper wrapper__list">
             <ul class="lists list__parent" [style.color]="store.manager().theme.main.colorList">
@@ -20,7 +21,8 @@
             </ul>
             <action-cmpnnt (editItem)="editDispatcher($event)"
                            [actionList]="{priority: list.priority, listID: idx}"
-                            class="lists list__parent"></action-cmpnnt>
+                            class="lists list__parent">
+            </action-cmpnnt>
             <div class="wrapper__adds_task">
                 <button mat-mini-fab
                         [id]="idx"
@@ -37,12 +39,7 @@
                  id="task_{{idx}}{{indx}}"
                  class="task">
                 <ng-template #editDACmpnnt></ng-template>
-                <div class="dragable"
-                     id="{{idx}}dd{{indx}}"
-                     [draggable]="true"
-                     title="Drag-n-drop the task to copy">
-                    <mat-icon [color]="store.manager().theme.main.dNd" class="md-icon__passive">open_with</mat-icon>
-                </div>
+                <copy-task-cmpnnt [idx]="idx+'dd'+indx"></copy-task-cmpnnt>
                 <ul [style.color]="store.manager().theme.main.colorTask">
                     <li>{{task.description}}</li>
                     <li>Date Assigned: {{task.start | date}}</li>
@@ -53,16 +50,6 @@
                 </action-cmpnnt>
             </div>
         </div>
-        <mat-icon *ngIf="list.tasks ? list.tasks.length > 1 : false"
-                 (click)="toggleClass(idx, 'tasks__expand_on');"
-                 [color]="store.manager().theme.main.expand"
-                 class="lists__expand lists__expand_folded"
-                 title="Expand less">expand_less</mat-icon>
-        <mat-icon *ngIf="list.tasks ? list.tasks.length > 1 : false"
-                 (click)="toggleClass(idx, 'tasks__expand_on');"
-                 [color]="store.manager().theme.main.expand"
-                 class="lists__expand tasks__expand_opened"
-                 title="Expand more">expand_more</mat-icon>
-        <span class="cdk-visually-hidden">Expand/fold list</span>
+        <folding-list-cmpnnt [data]="{tasks: list.tasks, idx: idx, open: listIdx.classList.contains('tasks__expand_on')}"></folding-list-cmpnnt>
     </div>
 </main>

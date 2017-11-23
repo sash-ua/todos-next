@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, OnDestroy, Renderer2} from '@angular/core';
+import {Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, Renderer2} from '@angular/core';
 // import 'hammerjs';
 import '../sass/main.scss';
 import {Store} from 'angust/src/store';
@@ -28,6 +28,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     private dragstart$: Subscription;
     private dragover$: Subscription;
     private drop$: Subscription;
+    @ViewChild('appRoot', {read: ElementRef}) appRoot: ElementRef;
     constructor(
         private store: Store<StateStore>,
         private eventH: EventHandlerService,
@@ -83,7 +84,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     setEventsListeners() {
         [this.keyUp$, this.dragstart$, this.dragover$, this.drop$]
             = this.eventH.evFactory(
-            this.rnr2.selectRootElement(document).body,
+            this.appRoot.nativeElement,
             ['keyup', 'dragstart', 'dragover', 'drop'],
             [
                 this.keyUpHandler.bind(this),

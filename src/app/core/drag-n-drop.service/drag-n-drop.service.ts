@@ -10,7 +10,7 @@ import {LocDBService} from '../DB.service/DB.service';
 export class DragNDropService {
     public dragOverHandlerDebounced: any;
     constructor(
-        private  rnr2: Renderer2,
+        private rnr2: Renderer2,
         private store: Store<StateStore>,
         private ldb: LocDBService
     ) {
@@ -50,8 +50,14 @@ export class DragNDropService {
             const taskID = idOut.replace(/[\d]+[\D]+/, '');
             const donor = clone(store.data[listID].tasks[taskID]);
             const nextID = store.data[idIn].tasks ? store.data[idIn].tasks.length : 0;
+            const list = store.data[idIn];
             donor.id = nextID;
-            store.data[idIn].tasks.push(donor);
+            if (list.tasks) {
+                list.tasks.push(donor);
+            } else {
+                list.tasks = [];
+                list.tasks.push(donor);
+            }
             // Save to firebase.
             this.ldb.updateDB(donor, `data/${idIn}/tasks/${nextID}`);
         }

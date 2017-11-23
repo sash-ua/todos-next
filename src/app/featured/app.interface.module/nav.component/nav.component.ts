@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {Flow} from 'monad-ts/src/flow';
 import {Subject} from 'rxjs/Subject';
-import {StateStore} from '../../configs/store/store.init';
+import {StateStore} from '../../../configs/store/store.init';
 
 // #Experimental approach to handle events in one component by handler (Observer) from another.
 export const ADD_LIST_S$ = new Subject();

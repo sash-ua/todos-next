@@ -1,0 +1,13 @@
+<span class="lists__expand" [class.tasks__expand_on]="data.open">
+    <mat-icon *ngIf="data.tasks ? data.tasks.length > 1 : false"
+        (click)="toggleClass(data.idx, 'tasks__expand_on');"
+        [color]="store.manager().theme.main.expand"
+        class="lists__expand lists__expand_folded"
+        title="Expand less">expand_less</mat-icon>
+    <mat-icon *ngIf="data.tasks ? data.tasks.length > 1 : false"
+        (click)="toggleClass(data.idx, 'tasks__expand_on');"
+        [color]="store.manager().theme.main.expand"
+        class="lists__expand tasks__expand_opened"
+        title="Expand more">expand_more</mat-icon>
+    <span class="cdk-visually-hidden">Expand/fold list</span>
+</span>

@@ -9,8 +9,7 @@ import {StateStore} from '../../../configs/store/store.init';
 import {MonadService} from '../../../core/monad.service/monad.service';
 import {AuthService} from '../../../embedded.modules/firebase.module/auth.service/auth.service';
 import {FormGroupService} from '../../../core/form.group.service/form.group.service';
-
-export type FN = {[a: string]: string};
+import {FN} from '../../../shared/types/types';
 
 @Component({
     selector: 'auth-form-cmpnnt',

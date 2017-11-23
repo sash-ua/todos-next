@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Store} from 'angust/src/store';
-import {StateStore} from '../../configs/store/store.init';
-import {LocDBService} from '../../core/DB.service/DB.service';
+import {StateStore} from '../../../configs/store/store.init';
+import {LocDBService} from '../../../core/DB.service/DB.service';
 
 @Component({
  selector: 'sidenav-cmpnnt',

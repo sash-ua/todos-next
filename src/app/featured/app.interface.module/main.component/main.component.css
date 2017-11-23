@@ -37,25 +37,6 @@ li{
     height: auto;
     overflow-x: visible;
 }
-.lists__expand{
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    right: 32px;
-    font-size: 3.5em;
-}
-.tasks__expand_opened{
-    display: inline-table;
-}
-.lists__expand_folded{
-    display: none;
-}
-.tasks__expand_on .tasks__expand_opened{
-    display: none;
-}
-.tasks__expand_on .lists__expand_folded{
-    display: inline-table;
-}
 li{
     justify-content: space-around;
     word-break: break-all;

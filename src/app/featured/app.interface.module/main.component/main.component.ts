@@ -1,15 +1,15 @@
 import {
-    AfterViewInit, Component, QueryList, Renderer2, ViewChildren, ViewContainerRef
+    AfterViewInit, Component, QueryList, ViewChildren, ViewContainerRef
 } from '@angular/core';
 import {Store} from 'angust/src/store';
 import {ADD_LIST_S$} from '../nav.component/nav.component';
-import {animatonThreeStates} from '../../core/functions/animations.service';
-import {AddEditArgs, MonadService, Side} from '../../core/monad.service/monad.service';
-import {ErrorHandlerService} from '../../core/error.handler.service/error.handler.service';
-import {List} from '../../configs/store/store.init';
-import {getTaskQntt, removePrevCmpnnt} from '../../core/functions/common';
-import {TaskFormComponent} from '../forms.components.module/task.form.component/task.form.component';
-import {ListFormComponent} from '../forms.components.module/list.form.component/list.form.component';
+import {animatonThreeStates} from '../../../core/functions/animations.service';
+import {AddEditArgs, MonadService, Side} from '../../../core/monad.service/monad.service';
+import {ErrorHandlerService} from '../../../core/error.handler.service/error.handler.service';
+import {List} from '../../../configs/store/store.init';
+import {getTaskQntt, removePrevCmpnnt} from '../../../core/functions/common';
+import {TaskFormComponent} from '../../widget.module/task.form.component/task.form.component';
+import {ListFormComponent} from '../../widget.module/list.form.component/list.form.component';
 
 @Component({
     selector: 'main-cmpnnt',
@@ -33,7 +33,6 @@ export class MainComponent implements  AfterViewInit {
         private store: Store<any>,
         private hS: MonadService,
         private err: ErrorHandlerService,
-        private r2: Renderer2
     ) {}
     ngAfterViewInit() {
         // Subscription and Observer for NavComponent.
@@ -64,17 +63,6 @@ export class MainComponent implements  AfterViewInit {
             },
             this.store,
             getTaskQntt);
-    }
-    /**
-     * Dispatch and toggle `expand_less`/`expand_more` template el-s.
-     * @param {number} id
-     * @param {string} clss
-     */
-    toggleClass (id: number, clss: string): void {
-        const el = document.getElementById(`list${id}`);
-        el.classList.contains(clss)
-            ? this.r2.removeClass(el, clss)
-            : this.r2.addClass(el, clss);
     }
     /**
      * Add List/Task.

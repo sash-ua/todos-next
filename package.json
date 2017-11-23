@@ -1,6 +1,6 @@
 {
   "name": "ToDosNext",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/sash-ua/todos-next",
   "description": "To Do List based on monad-ts library and angust module",
   "scripts": {

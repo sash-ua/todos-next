@@ -2,19 +2,22 @@ import { NgModule } from '@angular/core';
 import {AuthComponent} from './auth.component/auth.component';
 import {MaterialModule} from '../../embedded.modules/material.module/material.module';
 import {CommonModule} from '@angular/common';
-import {FormsComponentsModule} from '../forms.components.module/forms.components.module';
+import {AuthFormValidationComponent} from './auth.form.validation.component/auth.form.validation.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
  imports: [
      CommonModule,
      MaterialModule,
-     FormsComponentsModule
+     SharedModule
  ],
  exports: [
-     AuthComponent
+     AuthComponent,
+     AuthFormValidationComponent
  ],
  declarations: [
-     AuthComponent
+     AuthComponent,
+     AuthFormValidationComponent
  ],
  providers: [],
 })

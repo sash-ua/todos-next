@@ -6,7 +6,7 @@ import {MonadService, Side} from '../../../core/monad.service/monad.service';
 import {LocDBService} from '../../../core/DB.service/DB.service';
 import {FormGroupService} from '../../../core/form.group.service/form.group.service';
 import {Task} from 'app/configs/store/store.init';
-import {FN} from '../f2f.validation.component/auth.form.validation.component';
+import {FN} from '../../../shared/types/types';
 
 @Component({
     selector: 'task-form-component',
