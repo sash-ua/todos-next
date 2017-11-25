@@ -43,8 +43,7 @@ export function getLSByKey(key: string) {
  */
 export function removePrevCmpnnt(obj: DA, store: Store<StateStore>, fn: Function) {
     const prL = store.manager().addItem.prevlistID;
-    if (prL < 0) {
-    } else {
+    if (prL >= 0) {
         demolishSomeDA(
             [obj.add.toArray(), prL],
             [obj.editList.toArray(), prL],
