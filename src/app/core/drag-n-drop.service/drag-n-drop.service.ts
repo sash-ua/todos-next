@@ -1,4 +1,4 @@
-import {Injectable, Renderer2} from '@angular/core';
+import { Injectable, Renderer2} from '@angular/core';
 import {checkPathElByID} from '../functions/common';
 import {Store} from 'angust/src/store';
 import {StateStore} from '../../configs/store/store.init';
@@ -12,7 +12,7 @@ export class DragNDropService {
     constructor(
         private rnr2: Renderer2,
         private store: Store<StateStore>,
-        private ldb: LocDBService
+        private ldb: LocDBService,
     ) {
         // Debounce `dragover` event.
         this.dragOverHandlerDebounced = debounceTime(this.dragOverHandler.bind(this), 10);

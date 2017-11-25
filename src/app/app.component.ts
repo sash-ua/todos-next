@@ -20,7 +20,7 @@ import {Subscription} from 'rxjs/Subscription';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [
-        DragNDropService
+        DragNDropService,
     ]
 })
 export class AppComponent implements AfterViewInit, OnDestroy {

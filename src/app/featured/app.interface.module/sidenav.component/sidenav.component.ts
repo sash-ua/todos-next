@@ -4,9 +4,9 @@ import {StateStore} from '../../../configs/store/store.init';
 import {LocDBService} from '../../../core/DB.service/DB.service';
 
 @Component({
- selector: 'sidenav-cmpnnt',
- templateUrl: 'sidenav.component.html',
- styleUrls: ['sidenav.component.css']
+    selector: 'sidenav-cmpnnt',
+    templateUrl: 'sidenav.component.html',
+    styleUrls: ['sidenav.component.css']
 })
 
 export class SideNavComponent {

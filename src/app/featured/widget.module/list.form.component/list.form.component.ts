@@ -1,4 +1,4 @@
-import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
+import {AnimationEntryMetadata, ChangeDetectionStrategy, Component, HostBinding} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {animatonThreeStates} from '../../../core/functions/animations.service';
@@ -9,6 +9,7 @@ import {FormGroupService} from '../../../core/form.group.service/form.group.serv
 import {FN} from '../../../shared/types/types';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'list-form-component',
     templateUrl: 'list.form.component.html',
     styleUrls: ['list.form.component.css'],

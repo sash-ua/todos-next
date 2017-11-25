@@ -1,4 +1,4 @@
-import {AnimationEntryMetadata, Component, HostBinding} from '@angular/core';
+import {AnimationEntryMetadata, ChangeDetectionStrategy, Component, HostBinding} from '@angular/core';
 import {FormGroup, Validators} from '@angular/forms';
 import {Store} from 'angust/src/store';
 import {animatonThreeStates} from '../../../core/functions/animations.service';
@@ -9,6 +9,7 @@ import {Task} from 'app/configs/store/store.init';
 import {FN} from '../../../shared/types/types';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'task-form-component',
     templateUrl: 'task.form.component.html',
     styleUrls: ['task.form.component.css'],

@@ -17,8 +17,8 @@ import {AppInterfaceModule} from './app.interface.module/app.interface.module';
         AuthModule,
         AppInterfaceModule
     ],
-    exports: [    ],
-    declarations: [    ],
+    exports: [],
+    declarations: [],
     providers: [],
 })
 export class FeaturedModule { }

@@ -10,6 +10,7 @@ import {MonadService} from '../../../core/monad.service/monad.service';
 import {AuthService} from '../../../embedded.modules/firebase.module/auth.service/auth.service';
 import {FormGroupService} from '../../../core/form.group.service/form.group.service';
 import {FN} from '../../../shared/types/types';
+import {ChangeDetectionService} from '../../../core/change.detection.service/change.detection.service';
 
 @Component({
     selector: 'auth-form-cmpnnt',
@@ -20,7 +21,10 @@ import {FN} from '../../../shared/types/types';
             {opacity: 1, transform: 'translateY(0%)'},
             [{opacity: 0, transform: 'translateY(100%)'}, {opacity: 0, transform: 'translateY(100%)'}],
             ['0.4s ease-in', '0.4s ease-out']
-        )]
+        )],
+    providers: [
+        ChangeDetectionService
+    ]
 })
 
 export class AuthFormValidationComponent {
@@ -37,7 +41,7 @@ export class AuthFormValidationComponent {
         private store: Store<StateStore>,
         private hS: MonadService,
         private authFb: AuthService,
-        private fgL: FormGroupService
+        private fgL: FormGroupService,
     ) {
         // Init FormGroup.
         this.f2fForm = this.fgL.initFG(this.VALID_CNFG_1);

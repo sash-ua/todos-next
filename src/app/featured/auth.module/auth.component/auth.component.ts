@@ -1,4 +1,4 @@
-import {Component, HostBinding, AnimationEntryMetadata} from '@angular/core';
+import {Component, HostBinding, AnimationEntryMetadata, ChangeDetectionStrategy} from '@angular/core';
 import {Store} from 'angust/src/store';
 import {animatonThreeStates} from '../../../core/functions/animations.service';
 import {AuthConfig, StateStore} from '../../../configs/store/store.init';
@@ -7,6 +7,7 @@ import {ErrorHandlerService} from '../../../core/error.handler.service/error.han
 import {AuthService} from '../../../embedded.modules/firebase.module/auth.service/auth.service';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'auth-cmpnnt',
     templateUrl: 'auth.component.html',
     styleUrls: ['auth.component.css'],

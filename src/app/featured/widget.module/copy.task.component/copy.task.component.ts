@@ -1,16 +1,17 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Store} from 'angust/src/store';
 
 @Component({
- selector: 'copy-task-cmpnnt',
- template: `
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'copy-task-cmpnnt',
+    template: `
      <div class="dragable"
           id="{{idx}}"
           [draggable]="true"
           title="Drag-n-drop to copy">
          <mat-icon [color]="store.manager().theme.main.dNd" class="md-icon__passive">open_with</mat-icon>
      </div>
- `,
+    `,
     styles: ['.dragable{background-color: #cfd8dc; display: inline-flex;}']
 })
 
